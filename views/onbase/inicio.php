@@ -31,8 +31,8 @@
         </div>
 
 
-        <!-- <?php //foreach($consultaIndicadores as $row){
-            //echo($row)->dump1;} ?> -->
+        <?php foreach($consultaIndicadores as $row){
+            echo($row)->dump1;} ?>
 
 
 
@@ -59,7 +59,7 @@
 
 </html>
 
-<script >
+<!-- <script >
 
 document.addEventListener('DOMContentLoaded', () => {
   const data = {
@@ -135,6 +135,6 @@ const data = {
 });
 
 
-</script>
+</script> -->
 </body>
 </html>

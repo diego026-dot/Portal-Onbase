@@ -59,21 +59,17 @@ class Onbase extends Controller{
     }
 
 
-    // public function inicio($parametros = null)
-    // {
-    //     $model = new OnbaseModel();
+    public function inicio($parametros = null)
+    {
+        $model = new OnbaseModel();
         
         
-    //     $consultaIndicadores = $model -> consulta_indicadoresMain(1);	
+        $consultaIndicadores = $model -> consulta_indicadoresMain(1);	
         
-
-    //    $this -> view -> $consultaIndicadores;
-     
-    //     $this->view->pagina = "onbase/inicio";
-    //     $this->view->render('onbase/inicio');
+        require_once 'ravisa/main';
 
     
-    // }
+    }
 
 
 
