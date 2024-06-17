@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "pkief.material-icon-theme",
+        "formulahendry.auto-rename-tag",
+        "bmewburn.vscode-intelephense-client",
+        "esbenp.prettier-vscode",
+        "usernamehw.errorlens"
+    ]
+}
