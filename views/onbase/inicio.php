@@ -27,7 +27,7 @@ $resultados = $this->dbOnBase->obtener_registros();
 
 
     <div class="container-fluid h-100">
-        <div class="row mt-3 h-25 " >
+        <div class="row mt-3 h-25 justify-content-center" >
        
             <div class="col-2 card mx-3 ">
                 
@@ -48,13 +48,13 @@ $resultados = $this->dbOnBase->obtener_registros();
             <?php echo($row)->dump2; ?>
             <?php } ?>
 
-        <div class="row h-25 mt-5">
+        <div class="row h-25 mt-5 justify-content-center">
             <div class="col-4 p-3 card mx-4" style = "background-color: #fff">
                 <canvas id="myChart"></canvas>
                 
             </div>
 
-            <div class="col-6 p-3 card mx-4" style = "background-color: #fff">
+            <div class="col-6 p-3 mx-4" style = "background-color: inherit">
                 <canvas id="myChart2"></canvas>
             </div>
 
@@ -71,7 +71,7 @@ $resultados = $this->dbOnBase->obtener_registros();
 
 </html>
 
-<!-- <script >
+<script >
 
 document.addEventListener('DOMContentLoaded', () => {
   const data = {
@@ -147,6 +147,6 @@ const data = {
 });
 
 
-</script> -->
+</script>
 </body>
 </html>
