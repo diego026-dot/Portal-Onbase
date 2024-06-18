@@ -3,7 +3,7 @@
 class Database extends PDO{
 
     private $host;
-    private $db;
+    public $db;
     private $user;
     private $password;
     private $charset;

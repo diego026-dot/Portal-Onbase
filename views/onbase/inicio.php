@@ -1,3 +1,20 @@
+<?php
+
+$this->dbOnBase=new DatabaseOnBase();
+
+    
+$this -> dbOnBase->connect();
+       
+$sql = "exec [dbo].[OB_WEB_IndicadoresMain2] '" . "1" . "'";
+$this->dbOnBase->query($sql);
+$resultados = $this->dbOnBase->obtener_registros();
+    
+?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +30,7 @@
         <div class="row mt-3 h-25 " >
        
             <div class="col-2 card mx-3 ">
-            
+                
             </div>
             <div class="col-2 card mx-3">
 
@@ -25,16 +42,11 @@
             <div class="col-2 card mx-3">
 
             </div>
-            
-            
 
         </div>
-
-
-        <?php foreach($consultaIndicadores as $row){
-            echo($row)->dump1;} ?>
-
-
+        <?php foreach( $resultados as $row){ ?>
+            <?php echo($row)->dump2; ?>
+            <?php } ?>
 
         <div class="row h-25 mt-5">
             <div class="col-4 p-3 card mx-4" style = "background-color: #fff">
