@@ -13,16 +13,6 @@
 							</ol>
 						</nav>
 					</div>
-					<div class="col-3 mt-3   ">
-						<form>
-							<div class="form-group d-flex align-items-center">
-								<input type="date" class="form-control m-3" id="searchDate" placeholder="Selecciona una fecha">
-								<button type="submit" class="btn btn-secondary " style="height: 40px;">Buscar</button>
-							</div>
-						</form>
-
-					</div>
-					<!--<div class="col-2"><button type="submit" class="btn btn-secondary btn-sm btn-block">Buscar</button></div> -->
 
 					<div class="col-md-6 col-sm-12 text-right"></div>
 				</div>
@@ -48,7 +38,7 @@
 							</td>
 							<td><?php echo $row->Modulo; ?></td>
 							<td><?php echo $row->Opcion; ?></td>
-							<td width="10px"><button type="button" class="btn btn-danger btn-sm" onclick="elimina_permisos('<?php echo rtrim(ltrim($row->Usuario)); ?>');" data-toggle="modal" data-target="#EliminarPerm" <?php echo $row->Usuario; ?>>Eliminar Permisos </button></td>
+							
 						</tr>
 
 					</tbody>

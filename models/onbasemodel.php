@@ -35,6 +35,29 @@ class OnbaseModel extends Model{
         }  
     }
 
+    public function consulta_Facturacion($fechaI, $fechaF, $clientes){
+        try{
+            $this->dbOnBase->connect();
+           
+            $sql = "SELECT TOP (4) [ID],[U_referencia]
+                    ,[U_pedimento]
+                    ,[U_patente]
+                    ,[U_aduana]
+                    ,[NumClienteOperativo]
+                    ,[NumClienteAdministrativo]
+                    ,[MetodoDePago] FROM [OB_Integracion_Proveedores].[dbo].[RavisaSAP] where [ID] > 109 ";
+            
+            
+
+            $this->dbOnBase->query($sql); 
+            $resultados=$this->dbOnBase->obtener_registros();
+            return $resultados;
+
+        }catch(PDOEXception $e){
+            return [];
+        }  
+    }
+
 
 
 

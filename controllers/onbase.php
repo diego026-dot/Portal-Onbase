@@ -39,8 +39,6 @@ class Onbase extends Controller{
 
     public function facturacionReportes(){
 
-
-
         
         $this -> view -> consulta_opcionesASG = 0;
 
@@ -49,38 +47,27 @@ class Onbase extends Controller{
 
     }
 
-    public function reportePhillips(){
-
+    public function reportePhillips($parametros = null){
         
 
-        $this->view->pagina = "onbase/fact_reportePhillips";
-        $this->view->render('onbase/fact_reportePhillips');
+        $fechaInicio = $parametros[0];
+        $fechaFin = $parametros[1];
+        $clientes = $parametros[2];
+
+        $this -> model = new OnbaseModel();
+
+        $consultaIndicadores = $this->model -> consulta_Facturacion($fechaInicio, $fechaFin, $clientes);	
+        
+
+        $this -> view -> consultaIndicadores = $consultaIndicadores;
+      
+
+
+        $this->view->pagina = "onbase/ReportesFacturacion";
+        $this->view->render('onbase/reclamosTiempos');
 
     }
 
-
-    public function inicio($parametros = null)
-    {
-        $model = new OnbaseModel();
-        
-        
-        $consultaIndicadores = $model -> consulta_indicadoresMain(1);	
-        
-        require_once 'ravisa/main';
-
-    
-    }
-
-
-
-
-
-
-
-    
-    
-   
-   
 
 
 
