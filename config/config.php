@@ -2,21 +2,21 @@
 // CARPETA DEL PROYECTO
 define('MAIN','ravisa');
 // REFERENCIA A NIVEL PROYECTO
-define('URL','http://localhost/'.constant('MAIN').'/');
+define('URL','http://172.20.20.56:8080/'.constant('MAIN').'/');
 // REFERENCIA A NIVEL IMAGENES DEL SITIO
-define('IMG','http://localhost/'.constant('MAIN').'/public/img/');
+define('IMG','http://172.20.20.56:8080/'.constant('MAIN').'/public/img/');
 // NOMBRE DEL PROYECTO
 define('PROYECTO','Ravisa | OnBase 2024');
 // FOOTER DE LA PAGINA
 define('FOOTER','Ravisa Copyright (©) 2024');
 // MOTOR DE BASE
-define('HOST','SRVDEV\SRVDEV');
+define('HOST','172.20.20.71\SRVSQLONBASE');
 // BASE DE DATOS
 define('DB','PORTALONBASE');
 // USUARIO DE BASE DE DATOS
-define('USER','obdesarrollo2');
+define('USER','hsi');
 // PASSWORD DE USUARIO DE BASE DE DATOS
-define('PASSWORD','onbase123');
+define('PASSWORD','wstinol');
 // CHARSET DE CONEXION (ACENTOS)    
 define('CHARSET','utf8mb4');
 // COLOR PRIMARIO DE BOTON
