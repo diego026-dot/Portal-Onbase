@@ -63,7 +63,7 @@ class OnbaseModel extends Model{
             $sql = "exec [PORTALONBASE].[dbo].[OB_WEB_SelectClientes] ";
             $this->dbOnBase->query($sql);
             $resultados=$this->dbOnBase->obtener_registros();
-            print_r($resultados);
+            // print_r($resultados);
             return $resultados;
         }catch(PDOEXception $e){
             return [];

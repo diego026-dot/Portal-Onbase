@@ -51,13 +51,13 @@ class Onbase extends Controller{
 
     public function reportePhillips($parametros = null){
 
-        // $fechaInicio = $parametros[0];
-        //  $fechaFin = $parametros[1];
-        //  $clientes = $parametros[2];
+       $fechaInicio = $parametros[0];
+          $fechaFin = $parametros[1];
+          $clientes = $parametros[2];
 
-        // $consultaIndicadores = $this->model -> consulta_Facturacion($fechaInicio, $fechaFin, $clientes);
+        $consultaIndicadores = $this->model -> consulta_Facturacion($fechaInicio, $fechaFin, $clientes);
         $selectClientes = $this->model -> selectClientes();
-        print_r($selectClientes);
+        // print_r($selectClientes);
         $this -> view -> consultaIndicadores = $consultaIndicadores;	
         $this -> view -> selectClientes = $selectClientes;
         $this->view->pagina = "onbase/reporteClientes";
