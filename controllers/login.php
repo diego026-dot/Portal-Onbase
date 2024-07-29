@@ -13,11 +13,7 @@ class Login extends Controller {
     }
 
     function validacion() {
-        // Asegúrate de que tanto usuario como contraseña han sido enviados
-        if (!isset($_POST['usuario']) || !isset($_POST['contrasena'])) {
-            header('Location: ' . constant('URL') . 'login');
-            exit;
-        }
+     
         
         $usuario = $_POST['usuario'];
         $contrasena = $_POST['contrasena'];
@@ -91,26 +87,32 @@ class Login extends Controller {
                     } else {
                         // Usuario o contraseña inválidos
                         // echo "Usuario o contraseña inválidos.";
+
+                       
                         header('Location: ' . constant('URL') . 'login');
                         // exit;
                     }
                 } else {
                     // Error: No se pudo obtener la propiedad VALIDACION
                     // echo "Error: No se pudo obtener la propiedad VALIDACION del resultado.";
+                    
                     header('Location: ' . constant('URL') . 'login');
                     // exit;
                 }
             } else {
                 // Error al ejecutar el procedimiento
                 // echo "Error al ejecutar el procedimiento.";
+                
                 header('Location: ' . constant('URL') . 'login');
                 // exit;
             }
         } else {
             // Error al preparar el procedimiento
             // echo "Error al preparar el procedimiento.";
+            
             header('Location: ' . constant('URL') . 'login');
             // exit;
+             
         }
     }
 }

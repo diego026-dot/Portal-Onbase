@@ -44,7 +44,7 @@ $resultados = $this->dbOnBase->obtener_registros();
             </div>
 
         </div>
-        <?php foreach( $resultados as $row){ ?>
+        <?php foreach($resultados as $row){ ?>
             <?php echo($row)->dump2; ?>
             <?php } ?>
 

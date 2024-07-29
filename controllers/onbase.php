@@ -5,15 +5,17 @@ require_once 'models/onbaseModel.php';
 
 class Onbase extends Controller{
     
-    public $model;
+
 
     function __construct(){
         parent::__construct();
         revisa_session();
-      
-        
+        $this->view->pagina = "";
+        $this->model = new OnbaseModel();
     }
-    
+    function renderMain(){
+        $this->view->render('main/index');
+    }
     
     private function obtenerPermisosUsuario($usuarioID) {
         $permisos = $this->model->obtenerPermisosUsuario($usuarioID);
@@ -48,24 +50,18 @@ class Onbase extends Controller{
     }
 
     public function reportePhillips($parametros = null){
-        
 
-        $fechaInicio = $parametros[0];
-        $fechaFin = $parametros[1];
-        $clientes = $parametros[2];
+        // $fechaInicio = $parametros[0];
+        //  $fechaFin = $parametros[1];
+        //  $clientes = $parametros[2];
 
-        $this -> model = new OnbaseModel();
-
-        $consultaIndicadores = $this->model -> consulta_Facturacion($fechaInicio, $fechaFin, $clientes);	
-        
-
-        $this -> view -> consultaIndicadores = $consultaIndicadores;
-      
-
-
-        $this->view->pagina = "onbase/ReportesFacturacion";
-        $this->view->render('onbase/reclamosTiempos');
-
+        // $consultaIndicadores = $this->model -> consulta_Facturacion($fechaInicio, $fechaFin, $clientes);
+        $selectClientes = $this->model -> selectClientes();
+        print_r($selectClientes);
+        $this -> view -> consultaIndicadores = $consultaIndicadores;	
+        $this -> view -> selectClientes = $selectClientes;
+        $this->view->pagina = "onbase/reporteClientes";
+        $this->view->render('onbase/reporteClientes');
     }
 
 

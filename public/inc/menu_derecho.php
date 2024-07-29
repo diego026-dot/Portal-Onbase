@@ -2,7 +2,8 @@
 				<div class="dropdown">
 					<a class="dropdown-toggle raw align-items-center" href="#" role="button" data-toggle="dropdown"  >
 						<span class="icon">
-							<img style = "width:93px; height:93px;" src="<?php echo constant('URL');?>public/img/logotipo/Logo-Blanco.png" alt="">							
+							<img style = "width: 30px; height:30px;"
+							 src="https://static.wixstatic.com/media/fe7c4c_a62cdb9acd31480196bcad4586eec778~mv2.png/v1/fill/w_29,h_45,al_c,lg_1,q_85,enc_auto/fe7c4c_a62cdb9acd31480196bcad4586eec778~mv2.png" alt="">							
 						</span>
 					
 						<?php /*<span class="user-name"><?php echo $_SESSION["SESSION_nombre"];?></span>*/?>

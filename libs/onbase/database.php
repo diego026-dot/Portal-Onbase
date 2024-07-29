@@ -9,10 +9,10 @@ class DatabaseOnBase {
     private $password;
 
     public function __construct() {
-        $this->host = "SRVDEV\SRVDEV";
+        $this->host = "172.20.20.71\SRVSQLONBASE";
         $this->db = "PORTALONBASE";
-        $this->user = "obdesarrollo2";
-        $this->password = "onbase123";
+        $this->user = "hsi";
+        $this->password = "wstinol";
     }
 
     public function connect() {

@@ -2,7 +2,7 @@
   <div class="left-side-bar open">
 		<div class="brand-logo d-flex alig-items-center justify-content-center ">
 			<a href="<?php echo constant('URL')?>main">
-				<img src="<?php echo constant('IMG');?>preloader/new.png" alt="" class="dark-logo" style = " height:70px;">
+				<img src="https://static.wixstatic.com/media/fe7c4c_859ff973380e4c27a5dc6fb7864f65ab~mv2.png/v1/fill/w_217,h_48,al_c,lg_1,q_85,enc_auto/fe7c4c_859ff973380e4c27a5dc6fb7864f65ab~mv2.png" alt="" class="dark-logo" style = " height:33px;">
 				<img src="<?php echo constant('IMG');?>preloader/new.png" alt="" class="light-logo" style = "height:70px;">
 			</a>
 			

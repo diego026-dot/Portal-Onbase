@@ -15,6 +15,15 @@
             </div>
          </div>
          <div class="row mt-5 justify-content-center ">
+         <div class="col-1 ">
+               <label for="clientes">Clientes</label>
+               <select class="form-control" aria-label=Clientes id="selectCliente" name="selectCliente" required >
+               <?php foreach($this->selectClientes as $row){  ?>
+                
+                <option value="<?php echo $row->Cliente;?>"><?php echo $row->Cliente;?></option>
+                    <?php } ?>     
+               </select>
+            </div>
             <div class="col-2">
                <label for="calendarioI"> Fecha inicio</label>
                <input type="date" id="calendarioI" name="calendarioI" step="1" min="2019-01-01" max="<?php echo date("Y-m-d"); ?>" value="<?php echo date("Y-m-d"); ?>">
@@ -30,15 +39,7 @@
             <!-- <div class="col-1">
                <button type="button" onclick="excel();" class="btn btn-success float-right btn-sm">Excel</button>
             </div> -->
-            <div class="col-3 ">
-               <label for="clientes">Clientes</label>
-               <select  name="clientes" id="clientes" required >
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-               </select>
-
-            </div>
+           
 
             <div class="col-1">
                <button type="button" onclick="regresar();" class="btn btn-danger float-right">Regresar</button>
@@ -138,7 +139,7 @@
 
             alert(resultI);
 
-            var direccion = "http://127.0.0.1:80/ravisa/onbase/reportePhillips";
+            var direccion = "http://172.20.20.56:8080/ravisa/onbase/reportePhillips";
 
             var url = direccion + "/" + $.trim(resultI) + "/" + $.trim(resultF) + "/" + $.trim(cliente);
             alert(url);

@@ -46,9 +46,6 @@ class OnbaseModel extends Model{
                     ,[NumClienteOperativo]
                     ,[NumClienteAdministrativo]
                     ,[MetodoDePago] FROM [OB_Integracion_Proveedores].[dbo].[RavisaSAP] where [ID] > 109 ";
-            
-            
-
             $this->dbOnBase->query($sql); 
             $resultados=$this->dbOnBase->obtener_registros();
             return $resultados;
@@ -60,6 +57,18 @@ class OnbaseModel extends Model{
 
 
 
+    public function selectClientes(){
+        try{
+            $this->dbOnBase->connect();
+            $sql = "exec [PORTALONBASE].[dbo].[OB_WEB_SelectClientes] ";
+            $this->dbOnBase->query($sql);
+            $resultados=$this->dbOnBase->obtener_registros();
+            print_r($resultados);
+            return $resultados;
+        }catch(PDOEXception $e){
+            return [];
+        }  
+    }
 
 
     public function obtenerPermisosUsuario($usuario){
