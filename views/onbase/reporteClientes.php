@@ -41,7 +41,14 @@
     <div class="min-height-200px mt-3">
         <div class="page-header mb-5">
             <div class="table-responsive">
-                       <div id="ReporteClienteP"> </div>
+                <div id="ReporteClienteP"> </div>
+            </div>
+            <!-- Contenedor para el overlay -->
+            <div id="overlay" class="ocultar"></div>
+
+            <!-- Contenedor para el GIF de carga -->
+            <div id="loading" class="cargando">
+                <img src="public\img\preloader\logotipo.png" alt="Cargando...">
             </div>
         </div>
         <div class="col">
@@ -56,6 +63,9 @@
             <?php echo mensaje(); ?>
         </div>
     </div>
+
+
+
 </div>
 
 <?php include("public/inc/jsfooter.php"); ?>
@@ -79,13 +89,13 @@
         var direccion = "http://172.20.20.56:8080/ravisa/onbase/reportePhillips";
         var url = direccion + "/" + $.trim(fechaI) + "/" + $.trim(fechaF) + "/" + $.trim(cliente);
 
-alert(url);
+
+        alert(url);
         $.ajax({
             type: "POST",
             url: url,
             beforeSend: function() {},
-            success: function(data) {
-            }
+            success: function(data) {}
         });
     }
 
@@ -97,16 +107,25 @@ alert(url);
         var direccion = "http://172.20.20.56:8080/ravisa/onbase/cargaTabla_ReportePhilips";
         var url = direccion + "/" + $.trim(fechaI) + "/" + $.trim(fechaF) + "/" + $.trim(cliente);
 
+        $("#overlay").show();
+        $("#loading").show();
+        
 
         $.ajax({
             type: "POST",
             url: url,
             beforeSend: function() {
-                
+            
             },
             success: function(data) {
                 $("#ReporteClienteP").html(data);
+            },
+
+            complete: function() {
+                $("#overlay").hide();
+                $("#loading").hide();
             }
+
         });
     }
 </script>

@@ -41,11 +41,11 @@ a {
     color: #555
 }
 
-.card{
+.card {
 
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    
+
 
 }
 
@@ -1471,7 +1471,7 @@ table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th:first-child:before {
 }
 
 .header {
-    
+
     height: 70px;
     width: calc(100% - 280px);
     background-color: #08043b !important;
@@ -1513,7 +1513,7 @@ table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th:first-child:before {
 .header-left .header-search .search-icon {
     position: absolute;
     left: 17px;
-    
+
     font-size: 20px;
     color: #777
 }
@@ -1574,7 +1574,7 @@ table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th:first-child:before {
     max-width: 180px;
     display: block;
     background-color: #08043b;
-    
+
 }
 
 .header-right .brand-logo a {
@@ -2237,9 +2237,9 @@ body.IE .register-page-wrap .container {
     position: absolute;
     width: 30px;
     height: 30px;
-    
+
     top: 50%;
-    
+
 }
 
 .select-role .btn-group .btn .icon .svg {
@@ -4678,7 +4678,7 @@ body.IE .register-page-wrap .container {
     .header-right .menu-icon {
         display: block;
         padding-left: 15px;
-       
+
     }
 
     .footer-wrap {
@@ -4914,3 +4914,49 @@ body.IE .register-page-wrap .container {
         display: none
     }
 }
+
+
+    .btn-base {
+        background-color: #08043b;
+        color: white;
+        border-radius: 12px;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+    }
+
+    .btn-base:hover {
+        background-color: #45a049;
+        color: #f1f1f1;
+    }
+
+    /* Estilo para el overlay */
+    #overlay {
+        position: fixed;
+        
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+        /* Fondo negro con opacidad del 50% */
+        z-index: 999;
+       
+    }
+
+    /* Estilo para el GIF de carga */
+    #loading {
+        position: fixed;
+        display: none;
+        top: 50%;
+        
+        left: 50%;
+        transform: translate(-50%, -50%);
+        
+        z-index: 1000;
+        
+    }
+
+
+    

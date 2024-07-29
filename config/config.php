@@ -2,9 +2,9 @@
 // CARPETA DEL PROYECTO
 define('MAIN','ravisa');
 // REFERENCIA A NIVEL PROYECTO
-define('URL','http://172.20.20.56:8080/'.constant('MAIN').'/');
+define('URL','http://localhost/'.constant('MAIN').'/');
 // REFERENCIA A NIVEL IMAGENES DEL SITIO
-define('IMG','http://172.20.20.56:8080/'.constant('MAIN').'/public/img/');
+define('IMG','http://localhost/'.constant('MAIN').'/public/img/');
 // NOMBRE DEL PROYECTO
 define('PROYECTO','Ravisa | OnBase 2024');
 // FOOTER DE LA PAGINA
