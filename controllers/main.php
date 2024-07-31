@@ -12,6 +12,7 @@ class Main extends Controller{
     }
 
     function render(){
+        $_SESSION["mensaje"] = "";  
         $this->view->render('main/index');
     }
 

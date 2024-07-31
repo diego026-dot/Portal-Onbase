@@ -5,11 +5,11 @@ include("public/inc/encabezado_login.php");?>
 			<div class="row align-items-center"> 
 				<div class="col-md-6 col-lg-7"></div>
 				<div class="col-md-6 col-lg-5">
-					<div class="login-box bg-white box-shadow border-radius-10" 
+					<div class="login-box bg-blue-otro box-shadow border-radius-10" 
 					style="filter:alpha(opacity=10); opacity:0.85;">
                     	<div align="center" class="pb-15" >
 							<img src="<?php echo constant('IMG');?>logotipo/ravisalogotipo.png" 
-                            width="133" height="88" style="border-radius: 15px;">
+                            width="143" height="100" style="border-radius: 0px;">
                         </div>
 						<form action="<?php echo constant('URL')?>login/validacion" 
                         name="formulario" id="formulario" method="POST" enctype="multipart/form-data">

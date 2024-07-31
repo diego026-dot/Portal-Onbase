@@ -57,22 +57,13 @@
 					    <?php if($mod ==3) { ?>
 					<li class="dropdown"> 
 						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-idea-1"></span><span class="mtext">INGENIERÍA</span>
-						</a>
-					
+							<span class="micon dw dw-idea-1"></span><span class="mtext">OPERACIONES</span>
+						</a>					
 						<ul class="submenu">
-						    <?php if($sub->IdSub ==7 && $sub->IdModulo == 1){ ?>
-							<li><a href="<?php echo constant('URL')?>onbase/menu_ccd_ing" 
-							<?php if($this->pagina=="onbase/menu_ccd_ing"){ echo "class='active'"; }?>>DOCUMENTOS ING</a></li>
+						 <?php if($opc ==3){ ?>
+							<li><a href="<?php echo constant('URL')?>onbase/operaciones_menu" 
+							<?php if($this->pagina=="onbase/operaciones_menu"){ echo "class='active'"; }?>>SOLICITUDES</a></li>
 							<?php } ?>
-							<?php if($sub->IdSub ==8 && $sub->IdModulo == 1){ ?>
-							<li><a href="<?php echo constant('URL')?>onbase/ecrs" 
-							<?php if($this->pagina=="onbase/ecrs"){ echo "class='active'"; }?>>ECRs</a></li>
-							<?php } ?>
-							<?php if($sub->IdSub ==9 && $sub->IdModulo == 1){ ?>
-							<li><a href="<?php echo constant('URL')?>onbase/nuevos_modelos" 
-							<?php if($this->pagina=="onbase/nuevos_modelos"){ echo "class='active'"; }?>>NUEVOS MODELOS</a></li>
-						    <?php } ?>
 						</ul>
 						
 						

@@ -1,15 +1,17 @@
 <?php include("public/inc/encabezado_sinbusqueda.php"); ?>
 <style>
-    .card-hover {
-        transition: transform 0.3s ease, background-color 0.3s ease; 
-    }
-    .card-hover:hover {
-        transform: scale(1.01); 
-        background-color: #D2D2E3; 
-    }
-    .card-hover:active {
-        background-color: #d0d0d0; 
-    }
+	.card-hover {
+		transition: transform 0.3s ease, background-color 0.3s ease;
+	}
+
+	.card-hover:hover {
+		transform: scale(1.01);
+		background-color: #D2D2E3;
+	}
+
+	.card-hover:active {
+		background-color: #d0d0d0;
+	}
 </style>
 
 <div class="main-container">
@@ -36,14 +38,17 @@
 						<div class="col-sm-3 ">
 							<div class="card text-dark  mb-3 shadow card-hover" style="max-width: 18rem; cursor:pointer;">
 								<div class="card-body text-center p-5">
-										<i class="fi fi-br-file-invoice-dollar" style="font-size:90px; color:#08043b "></i></i>
-										<a href="javascript:void(0)" class="stretched-link" onClick="fact_phillips()"></a>
+									<i class="fi fi-br-file-invoice-dollar" style="font-size:90px; color:#08043b "></i></i>
+									<a href="javascript:void(0)" class="stretched-link" onClick="fact_phillips()"></a>
 
 									<div style="color:#293080; font-weight:bold; font-size:18px; margin-top:10px;">REPORTE PHILLIPS</div>
 								</div>
 							</div>
 						</div>
 
+						<div id="loading" class="cargando">
+							<img src="public\img\preloader\cargando2.gif" alt="Cargando...">
+						</div>
 
 
 						<div class="col-sm-3">
@@ -51,7 +56,8 @@
 								<div class="card-body text-center">
 									<!--<button type="button" class="btn btn-light" style="margin:10px" onClick="ccd_modificacion()" title="Metas Corporativas">
 										
-									<img class="borderedondo" src=<?php //echo constant('URL') . 'public/img/menu_ccd/modificacion.png' ?> title="Modificación" onClick="ccd_modificacion()" width="140px" />
+									<img class="borderedondo" src=<?php //echo constant('URL') . 'public/img/menu_ccd/modificacion.png' 
+																	?> title="Modificación" onClick="ccd_modificacion()" width="140px" />
 									</button> -->
 									<i class="fi fi-ss-file-edit" style="font-size:120px; color:#08043b "></i>
 									<div style="color:#293080; font-weight:bold; font-size:18px;">MODIFICACIÓN</div>
@@ -218,8 +224,6 @@
 						</html>
 
 						<script>
-							
-
 							function fact_phillips() {
 								window.location = '<?php echo constant('URL') ?>onbase/reportePhillips/';
 							}

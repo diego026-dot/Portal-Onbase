@@ -1,6 +1,6 @@
 <?php include("public/inc/encabezado_sinbusqueda.php"); ?>
 
-<div class="main-container" style="margin-top: 0; padding-top: 0;">
+<div class="container-fluid" style="margin-top: 0; padding-top: 0;">
     <div class="row">
         <div class="col-12 d-flex align-items-center justify-content-between">
             <nav aria-label="breadcrumb" role="navigation" class="bg-transparent">
@@ -35,7 +35,8 @@
         </div>
         <div class="col-md-2 d-flex align-items-end">
             <button type="button" class="btn btn-primary btn-sm mr-2" onclick="enviaDatosClienteDetalle();">Buscar</button>
-            <button type="button" onclick="excel();" class="btn btn-success btn-sm">Excel</button>
+            <button type="button" onclick="enviaDatos();" class="btn btn-success btn-sm">Excel</button>
+            <!-- <button type="button" id="exportBtn" class="btn btn-success btn-sm">Excel</button> -->
         </div>
     </div>
     <div class="min-height-200px mt-3">
@@ -43,89 +44,128 @@
             <div class="table-responsive">
                 <div id="ReporteClienteP"> </div>
             </div>
-            <!-- Contenedor para el overlay -->
-            <div id="overlay" class="ocultar"></div>
-
-            <!-- Contenedor para el GIF de carga -->
-            <div id="loading" class="cargando">
-                <img src="public\img\preloader\logotipo.png" alt="Cargando...">
-            </div>
-        </div>
-        <div class="col">
-            <div class="form-group">
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" style="width:100px"><b></b></span>
+            <div class="col mb-3">
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width:100px"><b></b></span>
+                        </div>
                     </div>
                 </div>
+
+                <?php echo mensaje(); ?>
             </div>
-            <br>
-            <?php echo mensaje(); ?>
         </div>
+
+
+        <!-- Contenedor para el overlay -->
+        <div id="overlay" class="ocultar"></div>
+
+
+        <!-- Contenedor para el GIF de carga -->
+        <div id="loading" class="cargando">
+            <img src="<?php echo constant('IMG'); ?>preloader/cargando2.gif" alt="" class="light-logo" style="height:70px;">
+        </div>
+
     </div>
 
+    <?php include("public/inc/jsfooter.php"); ?>
 
-
-</div>
-
-<?php include("public/inc/jsfooter.php"); ?>
-
-<script>
-    function excel() {
-        $("#tabla20").table2excel({
-            formats: ["xlsx"],
-            position: 'bottom',
-            bootstrap: false,
-            name: "reclamos_tiempos",
-            filename: 'reclamos_tiempos'
-        });
-    }
-
-    function enviaDatos() {
-        var fechaI = $("#calendarioI").val();
-        var fechaF = $("#calendarioF").val();
-        var cliente = $("#selectCliente").val();
-
-        var direccion = "http://172.20.20.56:8080/ravisa/onbase/reportePhillips";
-        var url = direccion + "/" + $.trim(fechaI) + "/" + $.trim(fechaF) + "/" + $.trim(cliente);
-
-
-        alert(url);
-        $.ajax({
-            type: "POST",
-            url: url,
-            beforeSend: function() {},
-            success: function(data) {}
-        });
-    }
-
-    function enviaDatosClienteDetalle(norma, proceso) {
-        var fechaI = $("#calendarioI").val();
-        var fechaF = $("#calendarioF").val();
-        var cliente = $("#selectCliente").val();
-
-        var direccion = "http://172.20.20.56:8080/ravisa/onbase/cargaTabla_ReportePhilips";
-        var url = direccion + "/" + $.trim(fechaI) + "/" + $.trim(fechaF) + "/" + $.trim(cliente);
-
-        $("#overlay").show();
-        $("#loading").show();
+    <script>
         
 
-        $.ajax({
-            type: "POST",
-            url: url,
-            beforeSend: function() {
+        function excel() {
+            $("#tabla20").table2excel({
+                formats: ["xlsx"],
+                position: 'bottom',
+                bootstrap: false,
+                name: "reclamos_tiempos",
+                filename: 'reclamos_tiempos'
+            });
+        }
+        
+
+
+        function enviaDatos() {
+            var fechaI = $("#calendarioI").val();
+            var fechaF = $("#calendarioF").val();
+            var cliente = $("#selectCliente").val();
+
+            var direccion = "http://172.20.20.56:8080/ravisa/onbase/cargaReporteExcel";
+            var url = direccion + "/" + $.trim(fechaI) + "/" + $.trim(fechaF) + "/" + $.trim(cliente);
+            var nombreExcel = "Reporte: "+ $.trim(cliente) + "/" + $.trim(fechaI) + "/" + $.trim(fechaF) + "/" ;
+            $("#overlay").show();
+            $("#loading").show();
             
-            },
-            success: function(data) {
-                $("#ReporteClienteP").html(data);
-            },
+            $.ajax({
+                type: "POST",
+                url: url,
 
-            complete: function() {
-                $("#overlay").hide();
-                $("#loading").hide();
-            }
+                beforeSend: function() {},
+             
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                beforeSend: function() {},
 
-        });
-    }
-</script>
+                success: function(data) {
+                    var a = document.createElement('a');
+                    var url = window.URL.createObjectURL(data);
+                    a.href = url;
+                    a.download = nombreExcel;
+                    document.body.append(a);
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
+                },
+                complete: function() {
+                    $("#overlay").hide();
+                    $("#loading").hide();
+                },
+                error: function (){
+                    alert("A ocurrido algun error")
+                    $("#overlay").hide();
+                    $("#loading").hide();
+                }
+
+            });
+         }
+
+       
+
+        function enviaDatosClienteDetalle(norma, proceso) {
+            var fechaI = $("#calendarioI").val();
+            var fechaF = $("#calendarioF").val();
+            var cliente = $("#selectCliente").val();
+
+            var direccion = "http://172.20.20.56:8080/ravisa/onbase/cargaTabla_ReportePhilips";
+            var url = direccion + "/" + $.trim(fechaI) + "/" + $.trim(fechaF) + "/" + $.trim(cliente);
+
+            $("#overlay").show();
+            $("#loading").show();
+
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                beforeSend: function() {
+
+                },
+                success: function(data) {
+                    $("#ReporteClienteP").html(data);
+                },
+
+                complete: function() {
+                    $("#overlay").hide();
+                    $("#loading").hide();
+                },
+                error: function (){
+                    alert("A ocurrido algun error")
+                    $("#overlay").hide();
+                    $("#loading").hide();
+                }
+
+
+            });
+        }
+    </script>

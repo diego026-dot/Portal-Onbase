@@ -555,6 +555,10 @@ p {
     background-color: #001689
 }
 
+.bg-blue-otro {
+    background-color: #070736
+}
+
 .text-proyecto {
     color: #001689
 }
@@ -568,7 +572,7 @@ p {
 }
 
 .bg-light-orange {
-    background-color: #f56767
+    background-color: #ff610a
 }
 
 .text-light-orange {
@@ -4931,7 +4935,7 @@ body.IE .register-page-wrap .container {
     }
 
     /* Estilo para el overlay */
-    #overlay {
+    .ocultar {
         position: fixed;
         
         top: 0;
@@ -4946,7 +4950,7 @@ body.IE .register-page-wrap .container {
     }
 
     /* Estilo para el GIF de carga */
-    #loading {
+    .cargando {
         position: fixed;
         display: none;
         top: 50%;
