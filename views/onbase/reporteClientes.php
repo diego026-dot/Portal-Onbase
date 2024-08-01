@@ -33,9 +33,15 @@
             <label for="calendarioF" class="form-label mb-1">Fecha fin</label>
             <input type="date" class="form-control" id="calendarioF" name="calendarioF" step="1" min="2023-01-01" max="<?php echo date("Y-m-d"); ?>" value="">
         </div>
+<<<<<<< HEAD
         <div class="col-md-2">
             <button type="button" class=" btn-base  mr-3" onclick="enviaDatosClienteDetalle();">Buscar</button>
             <button type="button" onclick="enviaDatos();" class="btn-base"style="background-color:green">Excel</button>
+=======
+        <div class="col-md-2 d-flex align-items-end">
+            <button type="button" class="btn btn-primary btn-sm mr-2" onclick="enviaDatosClienteDetalle();">Buscar</button>
+            <button type="button" onclick="enviaDatos();" id="botonExcel" class="btn btn-success btn-sm" disabled>Excel</button>
+>>>>>>> 66690615b5874280ee17dd78befce01306783b74
             <!-- <button type="button" id="exportBtn" class="btn btn-success btn-sm">Excel</button> -->
         </div>
     </div>
@@ -153,6 +159,7 @@
                 },
                 success: function(data) {
                     $("#ReporteClienteP").html(data);
+                    $("#botonExcel").prop('disabled', false);
                 },
 
                 complete: function() {
