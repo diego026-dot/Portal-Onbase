@@ -19,7 +19,7 @@
 					<div class="row">
 
 
-
+<!-- 
 						<div class="col-sm-3 ">
 							<div class="card text-dark  mb-3 shadow card-hover" style="max-width: 18rem; cursor:pointer;">
 								<div class="card-body text-center p-5">
@@ -27,6 +27,19 @@
 									<img class="borderedondo" src=<?php echo constant('URL') . 'public/img/menu_ccd/orange_document.png'?>
 									title="Solicitud Facturas Nacionales"  width="140px"/>
 										</button>
+									<div style="color:#293080; font-weight:bold; font-size:18px; margin-top:10px;">REPORTE PHILLIPS</div>
+								</div>
+							</div>
+						</div> -->
+
+						
+						<div class="col-sm-3 ">
+							<div class="card text-dark  mb-3 shadow card-hover" style="max-width: 18rem; cursor:pointer;">
+								<div class="card-body text-center p-5">
+									<img class="borderedondo" src=<?php echo constant('URL') . 'public/img/menu_ccd/orange_document.png'?>
+									title="Solicitud Facturas Nacionales"  width="140px"/>
+									<a href="javascript:void(0)" class="stretched-link" onClick="facturas_nac()"></a>
+
 									<div style="color:#293080; font-weight:bold; font-size:18px; margin-top:10px;">REPORTE PHILLIPS</div>
 								</div>
 							</div>

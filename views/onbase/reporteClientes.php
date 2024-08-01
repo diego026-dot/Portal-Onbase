@@ -12,39 +12,39 @@
                     <li class="breadcrumb-item active" aria-current="page">Reportes</li>
                 </ol>
             </nav>
-            <button type="button" onclick="regresar();" class="btn btn-danger btn-sm">Regresar</button>
+            <button type="button" onclick="regresar();" class=" btn-base-regresar">Regresar</button>
         </div>
     </div>
-    <div class="row mt-5 justify-content-center">
-        <div class="col-md-2">
+    <div class="row mt-5 justify-content-center align-items-center mb-2">
+        <div class="col-lg-2 col-md-12 mr-4 mb-2">
             <label for="selectCliente" class="form-label mb-1">Cliente</label>
-            <select class="form-select" aria-label="Clientes" id="selectCliente" name="selectCliente" required>
+            <select class="selectpicker" aria-label="Clientes" id="selectCliente" name="selectCliente" required>
                 <option value="" disabled selected>Selecciona un cliente</option>
                 <?php foreach ($this->selectClientes as $row) { ?>
                     <option value="<?php echo $row->Cliente; ?>"><?php echo $row->Cliente; ?></option>
                 <?php } ?>
             </select>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2 mb-3">
             <label for="calendarioI" class="form-label mb-1">Fecha inicio</label>
             <input type="date" class="form-control" id="calendarioI" name="calendarioI" step="1" min="2023-01-01" max="<?php echo date("Y-m-d"); ?>" value="">
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2 mb-3">
             <label for="calendarioF" class="form-label mb-1">Fecha fin</label>
             <input type="date" class="form-control" id="calendarioF" name="calendarioF" step="1" min="2023-01-01" max="<?php echo date("Y-m-d"); ?>" value="">
         </div>
-        <div class="col-md-2 d-flex align-items-end">
-            <button type="button" class="btn btn-primary btn-sm mr-2" onclick="enviaDatosClienteDetalle();">Buscar</button>
-            <button type="button" onclick="enviaDatos();" class="btn btn-success btn-sm">Excel</button>
+        <div class="col-md-2">
+            <button type="button" class=" btn-base  mr-3" onclick="enviaDatosClienteDetalle();">Buscar</button>
+            <button type="button" onclick="enviaDatos();" class="btn-base"style="background-color:green">Excel</button>
             <!-- <button type="button" id="exportBtn" class="btn btn-success btn-sm">Excel</button> -->
         </div>
     </div>
-    <div class="min-height-200px mt-3">
+    <div class="min-height-200px ">
         <div class="page-header mb-5">
-            <div class="table-responsive">
+            <div class="table-responsive mt-3">
                 <div id="ReporteClienteP"> </div>
             </div>
-            <div class="col mb-3">
+            <div class="col">
                 <div class="form-group">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">

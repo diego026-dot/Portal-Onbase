@@ -4923,16 +4923,39 @@ body.IE .register-page-wrap .container {
     .btn-base {
         background-color: #08043b;
         color: white;
-        border-radius: 12px;
-        padding: 10px 20px;
-        font-size: 16px;
+        border-radius: 4px;
+        padding: 5px 10px;
+        font-size: 0.95em;
+        font-weight: 700;
         border: none;
+        transition: all 0.4s ease;
     }
 
     .btn-base:hover {
-        background-color: #45a049;
+        background-color: #d86111;
         color: #f1f1f1;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        
     }
+
+    .btn-base-regresar {
+        background-color: #d86111;
+        color: white;
+        border-radius: 4px;
+        padding: 5px 10px;
+        font-size: 0.95em;
+        font-weight: 700;
+        border: none;
+        transition: all 0.3s ease;
+    }
+
+    .btn-base-regresar:hover {
+        background-color: #d45602;
+        color: #f1f1f1;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        transform: translateY(-0.5px);
+    }
+
 
     /* Estilo para el overlay */
     .ocultar {
@@ -4961,6 +4984,19 @@ body.IE .register-page-wrap .container {
         z-index: 1000;
         
     }
+
+    .card-hover {
+		transition: transform 0.3s ease, background-color 0.3s ease;
+	}
+
+	.card-hover:hover {
+		transform: scale(1.01);
+		background-color: #D2D2E3;
+	}
+
+	.card-hover:active {
+		background-color: #d0d0d0;
+	}
 
 
     

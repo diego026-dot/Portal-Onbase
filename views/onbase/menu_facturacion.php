@@ -1,18 +1,5 @@
 <?php include("public/inc/encabezado_sinbusqueda.php"); ?>
-<style>
-	.card-hover {
-		transition: transform 0.3s ease, background-color 0.3s ease;
-	}
 
-	.card-hover:hover {
-		transform: scale(1.01);
-		background-color: #D2D2E3;
-	}
-
-	.card-hover:active {
-		background-color: #d0d0d0;
-	}
-</style>
 
 <div class="main-container">
 	<div class="pd-ltr-20 xs-pd-20-10">
@@ -46,106 +33,8 @@
 							</div>
 						</div>
 
-						<div id="loading" class="cargando">
-							<img src="public\img\preloader\cargando2.gif" alt="Cargando...">
-						</div>
 
-
-						<div class="col-sm-3">
-							<div class="card text-dark mb-3 shadow card-hover" style="max-width: 18rem;">
-								<div class="card-body text-center">
-									<!--<button type="button" class="btn btn-light" style="margin:10px" onClick="ccd_modificacion()" title="Metas Corporativas">
-										
-									<img class="borderedondo" src=<?php //echo constant('URL') . 'public/img/menu_ccd/modificacion.png' 
-																	?> title="Modificación" onClick="ccd_modificacion()" width="140px" />
-									</button> -->
-									<i class="fi fi-ss-file-edit" style="font-size:120px; color:#08043b "></i>
-									<div style="color:#293080; font-weight:bold; font-size:18px;">MODIFICACIÓN</div>
-									<a href="javascript:void(0)" class="stretched-link" onClick="nuevo_doc()"></a>
-								</div>
-							</div>
-						</div>
-
-
-
-						<div class="col-sm-3">
-							<div class="card text-dark  mb-3 shadow card-hover" style="max-width: 18rem;">
-								<div class="card-body text-center">
-									<!--<button type="button" class="btn btn-light" style="margin:10px" onClick="ccd_obsoleto()" title="Metas Corporativas">
-										<img class="borderedondo" src=<?php echo constant('URL') . 'public/img/menu_ccd/obsoleto.png' ?> title="Obsoleto" onClick="ccd_obsoleto()" width="140px" />
-									</button> -->
-									<i class="fi fi-tr-document-circle-wrong" style="font-size:120px; color:#08043b "></i>
-									<div style="color:#293080; font-weight:bold; font-size:18px;">OBSOLETO</div>
-									<a href="javascript:void(0)" class="stretched-link" onClick="nuevo_doc()"></a>
-								</div>
-							</div>
-						</div>
-
-
-
-						<div class="col-sm-3">
-							<div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
-								<div class="card-body ">
-									<button type="button" class="btn btn-light" style="margin:10px" onClick="ccd()" title="Consulta de Documentos">
-										<img class="borderedondo" src=<?php echo constant('URL') . 'public/img/menu_ccd/ccd.png' ?> title="CCD" onClick="ccd()" width="140px" />
-									</button>
-									<div style="color:#293080; font-weight:bold; font-size:18px;">CONSULTA DOCUMENTOS</div>
-								</div>
-							</div>
-						</div>
-
-
-
-						<div class="col-sm-3">
-							<div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
-								<div class="card-body ">
-									<button type="button" class="btn btn-light" style="margin:10px" onClick="ccd_aprobacion()" title="Metas Corporativas">
-										<img class="borderedondo" src=<?php echo constant('URL') . 'public/img/menu_ccd/aprobacion.png' ?> title="Aprobación" onClick="ccd_aprobacion()" width="140px" />
-									</button>
-									<div style="color:#293080; font-weight:bold; font-size:18px;">APROBACIÓN</div>
-								</div>
-							</div>
-						</div>
-
-
-
-						<div class="col-sm-3">
-							<div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
-								<div class="card-body">
-									<button type="button" class="btn btn-light" style="margin:10px" onClick="panel()" title="Metas Corporativas">
-										<img class="borderedondo" src=<?php echo constant('URL') . 'public/img/menu_ccd/dashboard.png' ?> title="Dashboard" onClick="metascorporativas()" width="140px" />
-									</button>
-									<div style="color:#293080; font-weight:bold; font-size:18px;">PANEL SOLICITUDES ABIERTAS</div>
-								</div>
-							</div>
-						</div>
-
-
-
-						<div class="col-sm-3">
-							<div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
-								<div class="card-body">
-									<button type="button" class="btn btn-light" style="margin:10px" onClick="ccd_exepciones()" title="Excepciones">
-										<img class="borderedondo" src=<?php echo constant('URL') . 'public/img/menu_ccd/nuevodoc.png' ?> title="Exepciones" onClick="ccd_exepciones()" width="140px" />
-									</button>
-									<div style="color:#293080; font-weight:bold; font-size:18px;">EXCEPCIONES</div>
-								</div>
-							</div>
-						</div>
-
-
-
-						<div class="col-sm-3">
-							<div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
-								<div class="card-body">
-									<button type="button" class="btn btn-light" style="margin:10px" onClick="panelDocumentos()" title="Metas Corporativas">
-										<img class="borderedondo" src=<?php echo constant('URL') . 'public/img/menu_ccd/dashboard.png' ?> title="Consulta" onClick="metascorporativas()" width="140px" />
-									</button>
-									<div style="color:#293080; font-weight:bold; font-size:18px;">PANEL DOCUMENTOS VIGENTES</div>
-								</div>
-							</div>
-						</div>
-
+						
 
 						<!--
 		<div class="col-sm-3">	

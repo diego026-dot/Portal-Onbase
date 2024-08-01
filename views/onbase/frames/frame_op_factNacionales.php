@@ -4,6 +4,9 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/hmac-sha256.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/hmac-sha256.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/enc-base64.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 
 <?php
 $usuario = $_SESSION['usuario'];
@@ -31,7 +34,7 @@ $usuario = $_SESSION['usuario'];
              
 var token = "lRMBnT/LxXzc8ev170zEwnjBELjUgUgihvgqiy/5Z5c=";
 
-var LINK = "http://srvweb/AppNet/UnityForm.aspx?d1=AeCRirmMdQUscMZBkSr8shpWRs4%2fkJzYzTTGBf4jJ3%2fqfpNzu2yqMF%2fX1UyrfNgIk00pYwzisA0hx%2b5GdrevAcPmy3ABHQzNE7oDY6hqrCSRwc8R5x%2f%2bclFg1dcPW4jR52BKy5sGRvYIbZxnbnSmCYHG2sMGdnO5N%2b8aXa%2b0UDXa";
+var LINK = "http://srvweb/AppNet/UnityForm.aspx?d1=ARfmVZ4hCkv8fl5sZqeDrIGC5nDDsL%2b1bONTBfUm6lNGibBvIa1VPk1w8oCLOcG5i0iHK%2faBgXteOFHewYT4YJCgZxfilXHScPRWcPjUaoXQxJSZ4G3qHm2nQs1U7BzVlUQwVcdBaUD%2b0RWi6pLQB8U%2bnHPhq7wwM5gaV4bJFHUw";
 
 var encodedURL = "";
 

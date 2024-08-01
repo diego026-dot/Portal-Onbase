@@ -94,20 +94,20 @@ class Onbase extends Controller
         $consultaIndicadores = $this->model->consulta_Facturacion($fechaInicio, $fechaFin, $clientes); ?>
 
         <!--  BUSCADOR POR JQUERY    -->
-        <input type="text" class="form-control pull-right" style="width:20%" id="searchRepPhi" name="searchRepPhi" placeholder="Buscador...">
+        <input type="text" class="form-control pull-right" style="width:20%; margin-bottom: 0.6em;" id="searchRepPhi" name="searchRepPhi" placeholder="Buscador...">
 
         <table id="tablaRepPhi" name="tablaRepPhi" class="table table-responsive">
             <thead class="text-blue">
                 <tr>
-                    <th width=15% style="text-align:left">Folio</th>
-                    <th width=20% style="text-align:left">Referencia</th>
-                    <th width=20% style="text-align:left">Fecha</th>
+                    <th width=30% style="text-align:left">Folio</th>
+                    <th width=10% style="text-align:left">Referencia</th>
+                    <th width=15% style="text-align:left">Fecha</th>
                     <th width=5% style="text-align:left">Pedimento</th>
-                    <th width=15% style="text-align:left">Patente</th>
-                    <th width=15% style="text-align:left">Aduana</th>
+                    <th width=5% style="text-align:left">Patente</th>
+                    <th width=5% style="text-align:left">Aduana</th>
                     <th width=15% style="text-align:left">Cliente</th>
-                    <th width=15% style="text-align:left">#Cliente</th>
-                    <th width=15% style="text-align:left">Total</th>
+                    <th width=5% style="text-align:left">#Cliente</th>
+                    <th width=10% style="text-align:left">Total</th>
                 </tr>
             </thead>
             <tbody>
