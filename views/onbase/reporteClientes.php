@@ -35,7 +35,7 @@
         </div>
         <div class="col-md-2 d-flex align-items-end">
             <button type="button" class="btn btn-primary btn-sm mr-2" onclick="enviaDatosClienteDetalle();">Buscar</button>
-            <button type="button" onclick="enviaDatos();" class="btn btn-success btn-sm">Excel</button>
+            <button type="button" onclick="enviaDatos();" id="botonExcel" class="btn btn-success btn-sm" disabled>Excel</button>
             <!-- <button type="button" id="exportBtn" class="btn btn-success btn-sm">Excel</button> -->
         </div>
     </div>
@@ -153,6 +153,7 @@
                 },
                 success: function(data) {
                     $("#ReporteClienteP").html(data);
+                    $("#botonExcel").prop('disabled', false);
                 },
 
                 complete: function() {

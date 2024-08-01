@@ -91,7 +91,9 @@ class Onbase extends Controller
         $fechaFin = $parametros[1];
         $clientes = $parametros[2];
 
-        $consultaIndicadores = $this->model->consulta_Facturacion($fechaInicio, $fechaFin, $clientes); ?>
+        $consultaIndicadores = $this->model->consulta_Facturacion($fechaInicio, $fechaFin, $clientes); 
+        $_SESSION['consultaIndicadores'] = $consultaIndicadores;?>
+        
 
         <!--  BUSCADOR POR JQUERY    -->
         <input type="text" class="form-control pull-right" style="width:20%" id="searchRepPhi" name="searchRepPhi" placeholder="Buscador...">
@@ -134,15 +136,11 @@ class Onbase extends Controller
 
     public function cargaReporteExcel($parametros = null){
 
-        if ($parametros == null) {
-            $parametros = '0/0/0';
+        $consultaIndicadores = $_SESSION['consultaIndicadores'] ?? [];
+        if (empty($consultaIndicadores)) {
+            // Manejar el caso en el que no hay datos en la sesión
+            exit('No hay datos disponibles para exportar.');
         }
-        $fechaInicio = $parametros[0];
-        $fechaFin = $parametros[1];
-        $clientes = $parametros[2];
-
-        $consultaIndicadores = $this->model->consulta_Facturacion($fechaInicio, $fechaFin, $clientes); 
-
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
