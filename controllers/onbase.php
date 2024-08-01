@@ -92,7 +92,9 @@ class Onbase extends Controller
         $clientes = $parametros[2];
 
         $consultaIndicadores = $this->model->consulta_Facturacion($fechaInicio, $fechaFin, $clientes); 
-        $_SESSION['consultaIndicadores'] = $consultaIndicadores;?>
+        $_SESSION['consultaIndicadores'] = $consultaIndicadores;
+        
+        $data_found = !empty($consultaIndicadores);?>
         
 
         <!--  BUSCADOR POR JQUERY    -->
@@ -113,7 +115,7 @@ class Onbase extends Controller
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($consultaIndicadores as $row) { //INICIO DEL FOR    
+                <?php if ($data_found) {foreach ($consultaIndicadores as $row) { //INICIO DEL FOR    
                 ?>
                     <tr>
                         <td><?php echo $row->FolioFiscal; ?></td>
@@ -127,7 +129,7 @@ class Onbase extends Controller
                         <td><?php echo $row->Total; ?></td>
                     </tr>
                 <?php } //FIN DEL FOR
-                ?>
+                }?>
             </tbody>
         </table> <?php
 

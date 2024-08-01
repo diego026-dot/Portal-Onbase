@@ -14,7 +14,8 @@
 				<?php if($perm ==1){ ?>
 					<li class="dropdown"> 
 						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-folder-122"></span><span class="mtext">ADMINISTRACIÓN</span>
+							<span class="micon dw dw-folder-122" ></span><span class="mtext">ADMINISTRACIÓN</span>
+							<!-- <span class="micon dw dw-folder-122" style="color: #ff7113; font-weight: 700;"></span><span class="mtext">ADMINISTRACIÓN</span> -->
 						</a>
 						<?php foreach($_SESSION["UsuarioOpciones"] as $opc){ //INICIO DEL FOR ?>
 						<ul class="submenu">

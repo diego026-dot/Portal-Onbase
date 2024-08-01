@@ -4932,14 +4932,14 @@ body.IE .register-page-wrap .container {
     }
 
     .btn-base:hover {
-        background-color: #d86111;
+        background-color: #ff7113;
         color: #f1f1f1;
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
         
     }
 
     .btn-base-regresar {
-        background-color: #d86111;
+        background-color: #ff7113;
         color: white;
         border-radius: 4px;
         padding: 5px 10px;

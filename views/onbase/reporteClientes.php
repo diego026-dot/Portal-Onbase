@@ -33,18 +33,39 @@
             <label for="calendarioF" class="form-label mb-1">Fecha fin</label>
             <input type="date" class="form-control" id="calendarioF" name="calendarioF" step="1" min="2023-01-01" max="<?php echo date("Y-m-d"); ?>" value="">
         </div>
-<<<<<<< HEAD
+
         <div class="col-md-2">
             <button type="button" class=" btn-base  mr-3" onclick="enviaDatosClienteDetalle();">Buscar</button>
-            <button type="button" onclick="enviaDatos();" class="btn-base"style="background-color:green">Excel</button>
-=======
-        <div class="col-md-2 d-flex align-items-end">
-            <button type="button" class="btn btn-primary btn-sm mr-2" onclick="enviaDatosClienteDetalle();">Buscar</button>
-            <button type="button" onclick="enviaDatos();" id="botonExcel" class="btn btn-success btn-sm" disabled>Excel</button>
->>>>>>> 66690615b5874280ee17dd78befce01306783b74
+            <button type="button" onclick="enviaDatos();" class="btn-base" id="botonExcel" style="background-color:green " disabled>Excel</button>
+
             <!-- <button type="button" id="exportBtn" class="btn btn-success btn-sm">Excel</button> -->
         </div>
+
+
     </div>
+
+
+    <!-- Modal -->
+    <div class="modal" id="noDataModal" tabindex="-1" role="dialog" aria-labelledby="noDataModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="noDataModalLabel">Sin resultados</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    No se encontraron datos del cliente solicitado.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-base-regresar" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="min-height-200px ">
         <div class="page-header mb-5">
             <div class="table-responsive mt-3">
@@ -78,19 +99,19 @@
     <?php include("public/inc/jsfooter.php"); ?>
 
     <script>
-        
-
-        function excel() {
-            $("#tabla20").table2excel({
-                formats: ["xlsx"],
-                position: 'bottom',
-                bootstrap: false,
-                name: "reclamos_tiempos",
-                filename: 'reclamos_tiempos'
-            });
+        function regresar() {
+            window.location = '<?php echo constant('URL') ?>onbase/facturacionReportes/';
         }
-        
 
+        // function excel() {
+        //     $("#tabla20").table2excel({
+        //         formats: ["xlsx"],
+        //         position: 'bottom',
+        //         bootstrap: false,
+        //         name: "reclamos_tiempos",
+        //         filename: 'reclamos_tiempos'
+        //     });
+        // }
 
         function enviaDatos() {
             var fechaI = $("#calendarioI").val();
@@ -99,16 +120,16 @@
 
             var direccion = "http://172.20.20.56:8080/ravisa/onbase/cargaReporteExcel";
             var url = direccion + "/" + $.trim(fechaI) + "/" + $.trim(fechaF) + "/" + $.trim(cliente);
-            var nombreExcel = "Reporte: "+ $.trim(cliente) + "/" + $.trim(fechaI) + "/" + $.trim(fechaF) + "/" ;
+            var nombreExcel = "Reporte: " + $.trim(cliente) + "/" + $.trim(fechaI) + "/" + $.trim(fechaF) + "/";
             $("#overlay").show();
             $("#loading").show();
-            
+
             $.ajax({
                 type: "POST",
                 url: url,
 
                 beforeSend: function() {},
-             
+
                 xhrFields: {
                     responseType: 'blob'
                 },
@@ -128,16 +149,16 @@
                     $("#overlay").hide();
                     $("#loading").hide();
                 },
-                error: function (){
+                error: function() {
                     alert("A ocurrido algun error")
                     $("#overlay").hide();
                     $("#loading").hide();
                 }
 
             });
-         }
+        }
 
-       
+
 
         function enviaDatosClienteDetalle(norma, proceso) {
             var fechaI = $("#calendarioI").val();
@@ -159,14 +180,23 @@
                 },
                 success: function(data) {
                     $("#ReporteClienteP").html(data);
-                    $("#botonExcel").prop('disabled', false);
+                    var dataFound = $("#data_found").val() === '1';
+                    if (!dataFound) {
+                        // Mostrar el modal si no se encontraron datos
+                        $('#noDataModal').modal('show');
+                        $("#botonExcel").prop('disabled', true);
+                    } else {
+                        // Habilitar el botón de exportar a Excel
+                        $("#botonExcel").prop('disabled', false);
+                    }
+
                 },
 
                 complete: function() {
                     $("#overlay").hide();
                     $("#loading").hide();
                 },
-                error: function (){
+                error: function() {
                     alert("A ocurrido algun error")
                     $("#overlay").hide();
                     $("#loading").hide();
