@@ -21,7 +21,8 @@
 					<div class="row">
 
 
-
+					<?php foreach($_SESSION["UsuarioOpciones"] as $mod){ //INICIO DEL FOR ?>
+					    <?php if($mod == 1) { ?>
 						<div class="col-sm-3 ">
 							<div class="card text-dark  mb-3 shadow card-hover" style="max-width: 18rem; cursor:pointer;">
 								<div class="card-body text-center p-5">
@@ -32,7 +33,15 @@
 								</div>
 							</div>
 						</div>
+						
+						<?php }?>
 
+
+
+
+
+					<?php } //FIN DEL FOREACH?>	
+					
 
 						
 

@@ -17,9 +17,9 @@
 							<span class="micon dw dw-folder-122" ></span><span class="mtext">ADMINISTRACIÓN</span>
 							<!-- <span class="micon dw dw-folder-122" style="color: #ff7113; font-weight: 700;"></span><span class="mtext">ADMINISTRACIÓN</span> -->
 						</a>
-						<?php foreach($_SESSION["UsuarioOpciones"] as $opc){ //INICIO DEL FOR ?>
+						<?php foreach($_SESSION["UsuarioSubModulo"] as $sub){ //INICIO DEL FOR ?>
 						<ul class="submenu">
-						    <?php if($opc ==1){ ?>
+						    <?php if($sub ==1){ ?>
 							<li><a href="<?php echo constant('URL')?>onbase/administracionUser" 
 							<?php if($this->pagina=="onbase/administracionUser"){ echo "class='active'"; }?>>PERMISOS USUARIOS</a></li>
 							<?php } ?>
@@ -36,23 +36,26 @@
 							<span class="micon dw dw-zoom-in">
 							</span><span class="mtext">FACTURACIÓN</span>
 						</a>
-						<?php foreach($_SESSION["UsuarioOpciones"] as $opc){ //INICIO DEL FOR ?>
+						
 						<ul class="submenu">
-						    <?php if($opc ==2){ ?>
+						<?php foreach($_SESSION["UsuarioSubModulo"] as $sub){ //INICIO DEL FOR ?>
+						    <?php if($sub ==2){ ?>
 						    <li><a href="<?php echo constant('URL')?>onbase/procesos" 
 							<?php if($this->pagina=="onbase/procesos"){ echo "class='active'"; }?>>DASHBOARDS</a></li>
 							<?php } ?>
-							<?php if($opc ==2){ ?>
+							<?php if($sub ==3){ ?>
 						    <li><a href="<?php echo constant('URL')?>onbase/facturacionReportes" 
 							<?php if($this->pagina=="onbase/facturacionReportes"){ echo "class='active'"; }?>>REPORTES</a></li>
 							<?php } ?>
 						</ul>
 						<?php } //FIN DEL FOREACH OPC?>
 					</li>	
-					<?php } //FIN DEL FOREACH?>	
+					<?php } //FIN DEL FOREACH
+					?>	
+					
 					<?php }?>
-				
-
+								
+					
 
 					<?php foreach($_SESSION["UsuarioModulo"] as $mod){ //INICIO DEL FOR ?>
 					    <?php if($mod ==3) { ?>
@@ -61,7 +64,7 @@
 							<span class="micon dw dw-idea-1"></span><span class="mtext">OPERACIONES</span>
 						</a>					
 						<ul class="submenu">
-						 <?php if($opc ==3){ ?>
+						 <?php if($sub ==4){ ?>
 							<li><a href="<?php echo constant('URL')?>onbase/operaciones_menu" 
 							<?php if($this->pagina=="onbase/operaciones_menu"){ echo "class='active'"; }?>>SOLICITUDES</a></li>
 							<?php } ?>
@@ -71,6 +74,7 @@
 					</li>
 					  <?php } //FIN DEL FOREACH?>
 					<?php } ?>
+
 
 					<?php foreach($_SESSION["UsuarioModulo"] as $mod){ //INICIO DEL FOR ?>
 					    <?php if($mod ==5) { ?>

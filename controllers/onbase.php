@@ -98,6 +98,7 @@ class Onbase extends Controller
         
 
         <!--  BUSCADOR POR JQUERY    -->
+        <input type="hidden" id="data_found" value="<?php echo $data_found ? '1' : '0'; ?>">
         <input type="text" class="form-control pull-right" style="width:20%; margin-bottom: 0.6em;" id="searchRepPhi" name="searchRepPhi" placeholder="Buscador...">
 
         <table id="tablaRepPhi" name="tablaRepPhi" class="table table-responsive">

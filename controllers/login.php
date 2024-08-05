@@ -75,6 +75,24 @@ class Login extends Controller {
                                 }
                             }
                         }
+
+
+                        $sql5 = "EXEC [dbo].[OB_WEB_ObtenerPermisosUsuario] '" . $usuario . "', '3'";
+                        if ($db->query($sql5)) {
+                            $resultado5 = $db->obtener_registros();
+                            if ($resultado5) {
+                                $_SESSION['UsuarioSubModulo'] = []; // Inicializa como un arreglo vacío
+                                foreach ($resultado5 as $fila) {
+                                    if (isset($fila->SubModulo)) {
+                                        $_SESSION['UsuarioSubModulo'][] = $fila->SubModulo;
+                                    }
+                                }
+                            }
+                        }
+
+
+
+
                             //   print_r($_SESSION['UsuarioModulo']); 
                             //   print_r($_SESSION['UsuarioOpciones']); exit();
 
