@@ -36,9 +36,9 @@
 							<span class="micon dw dw-zoom-in">
 							</span><span class="mtext">FACTURACIÓN</span>
 						</a>
-						
-						<ul class="submenu">
 						<?php foreach($_SESSION["UsuarioSubModulo"] as $sub){ //INICIO DEL FOR ?>
+						<ul class="submenu">
+						
 						    <?php if($sub ==2){ ?>
 						    <li><a href="<?php echo constant('URL')?>onbase/procesos" 
 							<?php if($this->pagina=="onbase/procesos"){ echo "class='active'"; }?>>DASHBOARDS</a></li>
@@ -76,67 +76,7 @@
 					<?php } ?>
 
 
-					<?php foreach($_SESSION["UsuarioModulo"] as $mod){ //INICIO DEL FOR ?>
-					    <?php if($mod ==5) { ?>
-					<li class="dropdown"> 
-						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-idea-1"></span><span class="mtext">SERVICIO CLIENTE</span>
-						</a>
-						
-						<ul class="submenu">
-						    <?php if($sub->IdSub ==10 && $sub->IdModulo == 5){ ?>
-							<li><a href="<?php echo constant('URL')?>onbase/menu_reclamos" 
-							<?php if($this->pagina=="onbase/menu_reclamos"){ echo "class='active'"; }?>>RECLAMOS</a></li>
-							<?php } ?>
-							
-						</ul>
-						
-						
-					</li>
-					  <?php } //FIN DEL FOREACH?>
-					<?php } ?>
 
-
-
-					<?php foreach($_SESSION["UsuarioModulo"] as $mod){ //INICIO DEL FOR ?>
-					    <?php if($mod ==6) { ?>
-					<li class="dropdown"> 
-						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-idea-1"></span><span class="mtext">TRÁFICO</span>
-						</a>
-					
-						<ul class="submenu">
-						    <?php if($sub->IdSub ==11 && $sub->IdModulo == 6){ ?>
-							<li><a href="<?php echo constant('URL')?>onbase/menu_pedimentos" 
-							<?php if($this->pagina=="onbase/menu_pedimentos"){ echo "class='active'"; }?>>PEDIMENTOS</a></li>
-							<?php } ?>
-							
-						</ul>
-						
-				
-					</li>
-					  <?php } //FIN DEL FOREACH?>
-					<?php } ?>
-
-
-
-					<?php foreach($_SESSION["UsuarioModulo"] as $mod){ //INICIO DEL FOR ?>
-					    <?php if($mod ==4) { ?>
-					<li class="dropdown"> 
-						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-coding-1"></span><span class="mtext">OnBase</span>
-						</a>
-						<ul class="submenu">
-							<li><a href="<?php echo constant('URL')?>onbase/solicitud" 
-							<?php if($this->pagina=="onbase/solicitud"){ echo "class='active'"; }?>>Solicitud</a></li>
-							<li><a href="<?php echo constant('URL')?>onbase/consulta" 
-							<?php if($this->pagina=="onbase/consulta"){ echo "class='active'"; }?>>Consulta</a></li>
-							<li><a href="<?php echo constant('URL')?>onbase/dashboard" 
-							<?php if($this->pagina=="onbase/dashboard"){ echo "class='active'"; }?>>Dashboard</a></li>
-						</ul>
-					</li>
-					 <?php } //FIN DEL FOREACH?>
-					<?php } ?>
 
 
 					<?php foreach($_SESSION["UsuarioModulo"] as $mod){ //INICIO DEL FOR ?>

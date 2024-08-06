@@ -34,7 +34,44 @@ body {
     min-height: 100%;
     color: #031e23;
     background: #ffffff
+    
 }
+/* Hacer que la imagen de fondo abarque toda la pantalla */
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Para que la imagen esté detrás del contenido */
+    overflow: hidden;
+}
+
+.background-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Para que la imagen abarque toda la pantalla sin distorsionarse */
+}
+
+/* Estilo para el menú */
+.header {
+    position: relative;
+    z-index: 10;
+    background-color: rgba(8, 4, 59, 0.85); /* Color de fondo con opacidad */
+    width: 100%;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Icono del menú */
+.menu-icon {
+    font-size: 40px;
+    margin-left: 10px;
+    cursor: pointer;
+    color: white;
+}
+
+
 
 a {
     text-decoration: none;

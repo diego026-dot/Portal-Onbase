@@ -56,6 +56,6 @@
 								window.location='<?php echo constant('URL')?>onbase/facturas_nacionales/';
 							     	}
 							function fact_phillips() {
-								window.location = '<?php echo constant('URL') ?>onbase/reportePhillips/';
+								window.location = '<?php echo constant('URL') ?>onbase/reporteClientes/';
 							}
 						</script>

@@ -7,9 +7,9 @@
                 <ol class="breadcrumb mb-1 bg-transparent">
                     <li class="breadcrumb-item">
                         <img src="https://static.wixstatic.com/media/fe7c4c_794ee55525f8446ba0a6ba64d5afaeb6~mv2.png/v1/fill/w_120,h_48,al_c,lg_1,q_85,enc_auto/fe7c4c_794ee55525f8446ba0a6ba64d5afaeb6~mv2.png" alt="Icono" style="width: 40px; height: auto; margin-right: 10px;">
-                        <a href="#">Facturacion</a>
+                        <a href="#">Facturación</a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Reportes</li>
+                    <li class="breadcrumb-item active" aria-current="page">Facturas por Concepto</li>
                 </ol>
             </nav>
             <button type="button" onclick="regresar();" class=" btn-base-regresar">Regresar</button>

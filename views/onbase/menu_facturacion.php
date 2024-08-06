@@ -9,7 +9,7 @@
 					<div class="col-md-6 col-sm-12">
 						<nav aria-label="breadcrumb" role="navigation">
 							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="#">CCD</a></li>
+								<li class="breadcrumb-item"><a href="#">Facturación</a></li>
 								<li class="breadcrumb-item active" aria-current="page">Menu</li>
 							</ol>
 						</nav>
@@ -26,10 +26,11 @@
 						<div class="col-sm-3 ">
 							<div class="card text-dark  mb-3 shadow card-hover" style="max-width: 18rem; cursor:pointer;">
 								<div class="card-body text-center p-5">
-									<i class="fi fi-br-file-invoice-dollar" style="font-size:90px; color:#08043b "></i></i>
+								<img class="borderedondo" style="font-size:90px; color:#08043b " src=<?php echo constant('URL') . 'public/img/menu_ccd/orange_document.png'?>
+									
 									<a href="javascript:void(0)" class="stretched-link" onClick="fact_phillips()"></a>
 
-									<div style="color:#293080; font-weight:bold; font-size:18px; margin-top:10px;">REPORTE PHILLIPS</div>
+									<div style="color:#293080; font-weight:bold; font-size:18px; margin-top:10px;">REPORTE CLIENTES</div>
 								</div>
 							</div>
 						</div>
@@ -123,6 +124,6 @@
 
 						<script>
 							function fact_phillips() {
-								window.location = '<?php echo constant('URL') ?>onbase/reportePhillips/';
+								window.location = '<?php echo constant('URL') ?>onbase/reporteClientes/';
 							}
 						</script>

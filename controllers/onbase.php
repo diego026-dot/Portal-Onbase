@@ -71,7 +71,7 @@ class Onbase extends Controller
         $this->view->render('onbase/menu_facturacion');
     }
 
-    public function reportePhillips()
+    public function reporteClientes()
     {
 
         $selectClientes = $this->model->selectClientes();

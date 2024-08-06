@@ -8,8 +8,8 @@
 					<div class="col-12">
 						<nav aria-label="breadcrumb" role="navigation">
 							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="#">Facturacion</a></li>
-								<li class="breadcrumb-item active" aria-current="page">Reportes</li>
+								<li class="breadcrumb-item"><a href="#">Facturación</a></li>
+								<li class="breadcrumb-item active" aria-current="page">Reporte de Clientes Facturas por Concepto</li>
 							</ol>
 						</nav>
 					</div>
