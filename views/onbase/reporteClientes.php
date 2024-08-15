@@ -181,8 +181,7 @@
                 success: function(data) {
                     $("#ReporteClienteP").html(data);
                     var dataFound = $("#data_found").val() === '1';
-                    console.log(data);
-                    console.log(dataFound)
+                   
                     if (!dataFound) {
                         // Mostrar el modal si no se encontraron datos
                         $('#noDataModal').modal('show');

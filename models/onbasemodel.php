@@ -21,11 +21,11 @@ class OnbaseModel extends Model{
     }
 
 
-    public function consulta_indicadoresMain($param1){
+    public function selectUsuarios(){
         try{
             $this->dbOnBase->connect();
            
-            $sql = "exec [dbo].[OB_WEB_IndicadoresMain2] '" . $param1 . "'";
+            $sql = " exec [dbo].[OB_WEB_SelectUsuarios] ";
             $this->dbOnBase->query($sql);
             $resultados=$this->dbOnBase->obtener_registros();
          
@@ -71,6 +71,32 @@ class OnbaseModel extends Model{
             $this->dbOnBase->query($sql);
             $resultados=$this->dbOnBase->obtener_registros();
             return $resultados;
+        }catch(PDOEXception $e){
+            return [];
+        }  
+    }
+
+    public function agregarUsuarios($id, $usuario, $correo, $contrasena, $activo, $tipo){
+        try{
+            $this->dbOnBase->connect();
+            $sql = " exec [dbo].[OB_WEB_AgregarUsuario] '" . $id . "','" . $usuario . "','" . $correo . "',
+            '" . $contrasena . "','" . $activo . "','" . $tipo . "'";
+            $this->dbOnBase->query($sql);
+            $this-> dbOnBase -> ejecutar();
+            
+        }catch(PDOEXception $e){
+            return [];
+        }  
+    }
+
+    public function editarUsuarios($id, $usuario, $correo, $contrasena, $activo, $tipo){
+        try{
+            $this->dbOnBase->connect();
+            $sql = " exec [dbo].[OB_WEB_AgregarUsuario] '" . $id . "','" . $usuario . "','" . $correo . "',
+            '" . $contrasena . "','" . $activo . "','" . $tipo . "'";
+            $this->dbOnBase->query($sql);
+            $this-> dbOnBase -> ejecutar();
+            
         }catch(PDOEXception $e){
             return [];
         }  

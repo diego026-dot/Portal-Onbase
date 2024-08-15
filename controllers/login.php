@@ -40,15 +40,21 @@ class Login extends Controller {
                     if ($resultado->VALIDACION === "1") {
 
                         session_start();
-                        $_SESSION['usuario'] = $usuario;
+                        $_SESSION['usuario'] = strtoupper($usuario);
 
-                        $sql2 = "EXEC [dbo].[OB_WEB_ObtieneUserID] '" . $usuario . "'";
+                        $sql2 = "EXEC [dbo].[OB_WEB_ObtieneCorreoUsuario] '" . $usuario . "'";
                         if ($db->query($sql2)) {
-                            $resultado2 = $db->obtener_registro();
-                            if ($resultado2 && isset($resultado2->UsuarioID)) {
-                                $_SESSION['usuarioid'] = $resultado2->UsuarioID;
+                            $resultado2 = $db->obtener_registros();
+                            if ($resultado2) {
+                                $_SESSION['usuarioCorreo'] = []; // Inicializa como un arreglo vacío
+                                foreach ($resultado2 as $fila) {
+                                    if (isset($fila->CorreoElectronico)) {
+                                        $_SESSION['usuarioCorreo'][] = $fila->CorreoElectronico;
+                                    }
+                                }
                             }
                         }
+
 
                         $sql3 = "EXEC [dbo].[OB_WEB_ObtenerPermisosUsuario] '" . $usuario . "', '1'";
                         if ($db->query($sql3)) {

@@ -31,17 +31,36 @@ class Onbase extends Controller
 
     public function administracionUser($parametros = null)
     {
-        $this->model = new OnbaseModel();
-        $param1 = 1;
+        if ($parametros == null) {
+            $parametros = '0/0/0/0/0/0';
+        }
 
-        $consultaIndicadores = $this->model->consulta_indicadoresMain($param1);
+        $id = $parametros[0];
+        $usuario = $parametros[1];
+        $correo = $parametros[2];
+        $contrasena = $parametros[3];
+        $activo = $parametros[4];
+        $tipo = $parametros[5];
+        
+        
+        if($tipo == 1){
+            $this->model->agregarUsuarios($id, $usuario, $correo, $contrasena, $activo, $tipo);
+        }
+        
+        if($tipo == 2){
+            $this->model->editarUsuarios($id, $usuario, $correo, $contrasena, $activo, $tipo);
+        }
+        
+        $consultaUsuarios = $this->model->selectUsuarios();
 
-
-        $this->view->consultaIndicadores = $consultaIndicadores;
+        
+        $this->view->consultaUsuarios = $consultaUsuarios;
 
         $this->view->pagina = "onbase/administracion";
         $this->view->render('onbase/administracion');
     }
+
+
     public function operaciones_menu()
     {
 
@@ -91,11 +110,11 @@ class Onbase extends Controller
         $fechaFin = $parametros[1];
         $clientes = $parametros[2];
 
-        $consultaIndicadores = $this->model->consulta_Facturacion($fechaInicio, $fechaFin, $clientes); 
+        $consultaIndicadores = $this->model->consulta_Facturacion($fechaInicio, $fechaFin, $clientes);
         $_SESSION['consultaIndicadores'] = $consultaIndicadores;
-        
-        $data_found = !empty($consultaIndicadores);?>
-        
+
+        $data_found = !empty($consultaIndicadores); ?>
+
 
         <!--  BUSCADOR POR JQUERY    -->
         <input type="hidden" id="data_found" value="<?php echo $data_found ? '1' : '0'; ?>">
@@ -116,46 +135,48 @@ class Onbase extends Controller
                 </tr>
             </thead>
             <tbody>
-                <?php if ($data_found) {foreach ($consultaIndicadores as $row) { //INICIO DEL FOR    
+                <?php if ($data_found) {
+                    foreach ($consultaIndicadores as $row) { //INICIO DEL FOR    
                 ?>
-                    <tr>
-                        <td><?php echo $row->FolioFiscal; ?></td>
-                        <td><?php echo $row->REFERENCIA; ?></td>
-                        <td><?php echo $row->FechaIngresada; ?></td>
-                        <td><?php echo $row->Pedimento; ?></td>
-                        <td><?php echo $row->Patente; ?></td>
-                        <td><?php echo $row->Aduana; ?></td>
-                        <td><?php echo $row->ClienteOP; ?></td>
-                        <td><?php echo $row->NumCliente; ?></td>
-                        <td><?php echo $row->Total; ?></td>
-                    </tr>
+                        <tr>
+                            <td><?php echo $row->FolioFiscal; ?></td>
+                            <td><?php echo $row->REFERENCIA; ?></td>
+                            <td><?php echo $row->FechaIngresada; ?></td>
+                            <td><?php echo $row->Pedimento; ?></td>
+                            <td><?php echo $row->Patente; ?></td>
+                            <td><?php echo $row->Aduana; ?></td>
+                            <td><?php echo $row->ClienteOP; ?></td>
+                            <td><?php echo $row->NumCliente; ?></td>
+                            <td><?php echo $row->Total; ?></td>
+                        </tr>
                 <?php } //FIN DEL FOR
-                }?>
+                } ?>
             </tbody>
         </table> <?php
 
 
-    }
+                }
 
-    public function cargaReporteExcel($parametros = null){
+                public function cargaReporteExcel($parametros = null)
+                {
 
-        $consultaIndicadores = $_SESSION['consultaIndicadores'] ?? [];
-        if (empty($consultaIndicadores)) {
-            // Manejar el caso en el que no hay datos en la sesión
-            exit('No hay datos disponibles para exportar.');
-        }
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+                    $consultaIndicadores = $_SESSION['consultaIndicadores'] ?? [];
+                    if (empty($consultaIndicadores)) {
+                        // Manejar el caso en el que no hay datos en la sesión
+                        exit('No hay datos disponibles para exportar.');
+                    }
+                    $spreadsheet = new Spreadsheet();
+                    $sheet = $spreadsheet->getActiveSheet();
 
-        // Convertir stdClass a array
-        if (!empty($consultaIndicadores)) {
-            $firstRow = (array) $consultaIndicadores[0];
-            $columnIndex = 'A';
-            foreach (array_keys($firstRow) as $column) {
-                $sheet->setCellValue($columnIndex . '1', $column);
-                 $columnIndex++;
-            }
-        }
+                    // Convertir stdClass a array
+                    if (!empty($consultaIndicadores)) {
+                        $firstRow = (array) $consultaIndicadores[0];
+                        $columnIndex = 'A';
+                        foreach (array_keys($firstRow) as $column) {
+                            $sheet->setCellValue($columnIndex . '1', $column);
+                            $columnIndex++;
+                        }
+                    }
 
                     // Set row data
                     $rowIndex = 2;
@@ -177,15 +198,15 @@ class Onbase extends Controller
                     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
                     //header('Content-Disposition: attachment; filename="' . $fileName . '"');
                     header('Cache-Control: max-age=0');
-                    
+
 
                     // Save the file to output
                     $writer->save('php://output');
                     exit;
-    }
-}
+                }
+            }
 
-?>
+                    ?>
 
 
 <script>

@@ -10,8 +10,8 @@
 		<div class="menu-block customscroll">
 			<div class="sidebar-menu icon-style-1 icon-list-style-4">	
 				<ul id="accordion-menu">
-				<?php foreach($_SESSION["UsuarioModulo"] as $perm){ //INICIO DEL FOR ?>
-				<?php if($perm ==1){ ?>
+				<?php foreach($_SESSION["UsuarioModulo"] as $mod){ //INICIO DEL FOR ?>
+				<?php if($mod ==1){ ?>
 					<li class="dropdown"> 
 						<a href="javascript:;" class="dropdown-toggle">
 							<span class="micon dw dw-folder-122" ></span><span class="mtext">ADMINISTRACIÓN</span>
@@ -46,7 +46,7 @@
 							<?php if($sub ==3){ ?>
 						    <li><a href="<?php echo constant('URL')?>onbase/facturacionReportes" 
 							<?php if($this->pagina=="onbase/facturacionReportes"){ echo "class='active'"; }?>>REPORTES</a></li>
-							<?php } ?>
+							<?php }?>
 						</ul>
 						<?php } //FIN DEL FOREACH OPC?>
 					</li>	
@@ -62,19 +62,21 @@
 					<li class="dropdown"> 
 						<a href="javascript:;" class="dropdown-toggle">
 							<span class="micon dw dw-idea-1"></span><span class="mtext">OPERACIONES</span>
-						</a>					
+						</a>
+						<?php foreach($_SESSION["UsuarioSubModulo"] as $sub){ //INICIO DEL FOR ?>					
 						<ul class="submenu">
-						 <?php if($sub ==4){ ?>
+						 	<?php if($sub == 4){ ?>
 							<li><a href="<?php echo constant('URL')?>onbase/operaciones_menu" 
 							<?php if($this->pagina=="onbase/operaciones_menu"){ echo "class='active'"; }?>>SOLICITUDES</a></li>
 							<?php } ?>
+
 						</ul>
-						
+						<?php } //FIN DEL FOREACH?>
 						
 					</li>
-					  <?php } //FIN DEL FOREACH?>
+					  
 					<?php } ?>
-
+					<?php }?>
 
 
 
