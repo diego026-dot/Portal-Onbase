@@ -2,6 +2,7 @@
 <head>
 	<meta charset="utf-8">
 	<title><?php echo constant('PROYECTO')?></title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 	<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.0/uicons-brands/css/uicons-brands.css'>
 	<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
 	<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.0/uicons-solid-straight/css/uicons-solid-straight.css'>
@@ -22,6 +23,7 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo constant('URL');?>public/src/plugins/slick/slick.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo constant('URL');?>public/src/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo constant('URL');?>public/vendors/styles/style.css">
+	
 	
 	<link rel="stylesheet" type="text/css" href="<?php echo constant('URL');?>plugins/jQuery/jquery-2.1.4.min.js">
 	<link rel="stylesheet" type="text/css" href="<?php echo constant('URL');?>plugins/morris/raphael-min.js">

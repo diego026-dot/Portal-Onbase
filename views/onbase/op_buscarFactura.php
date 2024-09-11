@@ -1,5 +1,9 @@
 <?php include("public/inc/encabezado_sinbusqueda.php"); ?>
-
+<style>
+    .hidden {
+    display: none !important;
+}
+</style>
 <div class="container-fluid" style="margin-top: 0; padding-top: 0;">
     <div class="row">
         <div class="col-12 d-flex align-items-center justify-content-between">
@@ -16,13 +20,40 @@
         </div>
     </div>
     <div class="row mt-5 justify-content-center align-items-center mb-2">
-        <div class="col-lg-2 col-md-12 mr-4 mb-2">
+
+        <div class="col-md-2">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="option" id="radioCliente" value="1">
+                <label class="form-check-label" for="radioCliente">
+                     Cliente
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="option" id="radioProvedor" value="2" >
+                <label class="form-check-label" for="radioProvedor">
+                    Proovedor
+                </label>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-12 mr-4 mb-2 hidden" id="input1" >
             <label for="selectCliente" class="form-label mb-1">Cliente</label>
             <select class="selectpicker" aria-label="Clientes" id="selectCliente" name="selectCliente" required>
                 <option value="" disabled selected>Selecciona un cliente</option>
                 <?php foreach ($this->selectClientes as $row) { ?>
                     <option value="<?php echo $row->Cliente; ?>"><?php echo $row->Cliente; ?></option>
                 <?php } ?>
+                <option value="">Cliente</option>
+            </select>
+        </div>
+        <div class="col-lg-2 col-md-12 mr-4 mb-2 hidden" id="input2">
+            <label for="selectCliente" class="form-label mb-1">Proovedor</label>
+            <select class="selectpicker" aria-label="Clientes" id="selectProveedor" name="selectProveedor" required>
+                <option value="" disabled selected>Selecciona un Proovedor</option>
+                <?php foreach ($this->selectProveedor as $row) { ?>
+                    <option value="<?php echo $row->Proveedor; ?>"><?php echo $row->Proveedor; ?></option>
+                <?php } ?>
+
+                <option value="">Proovedor</option>
             </select>
         </div>
         <div class="col-md-2 mb-3">
@@ -35,8 +66,8 @@
         </div>
 
         <div class="col-md-2">
-            <button type="button" class=" btn-base  mr-3" onclick="enviaDatosClienteDetalle();">Buscar</button>
-            <button type="button" onclick="enviaDatos();" class="btn-base" id="botonExcel" style="background-color:green " disabled>Excel</button>
+            <button type="button" class=" btn-base  mr-3" onclick="enviaDatos();">Buscar</button>
+            <button type="button" class="btn-base"onclick="excel();" id="botonExcel" style="background-color:green " disabled>Excel</button>
 
             <!-- <button type="button" id="exportBtn" class="btn btn-success btn-sm">Excel</button> -->
         </div>
@@ -97,74 +128,34 @@
     <?php include("public/inc/jsfooter.php"); ?>
 
     <script>
+        function excel() {
+            $("#tablaRepPhi").table2excel({
+                formats: ["xlsx"],
+                position: 'bottom',
+                bootstrap: false,
+                name: "reclamos_tiempos",
+                filename: 'reclamos_tiempos'
+            });
+        }
+
         function regresar() {
             window.location = '<?php echo constant('URL') ?>onbase/facturacionReportes/';
         }
 
-        // function excel() {
-        //     $("#tabla20").table2excel({
-        //         formats: ["xlsx"],
-        //         position: 'bottom',
-        //         bootstrap: false,
-        //         name: "reclamos_tiempos",
-        //         filename: 'reclamos_tiempos'
-        //     });
-        // }
-
         function enviaDatos() {
+            var tipo = $('input[name="option"]:checked').val();
             var fechaI = $("#calendarioI").val();
             var fechaF = $("#calendarioF").val();
-            var cliente = $("#selectCliente").val();
+            var cliente 
+            if(tipo === '1'){
+                cliente = $("#selectCliente").val();
+            }else if(tipo === '2'){
+                cliente = $("#selectProveedor").val();
+            }
+            
+            var direccion = "http://172.20.20.56:8080/ravisa/onbase/cargaTabla_ReporteStatusFactura";
+            var url = direccion + "/" + $.trim(fechaI) + "/" + $.trim(fechaF) + "/" + $.trim(cliente)+ "/" + $.trim(tipo);;
 
-            var direccion = "http://172.20.20.56:8080/ravisa/onbase/cargaReporteExcel";
-            var url = direccion + "/" + $.trim(fechaI) + "/" + $.trim(fechaF) + "/" + $.trim(cliente);
-            var nombreExcel = "Reporte: " + $.trim(cliente) + "/" + $.trim(fechaI) + "/" + $.trim(fechaF) + "/";
-            $("#overlay").show();
-            $("#loading").show();
-
-            $.ajax({
-                type: "POST",
-                url: url,
-
-                beforeSend: function() {},
-
-                xhrFields: {
-                    responseType: 'blob'
-                },
-                beforeSend: function() {},
-
-                success: function(data) {
-                    var a = document.createElement('a');
-                    var url = window.URL.createObjectURL(data);
-                    a.href = url;
-                    a.download = nombreExcel;
-                    document.body.append(a);
-                    a.click();
-                    a.remove();
-                    window.URL.revokeObjectURL(url);
-                },
-                complete: function() {
-                    $("#overlay").hide();
-                    $("#loading").hide();
-                },
-                error: function() {
-                    alert("A ocurrido algun error")
-                    $("#overlay").hide();
-                    $("#loading").hide();
-                }
-
-            });
-        }
-
-
-
-        function enviaDatosClienteDetalle(norma, proceso) {
-            var fechaI = $("#calendarioI").val();
-            var fechaF = $("#calendarioF").val();
-            var cliente = $("#selectCliente").val();
-
-            var direccion = "http://172.20.20.56:8080/ravisa/onbase/cargaTabla_ReportePhilips";
-            var url = direccion + "/" + $.trim(fechaI) + "/" + $.trim(fechaF) + "/" + $.trim(cliente);
 
             $("#overlay").show();
             $("#loading").show();
@@ -204,4 +195,21 @@
 
             });
         }
-    </script>
+
+
+        $(document).ready(function() {
+            // Cuando cambie el valor de los radio buttons
+            $('input[name="option"]').change(function() {
+                if ($(this).val() == '1') {
+                    // Mostrar input1 y ocultar input2
+                    $('#input1').removeClass('hidden');
+                    $('#input2').addClass('hidden');
+                } else if ($(this).val() == '2') {
+                    // Mostrar input2 y ocultar input1
+                    $('#input1').addClass('hidden');
+                    $('#input2').removeClass('hidden');
+                }
+            });
+        });
+
+</script>

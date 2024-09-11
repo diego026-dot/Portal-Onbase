@@ -23,7 +23,6 @@
 
 			<div class="row">
 
-
 				<?php foreach ($_SESSION["UsuarioOpciones"] as $mod) { //INICIO DEL FOR 
 				?>
 					<?php if ($mod == 1) { ?>
@@ -41,12 +40,33 @@
 
 					<?php } ?>
 
+				<?php } //FIN DEL FOREACH
+				?>
 
+				<?php foreach ($_SESSION["UsuarioOpciones"] as $mod) { //INICIO DEL FOR 
+				?>
+					<?php if ($mod == 1002) { ?>
+						<div class="col-sm-3 ">
+							<div class="card text-dark  mb-3 shadow card-hover" style="max-width: 18rem; cursor:pointer;">
+								<div class="card-body text-center p-5">
+									<img class="borderedondo" style="font-size:90px; color:#08043b " src=<?php echo constant('URL') . 'public/img/menu_ccd/orange_document.png' ?>
 
+										<a href="javascript:void(0)" class="stretched-link" onClick="fact_onbase()"></a>
 
+									<div style="color:#293080; font-weight:bold; font-size:18px; margin-top:10px;">REPORTE ONBASE</div>
+								</div>
+							</div>
+						</div>
+
+					<?php } ?>
 
 				<?php } //FIN DEL FOREACH
 				?>
+
+
+
+				
+				
 
 			</div>
 
@@ -63,9 +83,13 @@
 		window.location = '<?php echo constant('URL') ?>onbase/reporteClientes/';
 	}
 
+	function fact_onbase() {
+		window.location = '<?php echo constant('URL') ?>onbase/reporteOnbase/';
+	}
+
 
 	function regresar() {
-            window.location = '<?php echo constant('URL') ?>main';
-    }
+		window.location = '<?php echo constant('URL') ?>main';
 
+	}
 </script>

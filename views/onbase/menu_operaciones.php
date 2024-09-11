@@ -1,6 +1,7 @@
 <?php include("public/inc/encabezado_sinbusqueda.php"); ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,6 +22,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/wysihtml5/0.3.0/wysihtml5.min.css">
 </head>
+
 <body>
     <div class="container-fluid" style="margin-top: 0; padding-top: 0;">
         <div class="row">
@@ -44,36 +46,53 @@
                     <div class="col-sm-3">
                         <div class="card text-dark mb-3 shadow card-hover" style="max-width: 18rem; cursor:pointer;">
                             <div class="card-body text-center p-5">
-                                <img class="borderedondo" src=<?php echo constant('URL') . 'public/img/menu_ccd/sol_nueva.png'?> title="Solicitud Facturas Nacionales" width="140px"/>
+                                <img class="borderedondo" src=<?php echo constant('URL') . 'public/img/menu_ccd/sol_nueva.png' ?> title="Solicitud Facturas Nacionales" width="140px" />
                                 <a href="javascript:void(0)" class="stretched-link" onClick="facturas_nac()"></a>
                                 <div style="color:#293080; font-weight:bold; font-size:18px; margin-top:10px;">SOLICITUD CARGA DE FACTURAS</div>
                             </div>
                         </div>
                     </div>
 
-                   
+                    <div class="col-sm-3">
+                        <div class="card text-dark mb-3 shadow card-hover" style="max-width: 18rem; cursor:pointer;">
+                            <div class="card-body text-center p-5">
+                                <img class="borderedondo" src=<?php echo constant('URL') . 'public/img/menu_ccd/sol_fact.png' ?> title="Solicitud Facturas Nacionales" width="140px" />
+                                <a href="javascript:void(0)" class="stretched-link" onClick="op_buscar()"></a>
+                                <div style="color:#293080; font-weight:bold; font-size:18px; margin-top:10px;">BUSCAR FACTURA</div>
+                            </div>
+                        </div>
+                    </div>
 
-				   
+
+
                 </div>
+
             </section>
         </div>
+
+
+
+
     </div>
 
-    <?php include("public/inc/jsfooter.php");?>
+    <?php include("public/inc/jsfooter.php"); ?>
 
     <?php
-      
-			$USUARIO = $_SESSION['usuario'];
-		
-		foreach ($_SESSION['usuarioCorreo'] as $correo)
-		{
-			$EMAIL = $correo;
-		}
+
+    $USUARIO = $_SESSION['usuario'];
+
+    foreach ($_SESSION['usuarioCorreo'] as $correo) {
+        $EMAIL = $correo;
+    }
     ?>
 
     <script>
+        function op_buscar() {
+            window.location = '<?php echo constant('URL') ?>onbase/op_buscarFactura/';
+        }
+
         // function facturasmx() {
-        //     window.open('http://srvweb/AppNet/UnityForm.aspx?d1=AcEKbfLfYiZnR%2brHS%2bhGyl7oEtCSurJv4t%2fXfZu2Q9REKpjeB%2fJuYamzSeVzmuYgrdTUSYbOzCwrx5l8LUhrZ5AldjPnVzcnYXiDUd0%2bcMHpwWYz9W6rKRjqY5KthvFOZ%2fIYtnOG2OzImuyPayRgbYc%3d', '_blank');
+        // window.open('http://srvweb/AppNet/UnityForm.aspx?d1=AcEKbfLfYiZnR%2brHS%2bhGyl7oEtCSurJv4t%2fXfZu2Q9REKpjeB%2fJuYamzSeVzmuYgrdTUSYbOzCwrx5l8LUhrZ5AldjPnVzcnYXiDUd0%2bcMHpwWYz9W6rKRjqY5KthvFOZ%2fIYtnOG2OzImuyPayRgbYc%3d', '_blank');
         // }
 
         function facturas_nac() {
@@ -116,4 +135,5 @@
         });
     </script>
 </body>
+
 </html>

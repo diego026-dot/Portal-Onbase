@@ -16,15 +16,6 @@
         </div>
     </div>
     <div class="row mt-5 justify-content-center align-items-center mb-2">
-        <div class="col-lg-2 col-md-12 mr-4 mb-2">
-            <label for="selectCliente" class="form-label mb-1">Cliente</label>
-            <select class="selectpicker" aria-label="Clientes" id="selectCliente" name="selectCliente" required>
-                <option value="" disabled selected>Selecciona un cliente</option>
-                <?php foreach ($this->selectClientes as $row) { ?>
-                    <option value="<?php echo $row->Cliente; ?>"><?php echo $row->Cliente; ?></option>
-                <?php } ?>
-            </select>
-        </div>
         <div class="col-md-2 mb-3">
             <label for="calendarioI" class="form-label mb-1">Fecha inicio</label>
             <input type="date" class="form-control" id="calendarioI" name="calendarioI" step="1" min="2023-01-01" max="<?php echo date("Y-m-d"); ?>" value="">
@@ -38,7 +29,6 @@
             <button type="button" class=" btn-base  mr-3" onclick="enviaDatosClienteDetalle();">Buscar</button>
             <button type="button" onclick="enviaDatos();" class="btn-base" id="botonExcel" style="background-color:green " disabled>Excel</button>
 
-            <!-- <button type="button" id="exportBtn" class="btn btn-success btn-sm">Excel</button> -->
         </div>
 
 
@@ -69,17 +59,7 @@
             <div class="table-responsive mt-3">
                 <div id="ReporteClienteP"> </div>
             </div>
-            <div class="col">
-                <div class="form-group">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" style="width:100px"><b></b></span>
-                        </div>
-                    </div>
-                </div>
-
-                <?php echo mensaje(); ?>
-            </div>
+            
         </div>
 
 
@@ -114,13 +94,13 @@
         function enviaDatos() {
             var fechaI = $("#calendarioI").val();
             var fechaF = $("#calendarioF").val();
-            var cliente = $("#selectCliente").val();
 
-            var direccion = "http://172.20.20.56:8080/ravisa/onbase/cargaReporteExcel";
-            var url = direccion + "/" + $.trim(fechaI) + "/" + $.trim(fechaF) + "/" + $.trim(cliente);
-            var nombreExcel = "Reporte: " + $.trim(cliente) + "/" + $.trim(fechaI) + "/" + $.trim(fechaF) + "/";
+            var direccion = "http://172.20.20.56:8080/ravisa/onbase/cargaReporteExcelOnbase/";
+            var url = direccion + "/" + $.trim(fechaI) + "/" + $.trim(fechaF) 
+            var nombreExcel = "ReporteOB" + $.trim(fechaI) + "/" + $.trim(fechaF) 
             $("#overlay").show();
             $("#loading").show();
+
 
             $.ajax({
                 type: "POST",
@@ -161,15 +141,14 @@
         function enviaDatosClienteDetalle(norma, proceso) {
             var fechaI = $("#calendarioI").val();
             var fechaF = $("#calendarioF").val();
-            var cliente = $("#selectCliente").val();
 
-            var direccion = "http://172.20.20.56:8080/ravisa/onbase/cargaTabla_ReportePhilips";
-            var url = direccion + "/" + $.trim(fechaI) + "/" + $.trim(fechaF) + "/" + $.trim(cliente);
+            var direccion = "http://172.20.20.56:8080/ravisa/onbase/cargaTabla_ReporteOnbase";
+            var url = direccion + "/" + $.trim(fechaI) + "/" + $.trim(fechaF) 
 
             $("#overlay").show();
             $("#loading").show();
 
-
+            
             $.ajax({
                 type: "POST",
                 url: url,

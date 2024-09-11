@@ -48,7 +48,18 @@ class OnbaseModel extends Model{
         }  
     }
 
+    public function consulta_ReporteStatusF($fechaI, $fechaF, $clientes, $tipo){
+        try{
+            $this->dbOnBase->connect();
+            $sql = "exec [dbo].[OB_WEB_ReporteStatusFactura] '" . $tipo . "','" . $clientes . "','" . $fechaI . "','" . $fechaF . "'";
+            $this->dbOnBase->query($sql); 
+            $resultados=$this->dbOnBase->obtener_registros();
+            return $resultados;
 
+        }catch(PDOEXception $e){
+            return [];
+        }  
+    }
 
     public function selectClientes(){
         try{
@@ -62,12 +73,24 @@ class OnbaseModel extends Model{
             return [];
         }  
     }
-
-
-    public function obtenerPermisosUsuario($usuario){
+    public function selectProveedor(){
         try{
             $this->dbOnBase->connect();
-            $sql = "exec [dbo].[OB_WEB_ValidaPermisos] '" . $usuario . "'";
+            $sql = "exec [PORTALONBASE].[dbo].[OB_WEB_SelectProveedor] ";
+            $this->dbOnBase->query($sql);
+            $resultados=$this->dbOnBase->obtener_registros();
+
+            return $resultados;
+        }catch(PDOEXception $e){
+            return [];
+        }  
+    }
+
+
+    public function obtenerPermisosUsuario(){
+        try{
+            $this->dbOnBase->connect();
+            $sql = "select * from PermisosUsuarios";
             $this->dbOnBase->query($sql);
             $resultados=$this->dbOnBase->obtener_registros();
             return $resultados;
@@ -75,7 +98,18 @@ class OnbaseModel extends Model{
             return [];
         }  
     }
-
+    public function agregarPermisos($id , $usuario, $correo, $contrasena, $activo){
+        try{
+            $this->dbOnBase->connect();
+            $sql = " exec [dbo].[OB_WEB_AgregarPermisosUsuario] '" . $id . "','" . $usuario . "','" . $correo . "',
+            '" . $contrasena . "','" . $activo . "'";
+            $this->dbOnBase->query($sql);
+            $this-> dbOnBase -> ejecutar();
+        }catch(PDOEXception $e){
+            return [];
+        }  
+    }
+ 
     public function agregarUsuarios($id, $usuario, $correo, $contrasena, $activo, $tipo){
         try{
             $this->dbOnBase->connect();
@@ -96,6 +130,19 @@ class OnbaseModel extends Model{
             '" . $contrasena . "','" . $activo . "','" . $tipo . "'";
             $this->dbOnBase->query($sql);
             $this-> dbOnBase -> ejecutar();
+            
+        }catch(PDOEXception $e){
+            return [];
+        }  
+    }
+
+    public function reporteOnbase($fechaI , $fechaF){
+        try{
+            $this->dbOnBase->connect();
+            $sql = " exec [dbo].[OB_WEB_ReporteObControlSum] '" . $fechaI . "','" . $fechaF . "'";
+            $this->dbOnBase->query($sql);
+            $resultados=$this->dbOnBase->obtener_registros();
+            return $resultados;
             
         }catch(PDOEXception $e){
             return [];
