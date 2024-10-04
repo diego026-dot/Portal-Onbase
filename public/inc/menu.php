@@ -72,6 +72,15 @@
 
 						</ul>
 						<?php } //FIN DEL FOREACH?>
+						<?php foreach($_SESSION["UsuarioSubModulo"] as $sub){ //INICIO DEL FOR ?>					
+						<ul class="submenu">
+						 	<?php if($sub == 4){ ?>
+							<li><a href="<?php echo constant('URL')?>onbase/cargaDeFacturas" 
+							<?php if($this->pagina=="onbase/cargaDeFacturas"){ echo "class='active'"; }?>>CARGA FACTURAS</a></li>
+							<?php } ?>
+
+						</ul>
+						<?php } //FIN DEL FOREACH?>
 						
 					</li>
 					  

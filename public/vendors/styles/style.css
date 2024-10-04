@@ -4966,7 +4966,7 @@ body.IE .register-page-wrap .container {
     border-radius: 4px;
     padding: 5px 10px;
     font-size: 0.95em;
-    font-weight: 700;
+    font-weight: 500;
     border: none;
     transition: all 0.4s ease;
 }
@@ -5040,4 +5040,47 @@ body.IE .register-page-wrap .container {
 
 .hidden {
     display: none !important;
+}
+
+.file-btn {
+    display: none;
+}
+
+.btn-file-p {
+    background-color: red !important ;
+    color: white !important;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    margin-right: 10px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-file-p i {
+    margin-right: 2px;
+}
+
+.btn-file-x{
+    background-color: grey !important;
+    display: flex;
+    border-radius: 6px;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    margin-right: 10px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-file-x i {
+    margin-right: 2px;
+}
+
+.file-count {
+    margin-top: 5px;
 }

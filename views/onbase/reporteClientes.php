@@ -161,10 +161,13 @@
         function enviaDatosClienteDetalle(norma, proceso) {
             var fechaI = $("#calendarioI").val();
             var fechaF = $("#calendarioF").val();
-            var cliente = $("#selectCliente").val();
+            let select = $("#selectCliente").val()
+            var cliente = select === null ? '' : select ;
+            
 
             var direccion = "http://172.20.20.56:8080/ravisa/onbase/cargaTabla_ReportePhilips";
             var url = direccion + "/" + $.trim(fechaI) + "/" + $.trim(fechaF) + "/" + $.trim(cliente);
+           
 
             $("#overlay").show();
             $("#loading").show();

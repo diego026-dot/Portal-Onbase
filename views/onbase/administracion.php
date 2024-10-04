@@ -115,6 +115,7 @@
 														<?php ($y->SubModulo == 2 ) ?  print_r('<li><a class="dropdown-item" href="#">Dashboard</a></li>') : ''; ?></a></li>
 														<?php ($y->SubModulo == 3 ) ?  print_r('<li><a class="dropdown-item" href="#">Reportes</a></li>') : ''; ?></a></li>
 														<?php ($y->SubModulo == 4 ) ?  print_r('<li><a class="dropdown-item" href="#">Solicitudes</a></li>') : ''; ?></a></li>
+														<?php ($y->SubModulo == 1002 ) ?  print_r('<li><a class="dropdown-item" href="#">Carga facturas</a></li>') : ''; ?></a></li>
 											<?php }
 												}
 											} //FIN DEL FOR
@@ -343,6 +344,11 @@
 					id: 4,
 					name: "Solicitudes",
 					idArea: 3
+				},
+				{
+					id: 5,
+					name: "Carga Facturas",
+					idArea: 3
 				}
 			];
 
@@ -439,7 +445,7 @@
 				var url = direccion + "/" + $.trim(id) + "/" + $.trim(usuario) + "/" + $.trim(selec1) + "/" + $.trim(selec2) + "/" +
 					$.trim(selec3) + "/" + $.trim(tipo)
 
-				alert(url)
+				
 
 				$.ajax({
 					type: "POST",

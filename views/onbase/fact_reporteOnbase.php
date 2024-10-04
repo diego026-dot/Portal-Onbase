@@ -16,18 +16,34 @@
         </div>
     </div>
     <div class="row mt-5 justify-content-center align-items-center mb-2">
+        <div class="col-md-2">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="option" id="radioCL" value="1">
+                <label class="form-check-label" for="radioCliente">
+                     Reporte Control SUM
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="option" id="radioCS" value="2" >
+                <label class="form-check-label" for="radioProvedor">
+                   Reporte CL
+                </label>
+            </div>
+        </div>
         <div class="col-md-2 mb-3">
             <label for="calendarioI" class="form-label mb-1">Fecha inicio</label>
-            <input type="date" class="form-control" id="calendarioI" name="calendarioI" step="1" min="2023-01-01" max="<?php echo date("Y-m-d"); ?>" value="">
+            <input type="date" class="form-control" id="calendarioI" name="calendarioI" step="1" min="2022-01-01" max="<?php echo date("Y-m-d"); ?>" value="">
         </div>
         <div class="col-md-2 mb-3">
             <label for="calendarioF" class="form-label mb-1">Fecha fin</label>
-            <input type="date" class="form-control" id="calendarioF" name="calendarioF" step="1" min="2023-01-01" max="<?php echo date("Y-m-d"); ?>" value="">
+            <input type="date" class="form-control" id="calendarioF" name="calendarioF" step="1" min="2022-01-01" max="<?php echo date("Y-m-d"); ?>" value="">
         </div>
 
         <div class="col-md-2">
             <button type="button" class=" btn-base  mr-3" onclick="enviaDatosClienteDetalle();">Buscar</button>
-            <button type="button" onclick="enviaDatos();" class="btn-base" id="botonExcel" style="background-color:green " disabled>Excel</button>
+            <button type="button" 
+            onclick="($('input[name=\'option\']:checked').val() == 1) ? enviaDatos() : excel()" 
+            class="btn-base" id="botonExcel" style="background-color:green " disabled>Excel</button>
 
         </div>
 
@@ -56,10 +72,11 @@
 
     <div class="min-height-200px ">
         <div class="page-header mb-5">
+            
             <div class="table-responsive mt-3">
                 <div id="ReporteClienteP"> </div>
             </div>
-            
+
         </div>
 
 
@@ -81,32 +98,65 @@
             window.location = '<?php echo constant('URL') ?>onbase/facturacionReportes/';
         }
 
-        // function excel() {
-        //     $("#tabla20").table2excel({
-        //         formats: ["xlsx"],
-        //         position: 'bottom',
-        //         bootstrap: false,
-        //         name: "reclamos_tiempos",
-        //         filename: 'reclamos_tiempos'
-        //     });
-        // }
 
         function enviaDatos() {
             var fechaI = $("#calendarioI").val();
             var fechaF = $("#calendarioF").val();
 
-            var direccion = "http://172.20.20.56:8080/ravisa/onbase/cargaReporteExcelOnbase/";
+            var direccion = "http://172.20.20.56:8080/ravisa/onbase/cargaReporteExcelOnbase";
             var url = direccion + "/" + $.trim(fechaI) + "/" + $.trim(fechaF) 
-            var nombreExcel = "ReporteOB" + $.trim(fechaI) + "/" + $.trim(fechaF) 
+            var nombreExcel = "ReporteOB.csv"
             $("#overlay").show();
             $("#loading").show();
 
-
+            
             $.ajax({
                 type: "POST",
                 url: url,
 
+                xhrFields: {
+                    responseType: 'blob'
+                },
                 beforeSend: function() {},
+
+                success: function(data) {
+                    console.log(data)
+                    console.log(data.size); // Verifica el tamaño del Blob (no debe ser undefined)
+                    console.log(data.type); 
+                    var a = document.createElement('a');
+                    var url = window.URL.createObjectURL(data);
+                    a.href = url;
+                    a.download = nombreExcel;
+                    document.body.append(a);
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
+                },
+                complete: function() {
+                    $("#overlay").hide();
+                    $("#loading").hide();
+                },
+                error: function() {
+                    alert("A ocurrido algun error")
+                    $("#overlay").hide();
+                    $("#loading").hide();
+                }
+
+            });
+        }
+        function excel() {
+            var fechaI = $("#calendarioI").val();
+            var fechaF = $("#calendarioF").val();
+
+            var direccion = "http://172.20.20.56:8080/ravisa/onbase/cargaReporteExcelOnbaseCL";
+            var url = direccion + "/" + $.trim(fechaI) + "/" + $.trim(fechaF) 
+            var nombreExcel = "ReporteCL.csv"
+            $("#overlay").show();
+            $("#loading").show();
+
+            $.ajax({
+                type: "POST",
+                url: url,
 
                 xhrFields: {
                     responseType: 'blob'
@@ -138,11 +188,19 @@
 
 
 
-        function enviaDatosClienteDetalle(norma, proceso) {
+        function enviaDatosClienteDetalle() {
+            var tipo = $('input[name="option"]:checked').val();
             var fechaI = $("#calendarioI").val();
             var fechaF = $("#calendarioF").val();
+            let direccion 
 
-            var direccion = "http://172.20.20.56:8080/ravisa/onbase/cargaTabla_ReporteOnbase";
+            if(tipo == 1){
+                direccion = "http://172.20.20.56:8080/ravisa/onbase/cargaTabla_ReporteOnbase";
+            }else if(tipo == 2){
+                direccion = "http://172.20.20.56:8080/ravisa/onbase/cargaTabla_ReporteOnbaseCL";
+            }
+
+            
             var url = direccion + "/" + $.trim(fechaI) + "/" + $.trim(fechaF) 
 
             $("#overlay").show();
