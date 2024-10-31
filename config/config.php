@@ -25,4 +25,5 @@ define('COLOR_PRIMARIO','#001689');
 define('COLOR_SECUNDARIO','#134390');
 // COLOR S DE BOTON
 define('COLOR_TERCIARIO','#D7DBDD');
+
 ?>

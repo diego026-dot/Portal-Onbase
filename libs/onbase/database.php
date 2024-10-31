@@ -54,7 +54,14 @@ class DatabaseOnBase {
         }
         return false;
     }
-
+   public function query($sql) {
+        try {
+            $this->ejecuta = $this->conexion->prepare($sql);
+            return true;
+        } catch (PDOException $e) { 
+            return false;
+        }
+    }
     // Método para obtener todos los registros de la consulta
     public function obtener_registros() {
         $this->ejecutar();  // Ejecuta la consulta si no se ha hecho

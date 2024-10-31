@@ -75,7 +75,7 @@
 
     </div>
 
-
+    
 
     <!-- Contenedor para el overlay -->
     <div id="overlay" class="ocultar"></div>
@@ -165,30 +165,41 @@
 
 
     $('#move-files-btn').on('click', function(e) {
-        // let valido = true;
+        let valido = true;
+        $("#mainSelectSucursal").find(".alert").remove();
 
-        // $('table tbody tr').each(function() {
-        //     let filled = false;
+        $('table tbody tr').each(function() {
+            let filled = false;
 
-        //     // Verificar si algún campo en la fila tiene un valor
-        //     $(this).find('input').each(function() {
-        //         if ($(this).val().trim() !== '') {
-        //             filled = true;
-        //         }
-        //     });
+            // Verificar si algún campo en la fila tiene un valor
+            $(this).find('input').each(function() {
+                if ($(this).val().trim() !== '') {
+                    filled = true;
+                }
+            });
 
-        //     // Si no hay ningún campo lleno en esta fila, marcar como inválido
-        //     if (!filled) {
-        //         valido = false;
-        //     }
-        // });
+            // Si no hay ningún campo lleno en esta fila, marcar como inválido
+            if (!filled) {
+                valido = false;
+            }
+        });
 
-        // // Si no es válido, mostrar advertencia y prevenir la acción
-        // if (!valido) {
-        //     e.preventDefault();
-        //     alert('Por favor, asegúrate de llenar al menos un campo en cada fila antes de mover los archivos.');
-        //     return; // Detener el procesamiento
-        // }
+        // Si no es válido, mostrar advertencia y prevenir la acción
+        if (!valido) {
+            e.preventDefault();
+            alert('Por favor, asegúrate de llenar al menos un campo en cada fila antes de mover los archivos.');
+            return; // Detener el procesamiento
+        }
+
+        let select= $("#selectSucursal").val()
+        
+        if(select === ''){
+            e.preventDefault();
+            $("#mainSelectSucursal").find(".alert").remove();
+            $("#mainSelectSucursal").append($('<div class="alert alert-danger" role="alert" style="margin-top:0.3rem;  width:80%;">Favor de elegir una sucursal</div>'))
+            return
+        }
+
 
         $('table tbody tr').each(function() {
             var uuid = $(this).find('td').eq(0).text();
@@ -198,16 +209,17 @@
             var referenciaElement = $(this).find('td').eq(3);
             let referencia = referenciaElement.find('input').length ? referenciaElement.find('input').val().trim() : referenciaElement.text().trim();
 
-            let guiaH = $(this).find('.campo2').val().trim();
-            let guiaM = $(this).find('.campo3').val().trim();
-            let pedimento = $(this).find('.campo4').val().trim();
-            let contenedor = $(this).find('.campo5').val().trim();
+            let guiaH = $(this).find('.campo2').val();
+            let guiaM = $(this).find('.campo3').val();
+            let pedimento = $(this).find('.campo4').val();
+            let contenedor = $(this).find('.campo5').val();
 
+            
+            
+            let direccion = "http://172.20.20.56:8080/ravisa/onbase/moverArchivos";
+            let url = direccion + "/" + encodeURIComponent($.trim(select)) + "/" + encodeURIComponent($.trim(uuid)) + "/" + encodeURIComponent($.trim(nombre)) + "/" + encodeURIComponent($.trim(nombreNuevo)) + "/" + (referencia ? encodeURIComponent($.trim(referencia)) : 'NULL') + "/" + (pedimento ? encodeURIComponent($.trim(pedimento)) : 'NULL') + "/" + (guiaH ? encodeURIComponent($.trim(guiaH)) : 'NULL') + "/" + (guiaM ? encodeURIComponent($.trim(guiaM)) : 'NULL') + "/" + (contenedor ? encodeURIComponent($.trim(contenedor)) : 'NULL');
 
-            let direccion = "http://172.20.20.56:8080/ravisa/onbase/moverArchivos"
-            let url = direccion + "/" + $.trim(uuid) + "/" + $.trim(nombre) + "/" + $.trim(nombreNuevo) +
-                "/" + $.trim(referencia) + "/" + $.trim(guiaH) + "/" + $.trim(guiaM) + "/" + $.trim(pedimento) + "/" + $.trim(contenedor);
-
+           
 
             $.ajax({
                 url: url, // Archivo PHP que moverá los archivos

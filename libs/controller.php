@@ -86,15 +86,15 @@ class Controller
                         'referencia' => $referencia
 
                     ];
-                    // Mover el archivo PDF a la carpeta 'uploads'
-                    // $rutaDestino = './upload/' . "{$pdfUuid}.pdf";
-                    // if (!move_uploaded_file($pdfFileTmpName, $rutaDestino)) {
-                    //     $results[] = "Error al mover el archivo PDF: {$pdfFiles['name'][$index]}";
-                    // }
-                    // $rutaXmlDestino = './upload/' . "{$pdfUuid}.xml";
-                    // if (!move_uploaded_file($xmlUuids[$pdfUuid], $rutaXmlDestino)) {
-                    //     $results[] = "Error al mover el archivo XML: {$xmlFiles['name'][$index]}";
-                    // }
+                    //Mover el archivo PDF a la carpeta 'uploads'
+                    $rutaDestino = './upload/' . "{$pdfUuid}.pdf";
+                    if (!move_uploaded_file($pdfFileTmpName, $rutaDestino)) {
+                        $results[] = "Error al mover el archivo PDF: {$pdfFiles['name'][$index]}";
+                    }
+                    $rutaXmlDestino = './upload/' . "{$pdfUuid}.xml";
+                    if (!move_uploaded_file($xmlUuids[$pdfUuid], $rutaXmlDestino)) {
+                        $results[] = "Error al mover el archivo XML: {$xmlFiles['name'][$index]}";
+                    }
                 }else {
                     $archivosSinCoincidencia++;
                     

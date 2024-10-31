@@ -162,19 +162,35 @@ class OnbaseModel extends Model
         }
     }
 
-    public function insertaFacturasPortal($a ,$b, $c, $d, $e, $f, $g, $h)
+    public function insertaFacturasPortal($a ,$b, $c, $d, $e, $f, $g, $h,$i)
     {
+    
         try {
             $this->dbOnBase->connect();
-            $sql = "exec [dbo].[OB_WEB_InsertaFacturasPortal] '" . $a . "', '" . $b . "', '" . $c . "', " . 
-            (is_null($d) ? "NULL" : "'" . $d . "'") . ", " . 
-            (is_null($e) ? "NULL" : "'" . $e . "'") . ", " . 
-            (is_null($f) ? "NULL" : "'" . $f . "'") . ", " . 
-            (is_null($g) ? "NULL" : "'" . $g . "'") . ", " . 
-            (is_null($h) ? "NULL" : "'" . $h . "'");
-            $this->dbOnBase->query($sql);
-            $resultados = $this->dbOnBase->obtener_registros();
-            return $resultados;
+            $sql = "exec [dbo].[OB_WEB_InsertaFacturasPortal] :a, :b, :c, :d, :e, :f, :g, :h, :i";
+        
+            // Preparamos la ejecución de la consulta
+            $stmt = $this->dbOnBase->prepare($sql);
+
+            // Enlazamos los parámetros con sus respectivos valores o null
+            $stmt->bindValue(':a', $a);
+            $stmt->bindValue(':b', $b);
+            $stmt->bindValue(':c', $c);
+    
+            // Verificamos si cada valor es null, si no, lo enviamos como string
+            $stmt->bindValue(':d', !empty($d) ? $d : null, $d === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
+            $stmt->bindValue(':e', !empty($e) ? $e : null, $e === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
+            $stmt->bindValue(':f', !empty($f) ? $f : null, $f === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
+            $stmt->bindValue(':g', !empty($g) ? $g : null, $g === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
+            $stmt->bindValue(':h', !empty($h) ? $h : null, $h === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
+    
+            $stmt->bindValue(':i', $i);
+    
+
+            // Ejecutamos la consulta
+            $stmt->execute();
+
+            
         } catch (PDOEXception $e) {
             return [];
         }
@@ -184,42 +200,25 @@ class OnbaseModel extends Model
         try {
             $this->dbOnBase->connect();
             $sql = "SELECT 
-  [Fecha de creacion] AS [FechaCreacion],
-  [Estatus],
-  [ID Documento] AS [IDDocumento],
-  [Pedimento],
-  [Patente],
-  [Aduana],
-  [Referencia],
-  [Remesa],
-  [Cliente],
-  [Numero de Cliente] AS [NumeroCliente],
-  [Clave de Pedimento] AS [ClavePedimento],
-  [Segunda Facturacion] AS [SegundaFacturacion],
-  MAX([Motivo Segunda Facturacion]) AS [MotivoSegundaFacturacion],
-  MAX([Fecha_Aceptado]) AS [FechaAceptado],
-  MAX([Fecha_Parcial]) AS [FechaParcial],
-  MAX([Fecha_Rechazado]) AS [FechaRechazado],
-  MAX([Fecha_Recibidido]) AS [FechaRecibidido],
-  MAX([Correo Ejecutivo]) AS [CorreoEjecutivo],
-  MAX([Correo para Facturista]) AS [CorreoFacturista]
-FROM [OB_Integracion_Proveedores].[dbo].[OB_VISTA_CHECKLIST]
-WHERE [Fecha de creacion] BETWEEN :fechaI AND :fechaF
-GROUP BY 
-  [Fecha de creacion],
-  [Estatus],
-  [ID Documento],
-  [Pedimento],
-  [Patente],
-  [Aduana],
-  [Referencia],
-  [Remesa],
-  [Cliente],
-  [Numero de Cliente],
-  [Clave de Pedimento],
-  [Segunda Facturacion]
-ORDER BY [FechaCreacion] DESC
-OFFSET 0 ROWS FETCH NEXT 1000 ROWS ONLY;";
+            [Fecha de creacion] AS [FechaCreacion],[Estatus],[ID Documento] AS [IDDocumento],
+            [Pedimento], [Patente],[Aduana],[Referencia],[Remesa],[Cliente],
+            [Numero de Cliente] AS [NumeroCliente],
+            [Clave de Pedimento] AS [ClavePedimento],
+            [Segunda Facturacion] AS [SegundaFacturacion],
+            MAX([Motivo Segunda Facturacion]) AS [MotivoSegundaFacturacion],
+            MAX([Fecha_Aceptado]) AS [FechaAceptado],
+            MAX([Fecha_Parcial]) AS [FechaParcial],
+            MAX([Fecha_Rechazado]) AS [FechaRechazado],
+            MAX([Fecha_Recibidido]) AS [FechaRecibidido],
+            MAX([Correo Ejecutivo]) AS [CorreoEjecutivo],
+            MAX([Correo para Facturista]) AS [CorreoFacturista]
+            FROM [OB_Integracion_Proveedores].[dbo].[OB_VISTA_CHECKLIST]
+            WHERE [Fecha de creacion] BETWEEN :fechaI AND :fechaF
+            GROUP BY 
+            [Fecha de creacion], [Estatus],[ID Documento],[Pedimento],[Patente],[Aduana],[Referencia],[Remesa], [Cliente],
+            [Numero de Cliente],[Clave de Pedimento], [Segunda Facturacion]
+            ORDER BY [FechaCreacion] DESC
+            OFFSET 0 ROWS FETCH NEXT 1000 ROWS ONLY;";
             $this->dbOnBase->query($sql);
             $this->dbOnBase->bindParam(':fechaI', $fechaI);
             $this->dbOnBase->bindParam(':fechaF', $fechaF);
@@ -247,22 +246,22 @@ OFFSET 0 ROWS FETCH NEXT 1000 ROWS ONLY;";
         try {
             $this->dbOnBase->connect();
             $sql = " SELECT [Aduana]
-      ,[Pedimento]
-      ,[Patente]
-      ,[Referencia]
-      ,[Estatus]
-      ,[FechaCreacion]
-      ,[FechaRechazo]
-      ,[FechaModificacion]
-      ,[FechaAceptacion]
-      ,[TipoOperacion]
-      ,[ItemNumChecklist]
-      ,[ItemNumFactura]
-      ,[UUIDFactura]
-      ,[SegundaFacturacion]
-      ,[MotivoSF]
-	FROM [OB_Integracion_Proveedores].[dbo].[OB_VISTA_CHECKLIST_FACTURAS_SF]
-	WHERE [FechaCreacion] BETWEEN :fechaI AND :fechaF ORDER BY [FechaCreacion] DESC OFFSET 0 ROWS FETCH NEXT 1000 ROWS ONLY ;";
+                    ,[Pedimento]
+                    ,[Patente]
+                    ,[Referencia]
+                    ,[Estatus]
+                    ,[FechaCreacion]
+                    ,[FechaRechazo]
+                    ,[FechaModificacion]
+                    ,[FechaAceptacion]
+                    ,[TipoOperacion]
+                    ,[ItemNumChecklist]
+                    ,[ItemNumFactura]
+                    ,[UUIDFactura]
+                    ,[SegundaFacturacion]
+                    ,[MotivoSF]
+                    FROM [OB_Integracion_Proveedores].[dbo].[OB_VISTA_CHECKLIST_FACTURAS_SF]
+                    WHERE [FechaCreacion] BETWEEN :fechaI AND :fechaF ORDER BY [FechaCreacion] DESC OFFSET 0 ROWS FETCH NEXT 1000 ROWS ONLY ;";
             $this->dbOnBase->query($sql);
             $this->dbOnBase->bindParam(':fechaI', $fechaI);
             $this->dbOnBase->bindParam(':fechaF', $fechaF);

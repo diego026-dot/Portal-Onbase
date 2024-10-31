@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $footer .= "
     <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"max-width:600px;\">
     <tr>
-    <td class=\"td-headerBot\" align=\"center\" valign=\"middle\" style=\"font-size:0; padding: 5px 35px;\" bgcolor=\"#000C54\">
+    <td class=\"td-headerBot\" align=\"center\" valign=\"middle\" style=\"font-size:0; padding: 5px 35px;\" bgcolor=\"#08043b\">
     <table align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"600\">
         <tr>
             <td align=\"left\" valign=\"top\" width=\"300\">
@@ -148,15 +148,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                                     <td align=\"center\" valign=\"top\" width=\"600\">
                                         <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"max-width:600px;\">
                                             <tr>
-                                                <td class=\"td-headerTop\" align=\"center\" valign=\"middle\" style=\"font-size:0; padding: 20px 35px;\" bgcolor=\"#000C54\">
+                                                <td class=\"td-headerTop\"  valign=\"middle\" style=\"font-size:0;  display:flex; align-items:center; padding: 20px 35px;\" bgcolor=\"#08043b\">
                                                     <table align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"600\">
                                                         <tr>
-                                                            <td align=\"left\" valign=\"top\" width=\"300\">
-                                                                <div style=\"display:inline-block; max-width:50%; min-width:100px; vertical-align:middle; width:100%;\">
+                                                            <td align=\"left\" valign=\"center\" width=\"300\">
+                                                                <div style=\"display:inline-block; max-width:50%; min-width:100px; width:100%;\">
                                                                     <table align=\"left\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"max-width:300px;\">
                                                                         <tr>
-                                                                            <td align=\"left\" valign=\"middle\" style=\"font-family: ClanOT-NarrowBook, sans-serif; font-size: 36px; font-weight: 800;\" class=\"mobile-center\">
-                                                                                <img src=\"https://www.coflex.com.mx/theme/Coflex2021/img/Logo.png\" width=\"190\" height=\"88\" border=\"0\" alt=\"\" style=\"display: block;\" />
+                                                                            <td align=\"left\" valign=\"middle\" style=\"font-family: ClanOT-NarrowBook, sans-serif; font-size: 36px;  font-weight: 800;\" class=\"mobile-center\">
+                                                                                <img src=\"https://static.wixstatic.com/media/fe7c4c_859ff973380e4c27a5dc6fb7864f65ab~mv2.png/v1/fill/w_217,h_48,al_c,lg_1,q_85,enc_auto/fe7c4c_859ff973380e4c27a5dc6fb7864f65ab~mv2.png\" width=\"130\" height=\"40\" border=\"0\" alt=\"\" style=\"display: block;\" />
                                                                             </td>
                                                                         </tr>
                                                                     </table>
@@ -219,7 +219,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $mail->From = "facturas.proveedores@ravisa.com";  // Tu correo de Outlook
             $mail->FromName = "OnBase Procesos";
             $mail->AddAddress($correo);
-            $mail->AddCC('coordinador.desarrollo1@ravisa.com');
+            $mail->AddCC('onbaseauxiliar@ravisa.com');
             $mail->IsHTML(true);
             $mail->Subject = "OnBase | Resumen diario de tareas";
             $mail->Body = $body;

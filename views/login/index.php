@@ -47,6 +47,18 @@ include("public/inc/encabezado_login.php");?>
 									</div>
 								</div>
 							</div>
+							<div class="row">
+								<div class="col-12">
+									<a 
+										href="<?php echo constant('URL')?>onbase/cambioReferencia"
+										class="btn btn-proyecto btn-lg btn-block" 
+										style="background-color:#ff7113 !important; color:white; opacity:0.70;"
+										
+									>
+										Referencia
+									</a>
+								</div>
+							</div>
 						</form>
                         <?php echo mensaje(); ?>
 					</div>

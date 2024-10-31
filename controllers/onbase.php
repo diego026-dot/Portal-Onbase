@@ -21,6 +21,13 @@ class Onbase extends Controller
         $this->view->render('main/index');
     }
 
+    public function cambioReferencia()
+    {
+
+        $this->view->pagina = "login/cambioReferencia";
+        $this->view->render('login/cambioReferencia');
+    }
+
     public function obtenerPermisosUsuario()
     {
         // if ($parametros == null) {
@@ -78,6 +85,7 @@ class Onbase extends Controller
         $this->view->pagina = "onbase/menu_operaciones";
         $this->view->render('onbase/menu_operaciones');
     }
+
 
     public function facturas_nacionales()
     {
@@ -349,7 +357,21 @@ public function procesarArchivos() {
         ?>
         <input type="hidden" id="data_found" value="<?php echo $data_found ? '1' : '0'; ?>">
         <input type="hidden" id="dont_found" value="<?php echo ($dont_found > 0) ? '1' : '0'; ?>">
-        <input type="text" class="form-control pull-right" style="width:20%; margin-bottom: 0.6em;" id="searchRepPhi" name="searchRepPhi" placeholder="Buscador...">
+        <div id="mainSelectSucursal">
+            <label for="selectSucursal">Sucursal:</label>
+            <select aria-label="Sucursal" style=" padding:0.2rem; font-weight:600 " id="selectSucursal" name="selectSucursal" required >
+                <option value="" hidden>Selecciona una opción</option>
+                <option value="MZO">MZO</option>
+                <option value="LTX">LTX</option>
+                <option value="MZO">MEX</option>
+                <option value="TOL">TOL</option>
+                <option value="APO">APO</option>
+                <option value="VER">VER</option>
+                
+            </select>
+            <input type="text" class="form-control pull-right" style="width:20%; margin-bottom: 0.6em;" id="searchRepPhi" name="searchRepPhi" placeholder="Buscador...">
+        </div>
+       
 
         <table id="tablaCL" name="tablaRepPhi" class="table table-responsive">
             <thead class="text-blue">
@@ -393,37 +415,50 @@ public function procesarArchivos() {
 
 public function moverArchivos($parametros=null){
     if ($parametros == null) {
-        $parametros = '0/0/0/0/0/0/0/0';
+        $parametros = '0/0/0/0/0/0/0/0/0';
         }
 
+        $select = $parametros[0];
+        $uuid = $parametros[1];
+        $nombre = $parametros[2];
+        $nuevoNombre = $parametros[3];
+        $referencia = ($parametros[4] !== 'NULL') ? $parametros[4] : null;
+        $pedimento = ($parametros[5] !== 'NULL') ? $parametros[5] : null;
+        $guiaH = ($parametros[6] !== 'NULL') ? $parametros[6] : null;
+        $guiaM = ($parametros[7] !== 'NULL') ? $parametros[7] : null;
+        $contenedor = ($parametros[8] !== 'NULL') ? $parametros[8] : null;
+
+        error_log("UUID: $uuid, Nombre: $nombre, NuevoNombre: $nuevoNombre, Referencia: $referencia, Pedimento: $pedimento, GuiaH: $guiaH, GuiaM: $guiaM, Contenedor: $contenedor, Select: $select");
+
+        $this->model->insertaFacturasPortal($uuid, $nombre, $nuevoNombre, $referencia, $pedimento, $guiaH, $guiaM, $contenedor,$select);
         
-        $uuid = $parametros[0];
-        $nombre = $parametros[1];
-        $nuevoNombre = $parametros[2];
-        $referencia = empty($parametros[3]) ? null : $parametros[3];
-        $pedimento = empty($parametros[6]) ? null : $parametros[4];
-        $guiaH = empty($parametros[4]) ? null : $parametros[5];
-        $guiaM = empty($parametros[5]) ? null : $parametros[6];
-        $contenedor = empty($parametros[7]) ? null : $parametros[7];
+                //Nombre para el archivo XML
+                $nuevoNombreXML = $uuid .'.xml';
 
-    
-
-        $consulta = $this->model->insertaFacturasPortal($uuid, $nombre, $nuevoNombre, $referencia, $pedimento, $guiaH, $guiaM, $contenedor);
-        $this->view->consulta = $consulta;
-
-       
-                $rutaFinal=0;
-                $rutaTemporal = 'C:/xampp/htdocs/Ravisa/upload' . $nuevoNombre;
-        
+                //rutas de pdf
+                $rutaFinal='\\\\SRVAPP\\Facturas Web\\' . $nuevoNombre;
+                $rutaTemporal = './upload/' . $nuevoNombre;
+                //rutas xml
+                $rutaXML = './upload/' . $nuevoNombreXML;
+                $rutaFinalXML = '\\\\SRVAPP\\Facturas Web\\' . $nuevoNombreXML;
+                
                 if (file_exists($rutaTemporal)) {
-                    // Mover el archivo desde la ruta temporal a la carpeta destino
-                    rename($rutaTemporal, $rutaFinal);
-                    
-            }
-            unset($_SESSION['fileData']);
-        
+
+                    $exists = copy($rutaTemporal, $rutaFinal);
+                    $existsXML = copy($rutaXML,$rutaFinalXML);
+
+                    if ($exists && $existsXML) {
+                        // Si la copia fue exitosa, eliminamos el archivo original
+                        unlink($rutaTemporal);
+                        unlink($rutaXML);
+                    } else {
+                        throw new Exception('Failed to copy file to ' . $rutaFinal);
+                    }
+                }
 
         
+
+            unset($_SESSION['fileData']);
         
 }
 
