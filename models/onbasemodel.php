@@ -272,7 +272,37 @@ class OnbaseModel extends Model
         }
     }
 
+    public function consultaCheklist($pedimento,$patente,$aduana)
+    {
+        $tipo = 0;
+        try {
+            $this->dbOnBase->connect();
+            $sql = "exec [dbo].[OB_WEB_CL_ObtieneDetalleChecklist] '" . $pedimento . "','" . $patente . "','" . $aduana . "','" . $tipo . "'";
+            // echo  $sql;
+            $this->dbOnBase->query($sql);
+            $resultados = $this->dbOnBase->obtener_registros();
+            return $resultados;
+        } catch (PDOEXception $e) {
+            echo "Error TRY para mostrar" . $e->getMessage();
+            return [];
+        }
+    }
 
+    public function consultaExcelCheklist($xml)
+    {
+        try {
+            $this->dbOnBase->connect();
+            $sql = "exec [dbo].[OB_WEB_InsertaPedimentosXML] '" . $xml . "'";
+            
+            $this->dbOnBase->query($sql);
+            $resultados = $this->dbOnBase->obtener_registros();
+           
+            
+            return $resultados;
+        } catch (PDOEXception $e) {
+            return [];
+        }
+    }
 
     public function consulta_validacion_web($email)
     {

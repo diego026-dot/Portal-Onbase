@@ -1,5 +1,43 @@
 <?php include("public/inc/encabezadoCambioRef.php"); ?>
+<style>
+		
+		a {
+			width: 200px;
+			min-width: 120px;
+		}
 
+		p {
+			/*color: #002f56;*/
+			color: white;
+			
+
+		}
+
+		h1 {
+			font-weight: bold;
+			color: white;
+
+
+		}
+
+		.btn.btn-outline-primary:hover,
+		.btn.btn-outline-primary:focus,
+		.btn.btn-outline-primary:active,
+		.btn.btn-outline-primary.active {
+			color: #08043b;
+			background-color: #ccd5df
+		}
+
+		.btn.btn-outline-primary {
+			/*color: #ff8300;*/
+			background-color: #ffffff;
+			color: #08043b;
+			border-radius: 10px;
+			font-weight: 700;
+
+
+		}
+	</style>
 <div class="container-fluid" style="margin-top: 0; padding-top: 0;">
     <div class="row">
         <div class="col-12 d-flex align-items-center justify-content-between">
@@ -12,7 +50,7 @@
                     <li class="breadcrumb-item active" aria-current="page">Cambio de Referencia</li>
                 </ol>
             </nav>
-            
+
         </div>
     </div>
 
@@ -39,39 +77,36 @@
 
 
 
-    <div class="row bg-body-tertiary m-5 ">
+    
 
-        <div class="row d-flex justify-content-center">
-            <div class="col-6 mt-4 mb-3 ">
-                <label for="ref" class="form-label fw-bold">Referencia</label>
-                <input
-                    id="ref"
-                    type="text"
-                    class="form-control "
-                    placeholder="Ingrese la referencia a modificar"
-                    >
+        <div class="row justify-content-md-center" style="margin-top: 50px;">
+            <div class="col-lg-12 " style="padding: 5px">
+                <p class="d-flex justify-content-center"><a
+                        href="http://srvweb/AppNet//UnityForm.aspx?d1=Ac3LfJq43ixY7ihZn5f%2bVshFxZy99cEGAfobz%2ftf2oOub2kqEHVVg%2bGifTVErDgCRlZUAthefL%2f%2f30XsGSyRsolBv6aVXGbuv%2bNBKoh%2fhBdjOEAyDRTz9ixySowJeb5RLSn5Gd4K%2fouMYEpSskK3gegdNjzznKbGgWL0AUhdKfiMdON3pL5GI3T5%2bXQmK41V%2fhYsg6bTMU6txdt3sv5G9TE%3d"
+                        class="btn btn-outline-primary " target="_blank" role="button" aria-pressed="true">Solicitud de Anticipo </a>
+                </p>
             </div>
-        </div>
-
-        <div class="row d-flex justify-content-center">
-            <div class="mb-3 col-6">
-                <label for="num" class="form-label fw-bold">Folio SAP</label>
-                <input
-                    id="num"
-                    type="text"
-                    class="form-control"
-                    placeholder="Ingrese el folio SAP"
-                    >
-
-                <button  class="btn btn-primary mt-3 col-12" onclick="enviaDatos()">Guardar</button>
+            <div class="col-lg-12 ">
+                <p class="d-flex justify-content-center"><a
+                        href="http://srvweb/AppNet//UnityForm.aspx?d1=AUBuuJnvLL8%2fC9Wt6VwCoXErqQgeJJnYJOUDP%2fq8g0SDYGtXKyv0gh9YV4OJxmU7RUdLRHBG13k%2bN7yg9z7Ehipb967pmyCSkKRWYPIoAWGEncUsc0XmsBQ%2f48dhro6ux8AOPP%2fyDzO6w2fl9s2X%2bJ%2baoiYu8PInGJUBkLvZA9m1aIL%2fRVjW3irL7EhHuijucXqP4GYhqKWfQigeTUr%2bEWQ%3d"
+                        class="btn btn-outline-primary " target="_blank" role="button" aria-pressed="true">Cancelación Anticipo</a>
+                </p>
             </div>
+            <div class="col-lg-12 " style="padding: 5px">
+                <p class="d-flex justify-content-center"><a
+                        href="http://srvweb/AppNet//UnityForm.aspx?d1=AX37VcaQVsINqHE0G7zVninxFs61yLEZmVyxPuRnJZa%2bzwGpavLLafyDOn1Jc%2fTmt09mXc9bwb%2bemRtfVVcfk%2fTqeZP47JfJ6bz6zFXhnqYxK7GL9hewMDwNzBFsLpCWDh6B%2fiEKmemiABfDI1792w9fbKOSmnFUjxwtuIy1CPf%2b2WgQS44t7XkVlhjz1YG7Cp5kZTYWpJ5L06D%2bhI5QU6s%3d"
+                        class="btn btn-outline-primary " target="_blank" role="button" aria-pressed="true">Checklist</a></p>
+            </div>
+
+
+
+
+
         </div>
 
         <div id="main"></div>
 
-      
 
-    </div>
 
     <!-- Contenedor para el overlay -->
     <div id="overlay" class="ocultar"></div>
@@ -105,20 +140,20 @@
         var referencia = $("#ref").val();
         var folioSap = $("#num").val();
 
-        if(referencia === '' || folioSap === ''){
-                
-                $("#main").find(".alert").remove();
-                $("#main").append($('<div class="alert alert-danger text-center" role="alert" style="margin-top:0.3rem; ">Favor de llenar todos los datos</div>'))
-                return
-            }
+        if (referencia === '' || folioSap === '') {
+
+            $("#main").find(".alert").remove();
+            $("#main").append($('<div class="alert alert-danger text-center" role="alert" style="margin-top:0.3rem; ">Favor de llenar todos los datos</div>'))
+            return
+        }
 
         $("#main").find(".alert").remove();
-        
+
 
         var direccion = "http://172.20.20.56:8080/ravisa/onbase/cambioReferencia";
-        var url = direccion + "/" + $.trim(referencia) + "/" + $.trim(folioSap) ;
+        var url = direccion + "/" + $.trim(referencia) + "/" + $.trim(folioSap);
         console.log(url)
-        
+
         $("#overlay").show();
         $("#loading").show();
 
@@ -126,11 +161,11 @@
             type: "POST",
             url: url,
 
-            
+
             beforeSend: function() {},
 
             success: function(data) {
-       
+
             },
             complete: function() {
                 $("#overlay").hide();

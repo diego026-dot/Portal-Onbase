@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // Incluir el archivo con la clase DatabaseOnBase
 include "../libs/onbase/database.php";
 
@@ -219,7 +219,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $mail->From = "facturas.proveedores@ravisa.com";  // Tu correo de Outlook
             $mail->FromName = "OnBase Procesos";
             $mail->AddAddress($correo);
-            $mail->AddCC('onbaseauxiliar@ravisa.com');
+            $mail->AddCC('coordinador.desarrollo1.onba@ravisa.com');
             $mail->IsHTML(true);
             $mail->Subject = "OnBase | Resumen diario de tareas";
             $mail->Body = $body;

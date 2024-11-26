@@ -20,13 +20,13 @@
             <div class="col-10  d-flex flex-row justify-content-center">
                 <!-- Botón para seleccionar archivos PDF -->
                 <label class="btn-file-p mr-3">
-                    <i class="fas fa-file-pdf"></i> Subir PDF
+                    <i class="fas fa-file-pdf"></i>  PDF
                     <input type="file" class="file-btn" name="pdf[]" id="pdf" accept=".pdf" multiple required>
                 </label>
                 <span id="pdf-count" class="file-count text-muted mr-3">0 archivos</span>
 
                 <label class="btn-file-x mr-3">
-                    <i class="fas fa-file-code"></i> Subir XML
+                    <i class="fas fa-file-code"></i>  XML
                     <input type="file" class="file-btn" name="xml[]" id="xml" accept=".xml" multiple required>
                 </label>
                 <span id="xml-count" class="file-count text-muted mr-3">0 archivos</span>
@@ -187,7 +187,8 @@
         // Si no es válido, mostrar advertencia y prevenir la acción
         if (!valido) {
             e.preventDefault();
-            alert('Por favor, asegúrate de llenar al menos un campo en cada fila antes de mover los archivos.');
+            $("#mainSelectSucursal").find(".alert").remove();
+            $("#mainSelectSucursal").append($('<div class="alert alert-danger text-center" role="alert" style="margin-top:0.3rem; ">Favor de llenar al menos un campo de la factura</div>'))
             return; // Detener el procesamiento
         }
 
@@ -196,7 +197,7 @@
         if(select === ''){
             e.preventDefault();
             $("#mainSelectSucursal").find(".alert").remove();
-            $("#mainSelectSucursal").append($('<div class="alert alert-danger" role="alert" style="margin-top:0.3rem;  width:80%;">Favor de elegir una sucursal</div>'))
+            $("#mainSelectSucursal").append($('<div class="alert alert-danger text-center" role="alert" style="margin-top:0.3rem; ">Favor de elegir una sucursal</div>'))
             return
         }
 
@@ -228,8 +229,13 @@
                     $('table tbody tr').remove();
                     $("#confirm-btn").addClass("d-none");
 
-                    $('#pdf-count').text('0 archivos');
-                    $('#xml-count').text('0 archivos');
+    
+                    $("#mainSelectSucursal").find(".alert").remove();
+                    $("#mainSelectSucursal").append($('<div class="alert alert-success text-center" role="alert" style="margin-top:0.3rem; ">Archivos cargados!</div>'))
+                    setTimeout(() => {
+                        window.location.reload()
+                    }, 1500)
+                    
 
                 },
                 error: function(xhr, status, error) {

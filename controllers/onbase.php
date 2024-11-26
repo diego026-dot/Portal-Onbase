@@ -21,8 +21,41 @@ class Onbase extends Controller
         $this->view->render('main/index');
     }
 
-    public function cambioReferencia()
+    public function cambioReferencia($parametros = null)
     {
+        if ($parametros == null) {
+            $parametros = '0/0';
+        }
+
+        $referencia = $parametros[0];
+        $folio = $parametros[1];
+
+        
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+    
+        // Coloca los valores en las celdas A1 y B1
+        $sheet->setCellValue('A1', 'Referencia');
+        $sheet->setCellValue('A2', $referencia);
+        $sheet->setCellValue('B1', 'Folio SAP');
+        $sheet->setCellValue('B2', $folio);
+    
+        // Define la ruta donde se guardará el archivo
+        $folder = 'C:\\xampp\\htdocs\\Ravisa\\upload\\';
+        $fileName = 'CambioRef.xlsx';
+        $filePath = $folder . $fileName;
+    
+        // Asegúrate de que la carpeta existe; si no, créala
+        if (!is_dir($folder)) {
+            mkdir($folder, 0777, true);
+        }
+    
+        // Guarda el archivo Excel en la ruta especificada
+        $writer = new Xlsx($spreadsheet);
+        $writer->save($filePath);
+    
+  
 
         $this->view->pagina = "login/cambioReferencia";
         $this->view->render('login/cambioReferencia');
@@ -85,6 +118,12 @@ class Onbase extends Controller
         $this->view->pagina = "onbase/menu_operaciones";
         $this->view->render('onbase/menu_operaciones');
     }
+    public function inicioSinCredenciales()
+    {
+
+        $this->view->pagina = "login/inicioSinCredenciales";
+        $this->view->render('login/inicioSinCredenciales');
+    }
 
 
     public function facturas_nacionales()
@@ -115,6 +154,122 @@ class Onbase extends Controller
         $this->view->pagina = "onbase/menu_facturacion";
         $this->view->render('onbase/menu_facturacion');
     }
+
+    public function cheklist()
+    {
+
+        $this->view->pagina = "onbase/cheklist";
+        $this->view->render('onbase/cheklist');
+    }
+
+    public function cargaTablaCheklist($parametros = null){
+        if($parametros == null ){
+            $parametros = '0/0/0';
+        }
+
+        $pedimento = $parametros[0];
+        $patente = $parametros[1];
+        $aduana = $parametros[2];
+
+        $consultaIndicadores = $this->model->consultaCheklist($pedimento, $patente, $aduana);
+
+        $data_found = !empty($consultaIndicadores);
+        ?>
+        <input type="hidden" id="data_found" value="<?php echo $data_found ? '1' : '0'; ?>">
+        <input type="text" class="form-control pull-right" style="width:20%; margin-bottom: 0.6em;" id="searchRepPhi" name="searchRepPhi" placeholder="Buscador...">
+
+        <table id="tablaCL" name="tablaRepPhi" class="table table-responsive">
+            <thead class="text-blue">
+                <tr>
+                    <th width=10% style="text-align:left">Id</th>
+                    <th width=15% style="text-align:left">FechaCreacion</th>
+                    <th width=10% style="text-align:left">Pedimento</th>
+                    <th width=10% style="text-align:left">Patente</th>
+                    <th width=5% style="text-align:left">Aduana</th>
+                    <th width=10% style="text-align:left">Referencia</th>
+                    <th width=15% style="text-align:left">Estatus Flujo</th>
+                    <th width=15% style="text-align:left">Checklist OnBase</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if ($data_found) {
+                        foreach ($consultaIndicadores as $row) { //INICIO DEL FOR    
+                ?>
+                        <tr>
+                            <td><?php echo $row->IdOB; ?></td>
+                            <td><?php echo $row->FechaCreacion; ?></td>
+                            <td><?php echo $row->Pedimento; ?></td>
+                            <td><?php echo $row->Patente; ?></td>
+                            <td><?php echo $row->Aduana; ?></td>
+                            <td><?php echo $row->Referencia; ?></td>
+                            <td><?php echo $row->EstatusActual; ?></td>
+                            <td> 
+                                <a class="btn btn-link" href="<?php echo $row->DocumentoURL; ?>" target="_blank">Ir a Formulario</a> 
+                            </td>
+                           
+                            
+                        </tr>
+                <?php } //FIN DEL FOR
+                    } ?>
+            </tbody>
+        </table> <?php
+    }
+
+    public function cargaExcelCheklist($parametros = null)
+    {
+      
+
+        if(isset($_POST['XmlDatos'])){
+            $xml = $_POST['XmlDatos'];
+        }
+
+    
+        $consultaIndicadores = $this->model->consultaExcelCheklist($xml);
+        
+        
+        
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+                    // Convertir stdClass a array
+        if (!empty($consultaIndicadores)) {
+            $firstRow = (array) $consultaIndicadores[0];
+                        $columnIndex = 'A';
+                        foreach (array_keys($firstRow) as $column) {
+                            $sheet->setCellValue($columnIndex . '1', $column);
+                            $columnIndex++;
+                        }
+                    }
+
+                    // Set row data
+                    $rowIndex = 2;
+                    foreach ($consultaIndicadores as $row) {
+                        $columnIndex = 'A';
+                        foreach ((array) $row as $cell) {
+                            $sheet->setCellValue($columnIndex . $rowIndex, $cell);
+                            $columnIndex++;
+                        }
+                        $rowIndex++;
+                    }
+
+                    $writer = new Xlsx($spreadsheet);
+                    //$fileName = 'data_export_' . date('Y-m-d_H-i-s') . '.xlsx';
+
+                    if (ob_get_length()) ob_clean();
+
+                    // Set headers to trigger download
+                    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+                    //header('Content-Disposition: attachment; filename="' . $fileName . '"');
+                    header('Cache-Control: max-age=0');
+
+
+                    // Save the file to output
+                    $writer->save('php://output');
+                    exit;
+                }
+            
+
+
 
     public function reporteClientes()
     {
@@ -363,7 +518,7 @@ public function procesarArchivos() {
                 <option value="" hidden>Selecciona una opción</option>
                 <option value="MZO">MZO</option>
                 <option value="LTX">LTX</option>
-                <option value="MZO">MEX</option>
+                <option value="MEX">MEX</option>
                 <option value="TOL">TOL</option>
                 <option value="APO">APO</option>
                 <option value="VER">VER</option>

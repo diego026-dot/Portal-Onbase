@@ -5065,7 +5065,7 @@ body.IE .register-page-wrap .container {
 }
 
 .btn-file-x{
-    background-color: grey !important;
+    background-color: rgb(69, 100, 201);
     display: flex;
     border-radius: 6px;
     align-items: center;
@@ -5083,4 +5083,21 @@ body.IE .register-page-wrap .container {
 
 .file-count {
     margin-top: 5px;
+}
+
+.btn-file-e{
+    background-color: green !important ;
+    color: white !important;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    padding: 5px 10px;
+    font-size: 0.95em;
+    cursor: pointer;
+}
+
+.btn-file-e i {
+    margin-right: 2px;
 }

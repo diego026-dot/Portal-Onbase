@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // Incluir el archivo con la clase DatabaseOnBase
 include "../libs/onbase/database.php";
 
@@ -147,11 +147,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         foreach ($correosArray as $correo) {
             if($correo == 'FACTURA@RAVISA.COM'){
-                $correo1 = 'coordinador.desarrollo1@ravisa.com';
+                $correo1 = 'onbaseauxiliar@ravisa.com';
             }else if($correo == 'JTELLEZ@RAVISA.COM'){
                 $correo1 = 'onbaseauxiliar@ravisa.com';
             }else{
-                $correo1 = 'coordinador.desarrollo1@ravisa.com';
+                $correo1 = 'onbaseauxiliar@ravisa.com';
             }
             
             $mail->addAddress($correo1);
@@ -179,7 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
                         
                  
-                    <button class='btn-base' onclick = 'window.location.href =\"{$tareas['url']}\" '   > Tarea </button>
+                    <a class='btn-base' href={$tareas['url']} target=\"_blank\" style=\" text-decoration:none;\"> Tarea </a>
                             
                         
                      </td>
@@ -208,18 +208,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         // Generar el cuerpo del correo
         //$mail->addStringAttachment(file_get_contents("https://static.wixstatic.com/media/fe7c4c_859ff973380e4c27a5dc6fb7864f65ab~mv2.png/v1/fill/w_217,h_48,al_c,lg_1,q_85,enc_auto/fe7c4c_859ff973380e4c27a5dc6fb7864f65ab~mv2.png"), "filename");
         
+        $mail->AddEmbeddedImage('C:\xampp\htdocs\Ravisa\public\img\logotipo\logo.png', 'imageCID', 'logo.png');
 
-
-        $body = "
+        $body = '
+        <!DOCTYPE html>
         <html>
             <head>
                 <title>Resumen de Tareas</title>
-                <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />
-                <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
-                <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />
-                <style type=\"text/css\">
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                <style type="text/css">
                     * {
-                        font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                        font-family: -apple-system, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif;
                         font-style: normal;
                         font-weight: 400;
                     }
@@ -227,20 +228,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                         border-collapse: collapse;
                         width: 80%;
                     }
-                  
                     table, td {
                         mso-table-lspace: 0pt;
                         mso-table-rspace: 0pt;
                     }
-
-                     td{
+                    td {
                         padding: 10px 1px;
                     }
-
-                   
                     .btn-base {
-                        background-color: #08043b;
-                        color: #ffff;
+                        background-color: #ff7113;
+                        color: #fff;
                         border-radius: 4px;
                         padding: 5px 10px;
                         font-size: 0.95em;
@@ -248,69 +245,64 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                         border: none;
                         transition: all 0.4s ease;
                     }
-
-                    .btn-base:hover {
-                        background-color: #ff7113;
-                        color: #f1f1f1;
-                        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-                        cursor:pointer;
-                    }
-
                 </style>
             </head>
-            <body style=\"margin: 0 !important; padding: 0 !important; background-color: #FFFFFF;\" bgcolor=\"#FFFFFF\">
-                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">
+            <body style="margin: 0 !important; padding: 0 !important; background-color: #FFFFFF;" bgcolor="#FFFFFF">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
                     <tr>
-                        <td align=\"center\" style=\"background-color: #08043B;\" bgcolor=\"#08043B\">
-                            <table align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"800\">
+                        <td align="center" style="background-color: #08043B;" bgcolor="#08043B">
+                            <table align="center" border="0" cellspacing="0" cellpadding="0" width="800">
                                 <tr>
-                                    <td align=\"center\" valign=\"top\" width=\"600\">
-                                        <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"max-width:600px;\">
+                                    <td align="center" valign="top" width="600">
+                                        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                                             <tr>
-                                                <td class=\"td-headerTop\"  valign=\"middle\" style=\"font-size:0;  display:flex; align-items:center; padding: 20px 35px;\" bgcolor=\"#08043b\">
-                                                    <table align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"600\">
+                                                <td class="td-headerTop" valign="middle" style="padding: 20px 35px;" bgcolor="#08043B">
+                                                    <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
                                                         <tr>
-                                                            <td align=\"center\" valign=\"center\" width=\"300\">
-                                                                
-                                                                    <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"max-width:300px;\">
-                                                                        <tr>
-                                                                            <td align=\"center\" valign=\"middle\" style=\"font-family: ClanOT-NarrowBook, sans-serif; font-size: 36px;  font-weight: 800;\" class=\"mobile-center\">
-                                                                                <img src='https://static.wixstatic.com/media/fe7c4c_859ff973380e4c27a5dc6fb7864f65ab~mv2.png/v1/fill/w_217,h_48,al_c,lg_1,q_85,enc_auto/fe7c4c_859ff973380e4c27a5dc6fb7864f65ab~mv2.png' width=\"170\" height=\"40\" border=\"0\" alt=\"\" style=\"display: block;\" />
-                                                                            </td>
-                                                                        </tr>
-                                                                    </table>
-                                                                
+                                                            <td align="center" width="300">
+                                                                <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 300px;">
+                                                                    <tr>
+                                                                        <td align="center" style="font-size: 36px; font-weight: 800;" class="mobile-center">
+                                                                            <img src="cid:imageCID" />
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
                                                             </td>
-                                                    
                                                         </tr>
                                                     </table>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td align=\"left\" width=\"50\" height=\"20\" style=\" line-height: 24px; \">
-                                                    <h1 style=\"font-size: 18px; font-weight: 600; margin-left: 30px; color: #ffff;\">Hola, :</h1>
-                                                    <p style=\"font-size: 15px; font-weight: 200;  color: #ffff; margin-left: 30px; margin-bottom: 20px\">Aquí están tus tareas pendientes:</p>
+                                                <td align="left" style="line-height: 24px; padding: 20px 30px;">
+                                                    <h1 style="font-size: 18px; font-weight: 600; color: #fff;">Hola, :</h1>
+                                                    <p style="font-size: 15px; font-weight: 200; color: #fff; margin-bottom: 20px;">Aquí están tus tareas pendientes:</p>
                                                 </td>
                                             </tr>
-                                            <tr >
-                                                $urlUser
+                                            <tr>
+                                                <td>
+                                                    <!-- Aquí va el contenido dinámico $urlUser -->
+                                                    '.$urlUser.'
+                                                </td>
                                             </tr>
                                         </table>
                                     </td>
                                 </tr>
-                                " . $footer . "
+                                <!-- Aquí va el pie de página dinámico $footer -->
+                                '.$footer.'
                             </table>
                         </td>
                     </tr>
                 </table>
             </body>
-        </html>";
+        </html>'
+        ;
+
             
             
         echo $body;
         
-
-       exit();
+        exit();
+       
         // Enviar correo usando PHPMailer
 
 
@@ -320,7 +312,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         $mail->IsHTML(true);
         $mail->Subject = "OnBase | Resumen diario de tareas";
-        $mail->msgHTML($body);
+        $mail->Body = $body;
         $exito = $mail->Send();
 
         echo $exito ? "Correo enviado exitosamente a $correo" : "Error al enviar correo a $correo";
