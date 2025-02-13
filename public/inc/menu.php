@@ -47,7 +47,7 @@
 						    <li><a href="<?php echo constant('URL')?>onbase/facturacionReportes" 
 							<?php if($this->pagina=="onbase/facturacionReportes"){ echo "class='active'"; }?>>REPORTES</a></li>
 							<?php }?>
-							<?php if($sub ==3){ ?>
+							<?php if($sub ==1003){ ?>
 						    <li><a href="<?php echo constant('URL')?>onbase/cheklist" 
 							<?php if($this->pagina=="onbase/cheklist"){ echo "class='active'"; }?>>CHEKLIST</a></li>
 							<?php }?>

@@ -38,6 +38,9 @@ include("public/inc/encabezado_login.php"); ?>
 								</div>
 							</div>
 						</div>
+						<div class="row">
+							
+						</div>
 						<div class="row pb-10">
 							<div class="col-6">
 							</div>

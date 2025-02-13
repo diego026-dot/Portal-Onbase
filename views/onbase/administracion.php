@@ -32,16 +32,16 @@
 						<div class="modal-body">
 							<form>
 								<div class="mb-3">
-									<label for="username" class="form-label">Nombre de Usuario</label>
+									<label for="username" class="form-label font-weight-bold">Nombre de Usuario</label>
 									<input type="text" class="form-control" id="username" placeholder="Ingrese su nombre de usuario" required>
 								</div>
 
 								<div class="mb-3">
-									<label for="email" class="form-label">Correo Electrónico</label>
+									<label for="email" class="form-label font-weight-bold">Correo Electrónico</label>
 									<input type="email" class="form-control" id="email" placeholder="Ingrese su correo electrónico">
 								</div>
 								<div class="mb-3">
-									<label for="password" class="form-label">Contraseña</label>
+									<label for="password" class="form-label font-weight-bold">Contraseña</label>
 									<input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña">
 								</div>
 							</form>
@@ -73,7 +73,7 @@
 							$i++; //INICIO DEL FOR    
 						?>
 							<tr>
-								<td><button type="button" class="btn btn-ligth btn-sm" onclick=mostrarModalEditar(<?php echo $i; ?>)>Editar</button></td>
+								<td><button type="button" class="btn btn-ligth btn-sm bi bi-pencil" onclick=mostrarModalEditar(<?php echo $i; ?>)></button></td>
 								<td><?php echo $row->UsuarioID; ?></td>
 								<td><?php echo $row->NombreUsuario; ?></td>
 								<td><?php echo $row->CorreoElectronico; ?></td>
@@ -87,12 +87,12 @@
 											$modulosAgregados = array();
 											foreach ($this->permisos as $y) {
 												if ($row->NombreUsuario == $y->Usuario) {
-													if (!in_array($y->Modulo, $modulosAgregados) && $y -> Activo == 1) {
+													if (!in_array($y->Modulo, $modulosAgregados) && $y->Activo == 1) {
 														$modulosAgregados[] = $y->Modulo; ?>
 
-														<?php ($y->Modulo == 1 ) ? print_r('<li><a class="dropdown-item" href="#">Administracion</a></li>') : ''; ?></a></li>
-														<?php ($y->Modulo == 2 ) ? print_r('<li><a class="dropdown-item" href="#">Facturacion</a></li>') : ''; ?></a></li>
-														<?php ($y->Modulo == 3 ) ? print_r('<li><a class="dropdown-item" href="#">Operaciones</a></li>') : ''; ?></a></li>
+														<?php ($y->Modulo == 1) ? print_r('<li><a class="dropdown-item" href="#">Administracion</a></li>') : ''; ?></a></li>
+														<?php ($y->Modulo == 2) ? print_r('<li><a class="dropdown-item" href="#">Facturacion</a></li>') : ''; ?></a></li>
+														<?php ($y->Modulo == 3) ? print_r('<li><a class="dropdown-item" href="#">Operaciones</a></li>') : ''; ?></a></li>
 											<?php }
 												}
 											} //FIN DEL FOR
@@ -109,13 +109,14 @@
 											$subModulos = array();
 											foreach ($this->permisos as $y) {
 												if ($row->NombreUsuario == $y->Usuario) {
-													if (!in_array($y->SubModulo, $subModulos) && $y -> Activo == 1) {
+													if (!in_array($y->SubModulo, $subModulos) && $y->Activo == 1) {
 														$subModulos[] = $y->SubModulo;  ?>
-														<?php ($y->SubModulo == 1 ) ?  print_r('<li><a class="dropdown-item" href="#">Permisos Usuario</a></li>') : ''; ?></a></li>
-														<?php ($y->SubModulo == 2 ) ?  print_r('<li><a class="dropdown-item" href="#">Dashboard</a></li>') : ''; ?></a></li>
-														<?php ($y->SubModulo == 3 ) ?  print_r('<li><a class="dropdown-item" href="#">Reportes</a></li>') : ''; ?></a></li>
-														<?php ($y->SubModulo == 4 ) ?  print_r('<li><a class="dropdown-item" href="#">Solicitudes</a></li>') : ''; ?></a></li>
-														<?php ($y->SubModulo == 1002 ) ?  print_r('<li><a class="dropdown-item" href="#">Carga facturas</a></li>') : ''; ?></a></li>
+														<?php ($y->SubModulo == 1) ?  print_r('<li><a class="dropdown-item" href="#">Permisos Usuario</a></li>') : ''; ?></a></li>
+														<?php ($y->SubModulo == 2) ?  print_r('<li><a class="dropdown-item" href="#">Dashboard</a></li>') : ''; ?></a></li>
+														<?php ($y->SubModulo == 3) ?  print_r('<li><a class="dropdown-item" href="#">Reportes</a></li>') : ''; ?></a></li>
+														<?php ($y->SubModulo == 4) ?  print_r('<li><a class="dropdown-item" href="#">Solicitudes</a></li>') : ''; ?></a></li>
+														<?php ($y->SubModulo == 1002) ?  print_r('<li><a class="dropdown-item" href="#">Carga facturas</a></li>') : ''; ?></a></li>
+														<?php ($y->SubModulo == 1003) ?  print_r('<li><a class="dropdown-item" href="#">Cheklist</a></li>') : ''; ?></a></li>
 											<?php }
 												}
 											} //FIN DEL FOR
@@ -132,12 +133,12 @@
 											$opciones = array();
 											foreach ($this->permisos as $y) {
 												if ($row->NombreUsuario == $y->Usuario) {
-													if (!in_array($y->Opcion, $opciones) && $y -> Activo == 1) {
+													if (!in_array($y->Opcion, $opciones) && $y->Activo == 1) {
 														$opciones[] = $y->Opcion; ?>
-														<?php ($y->Opcion == 1 ) ?  print_r('<li><a class="dropdown-item" href="#">Reporte Phillips</a></li>') : ''; ?></a></li>
-														<?php ($y->Opcion == 2 ) ?  print_r('<li><a class="dropdown-item" href="#">Reporte Clientes</a></li>') : ''; ?></a></li>
-														<?php ($y->Opcion == 3 ) ?  print_r('<li><a class="dropdown-item" href="#">solicitudes OB</a></li>') : ''; ?></a></li>
-														<?php ($y->Opcion == 1002 ) ?  print_r('<li><a class="dropdown-item" href="#">Reporte Onbase</a></li>') : ''; ?></a></li>
+														<?php ($y->Opcion == 1) ?  print_r('<li><a class="dropdown-item" href="#">Reporte Phillips</a></li>') : ''; ?></a></li>
+														<?php ($y->Opcion == 2) ?  print_r('<li><a class="dropdown-item" href="#">Reporte Clientes</a></li>') : ''; ?></a></li>
+														<?php ($y->Opcion == 3) ?  print_r('<li><a class="dropdown-item" href="#">solicitudes OB</a></li>') : ''; ?></a></li>
+														<?php ($y->Opcion == 1002) ?  print_r('<li><a class="dropdown-item" href="#">Reporte Onbase</a></li>') : ''; ?></a></li>
 											<?php }
 												}
 											} //FIN DEL FOR
@@ -170,32 +171,32 @@
 								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
 							<div class="modal-body">
-								<form>
+								<div class="row">
 									<div class="mb-3">
-										<label for="username" class="form-label">Nombre de Usuario</label>
+										<label for="username" class="form-label font-weight-bold">Nombre de Usuario</label>
 										<input type="text" class="form-control" id="username<?php echo $y; ?>" placeholder="Ingrese su nombre de usuario"
 											value="<?php echo $row->NombreUsuario; ?>" required>
 									</div>
 									<div class="mb-3">
-										<label for="email" class="form-label">Correo Electrónico</label>
+										<label for="email" class="form-label font-weight-bold">Correo Electrónico</label>
 										<input type="email" class="form-control" id="email<?php echo $y; ?>" placeholder="Ingrese su correo electrónico"
 											value=<?php echo $row->CorreoElectronico; ?>>
 									</div>
 									<div class="mb-3">
-										<label for="password" class="form-label">Contraseña</label>
+										<label for="password" class="form-label font-weight-bold">Contraseña</label>
 										<input type="text" class="form-control" id="password<?php echo $y; ?>" placeholder="Ingrese su contraseña"
 											value="<?php echo $row->Contrasena; ?>">
 									</div>
 
-									<div class=" form-check  ">
+									<div class=" form-check  d-flex justify-content-center">
 
-										<input class="form-check-input" type="checkbox" id="checkbox<?php echo $y; ?>"
+										<input class="form-check-input " type="checkbox" id="checkbox<?php echo $y; ?>"
 											<?php if ($row->Activo == 1) echo 'checked'; ?>>
-										<label class="form-check-label" for="flexCheckDefault">Activo</label>
+										<label class="form-check-label font-weight-bold ml-5" for="flexCheckDefault">Activo</label>
 									</div>
 
 
-								</form>
+								</div>
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn-base-regresar" data-dismiss="modal"
@@ -319,11 +320,12 @@
 			function mostrarModalPermisos(idModal) {
 				$('#ModalP' + idModal).modal('show');
 			}
+
 			function mostrarModalEliminaPermisos(idModal) {
 				$('#ModalE10' + idModal).modal('show');
 			}
 
-			
+
 
 			let subModulos = [{
 					id: 1,
@@ -349,6 +351,11 @@
 					id: 5,
 					name: "Carga Facturas",
 					idArea: 3
+				},
+				{
+					id: 1003,
+					name: "Cheklist",
+					idArea: 2
 				}
 			];
 
@@ -445,7 +452,7 @@
 				var url = direccion + "/" + $.trim(id) + "/" + $.trim(usuario) + "/" + $.trim(selec1) + "/" + $.trim(selec2) + "/" +
 					$.trim(selec3) + "/" + $.trim(tipo)
 
-				
+
 
 				$.ajax({
 					type: "POST",
@@ -455,7 +462,7 @@
 						location.reload()
 					},
 					complete: function() {
-					
+
 					},
 				});
 			}

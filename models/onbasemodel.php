@@ -304,6 +304,22 @@ class OnbaseModel extends Model
         }
     }
 
+    public function consultaEstatusFactura($pedimento,$patente,$aduana,$opcion)
+    {
+        
+        try {
+            $this->dbOnBase->connect();
+            $sql = "exec  [dbo].[OB_WEB_EstatusFactura] '" . $pedimento . "','" . $patente . "','" . $aduana . "','" . $opcion . "'";
+            // echo  $sql;
+            $this->dbOnBase->query($sql);
+            $resultados = $this->dbOnBase->obtener_registros();
+            return $resultados;
+        } catch (PDOEXception $e) {
+            echo "Error TRY para mostrar" . $e->getMessage();
+            return [];
+        }
+    }
+
     public function consulta_validacion_web($email)
     {
         try {

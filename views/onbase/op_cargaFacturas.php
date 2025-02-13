@@ -19,18 +19,19 @@
         <div class="row mt-5 d-flex  align-items-center mb-2">
             <div class="col-10  d-flex flex-row justify-content-center">
                 <!-- Botón para seleccionar archivos PDF -->
-                <label class="btn-file-p mr-3">
-                    <i class="fas fa-file-pdf"></i>  PDF
+                <label class="btn-file-p mr-4">
+                    <i class="fas fa-file-pdf"></i> PDF
                     <input type="file" class="file-btn" name="pdf[]" id="pdf" accept=".pdf" multiple required>
+
                 </label>
-                <span id="pdf-count" class="file-count text-muted mr-3">0 archivos</span>
+                <span id="pdf-count" class="file-count text-muted mr-3 disabled hidden">0 archivos</span>
 
                 <label class="btn-file-x mr-3">
-                    <i class="fas fa-file-code"></i>  XML
+                    <i class="fas fa-file-code"></i> XML
                     <input type="file" class="file-btn" name="xml[]" id="xml" accept=".xml" multiple required>
                 </label>
-                <span id="xml-count" class="file-count text-muted mr-3">0 archivos</span>
-
+                <span id="xml-count" class="file-count text-muted mr-3 hidden">0 archivos</span>
+ 
 
             </div>
             <div class="col-2">
@@ -75,7 +76,7 @@
 
     </div>
 
-    
+
 
     <!-- Contenedor para el overlay -->
     <div id="overlay" class="ocultar"></div>
@@ -107,10 +108,12 @@
 
     // Event listeners para los inputs de archivo
     document.getElementById('pdf').addEventListener('change', function() {
+        $('#pdf-count').removeClass('hidden')
         updateFileCount('pdf', 'pdf-count');
     });
 
     document.getElementById('xml').addEventListener('change', function() {
+        $('#xml-count').removeClass('hidden')
         updateFileCount('xml', 'xml-count');
     });
 
@@ -171,12 +174,17 @@
         $('table tbody tr').each(function() {
             let filled = false;
 
+
+
             // Verificar si algún campo en la fila tiene un valor
             $(this).find('input').each(function() {
                 if ($(this).val().trim() !== '') {
                     filled = true;
                 }
             });
+
+
+
 
             // Si no hay ningún campo lleno en esta fila, marcar como inválido
             if (!filled) {
@@ -192,9 +200,9 @@
             return; // Detener el procesamiento
         }
 
-        let select= $("#selectSucursal").val()
-        
-        if(select === ''){
+        let select = $("#selectSucursal").val()
+
+        if (select === '') {
             e.preventDefault();
             $("#mainSelectSucursal").find(".alert").remove();
             $("#mainSelectSucursal").append($('<div class="alert alert-danger text-center" role="alert" style="margin-top:0.3rem; ">Favor de elegir una sucursal</div>'))
@@ -207,20 +215,19 @@
             var nombre = $(this).find('td').eq(1).text();
             var nombreNuevo = $(this).find('td').eq(2).text();
             //Verificar si contiene referencia o hay que ingresar
-            var referenciaElement = $(this).find('td').eq(3);
-            let referencia = referenciaElement.find('input').length ? referenciaElement.find('input').val().trim() : referenciaElement.text().trim();
 
+            let referencia = $(this).find('.campo1').val();
             let guiaH = $(this).find('.campo2').val();
             let guiaM = $(this).find('.campo3').val();
             let pedimento = $(this).find('.campo4').val();
             let contenedor = $(this).find('.campo5').val();
 
-            
-            
+
+
             let direccion = "http://172.20.20.56:8080/ravisa/onbase/moverArchivos";
             let url = direccion + "/" + encodeURIComponent($.trim(select)) + "/" + encodeURIComponent($.trim(uuid)) + "/" + encodeURIComponent($.trim(nombre)) + "/" + encodeURIComponent($.trim(nombreNuevo)) + "/" + (referencia ? encodeURIComponent($.trim(referencia)) : 'NULL') + "/" + (pedimento ? encodeURIComponent($.trim(pedimento)) : 'NULL') + "/" + (guiaH ? encodeURIComponent($.trim(guiaH)) : 'NULL') + "/" + (guiaM ? encodeURIComponent($.trim(guiaM)) : 'NULL') + "/" + (contenedor ? encodeURIComponent($.trim(contenedor)) : 'NULL');
 
-           
+            console.log(url)
 
             $.ajax({
                 url: url, // Archivo PHP que moverá los archivos
@@ -229,13 +236,13 @@
                     $('table tbody tr').remove();
                     $("#confirm-btn").addClass("d-none");
 
-    
+
                     $("#mainSelectSucursal").find(".alert").remove();
                     $("#mainSelectSucursal").append($('<div class="alert alert-success text-center" role="alert" style="margin-top:0.3rem; ">Archivos cargados!</div>'))
                     setTimeout(() => {
                         window.location.reload()
                     }, 1500)
-                    
+
 
                 },
                 error: function(xhr, status, error) {

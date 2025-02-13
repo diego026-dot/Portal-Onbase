@@ -58,6 +58,40 @@ class Controller
         }
     }
 
+    function extraerPdfPedimento($pdfFile)
+    {
+        $text = shell_exec("gs -sDEVICE=txtwrite -o - " . escapeshellarg($pdfFile));
+
+        $pedimento = '/\b40\d{5}\b/';
+        if (preg_match($pedimento, $text, $matches)) {
+            // Mostrar el primer resultado (la cadena UUID)
+            return $matches[0];
+        } else {
+            return '';
+        }
+    }
+
+    function extraerPdfGuiaM($pdfFile)
+    {
+        $text = shell_exec("gs -sDEVICE=txtwrite -o - " . escapeshellarg($pdfFile));
+
+        $textoSinGuion = '/\b\d{11}\b/';
+        $textoSinGuion12 = '/\b\d{12}\b/';
+        $referencia = '/\b\d{3}-[A-Za-z0-9]{8}\b/';
+
+        if (preg_match($referencia, $text, $matches)) {
+            // Mostrar el primer resultado (la cadena UUID)
+            return $matches[0];
+        } elseif (preg_match($textoSinGuion, $text, $matches)) {
+            return $matches[0];
+        } elseif (preg_match($textoSinGuion12, $text, $matches)) {
+            return $matches[0];
+        } else {
+            return '';
+        }
+    }
+
+
     function processFiles($pdfFiles, $xmlFiles)
     {
         $fileData = [];
@@ -73,17 +107,21 @@ class Controller
 
         foreach ($pdfFiles['tmp_name'] as $index => $pdfFileTmpName) {
             $pdfUuid = $this->extraerPdf($pdfFileTmpName);
+            $pedimento = $this->extraerPdfPedimento($pdfFileTmpName);
+            $guiaM = $this->extraerPdfGuiaM($pdfFileTmpName);
             $referencia = $this->extraerPdfReferencia($pdfFileTmpName);
             if ($pdfUuid) {
-                
+
                 if (isset($xmlUuids[strtoupper($pdfUuid)])) {
                     $originalName = str_replace(' ', '-', $pdfFiles['name'][$index]);
-                    
+
                     $fileData[] = [
                         'uuid' => $pdfUuid,
                         'original_pdf' => $originalName,
                         'new_pdf' => "{$pdfUuid}.pdf",
-                        'referencia' => $referencia
+                        'referencia' => $referencia,
+                        'guiaM' => $guiaM,
+                        'pedimento' => $pedimento
 
                     ];
                     //Mover el archivo PDF a la carpeta 'uploads'
@@ -95,17 +133,13 @@ class Controller
                     if (!move_uploaded_file($xmlUuids[$pdfUuid], $rutaXmlDestino)) {
                         $results[] = "Error al mover el archivo XML: {$xmlFiles['name'][$index]}";
                     }
-                }else {
+                } else {
                     $archivosSinCoincidencia++;
-                    
                 }
+            }
+
+            $_SESSION['noEncontrados'] = $archivosSinCoincidencia;
+            $_SESSION['fileData'] = $fileData;
         }
-
-        $_SESSION['noEncontrados']= $archivosSinCoincidencia;
-        $_SESSION['fileData']= $fileData;
-        
-
-        
     }
-}
 }

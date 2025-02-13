@@ -13,21 +13,15 @@ class Login extends Controller {
     }
 
     function validacion() {
-     
+       
         
-        $usuario = $_POST['usuario'];
+        $usuario = $_POST['usuario'] ;
         $contrasena = $_POST['contrasena'];
 
-        if ($usuario === 'Global' && $contrasena === 'global123') {
-            session_start();
-            $_SESSION['usuario'] = strtoupper($usuario);
-    
-            // Aquí puedes configurar cualquier otra sesión o redirección adicional
-            header('Location: ' . constant('URL') . '/onbase/inicioSinCredenciales');
-            exit;
-        }
-
+        
        
+
+        
 
         // Usar la clase DatabaseOnBase para la conexión a la base de datos
         $db = new DatabaseOnBase();
@@ -39,17 +33,19 @@ class Login extends Controller {
         $sql = "EXEC [dbo].[OB_WEB_ValidaUsuario] '" . $usuario . "','" . $contrasena . "'";
 
         if ($db->query($sql)) {
-            $db->bindParam(1, $usuario);
-            $db->bindParam(2, $contrasena);
+            //$db->bindParam(1, $usuario);
+            //$db->bindParam(2, $contrasena);
             if ($db->ejecutar()) {
                 $resultado = $db->obtener_registro();
                 // var_dump($resultado);
                 // Verificar el resultado del procedimiento almacenado
+                session_start();
+                $_SESSION['usuario'] = strtoupper($usuario);
+            
+
                 if ($resultado && isset($resultado->VALIDACION)) {
                     if ($resultado->VALIDACION === "1") {
 
-                        session_start();
-                        $_SESSION['usuario'] = strtoupper($usuario);
 
                         $sql2 = "EXEC [dbo].[OB_WEB_ObtieneCorreoUsuario] '" . $usuario . "'";
                         if ($db->query($sql2)) {
@@ -105,7 +101,9 @@ class Login extends Controller {
                             }
                         }
 
-
+                        
+                           ;
+                        
 
 
                             //   print_r($_SESSION['UsuarioModulo']); 
@@ -113,17 +111,22 @@ class Login extends Controller {
 
                         // Usuario y contraseña válidos   
                         // echo "Credenciales válidas, iniciando sesión.";
-                      
+                       header('Location: ' . constant('URL') . 'main');
                         // Redireccionar al área principal
-                        header('Location: ' . constant('URL') . 'main');
+                        
                         // exit;
                     } else {
                         // Usuario o contraseña inválidos
                         // echo "Usuario o contraseña inválidos.";
-
+                        if ($usuario === 'Global' && $contrasena === 'global123') {
+                                      
+                            // Aquí puedes configurar cualquier otra sesión o redirección adicional
+                            header('Location: ' . constant('URL') . 'onbase/inicioSinCredenciales');
+                            return;
+                        }
                        
                         header('Location: ' . constant('URL') . 'login');
-                        // exit;
+                        //return;
                     }
                 } else {
                     // Error: No se pudo obtener la propiedad VALIDACION
