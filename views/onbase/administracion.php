@@ -7,12 +7,12 @@
 				<ol class="breadcrumb mb-1 bg-transparent">
 					<li class="breadcrumb-item">
 						<img src="https://static.wixstatic.com/media/fe7c4c_794ee55525f8446ba0a6ba64d5afaeb6~mv2.png/v1/fill/w_120,h_48,al_c,lg_1,q_85,enc_auto/fe7c4c_794ee55525f8446ba0a6ba64d5afaeb6~mv2.png" alt="Icono" style="width: 40px; height: auto; margin-right: 10px;">
-						<a href="#">Facturación</a>
+						<a href="#">Administracion</a>
 					</li>
-					<li class="breadcrumb-item active" aria-current="page">Facturas por Concepto</li>
+					<li class="breadcrumb-item active" aria-current="page">Administrar Usuarios</li>
 				</ol>
 			</nav>
-			<button type="button" onclick="regresar();" class=" btn-base-regresar">Regresar</button>
+			<button type="button" onclick="window.location = '<?php echo constant('URL') ?>onbase/menuAdministracion'" class=" btn-base-regresar">Regresar</button>
 		</div>
 	</div>
 
@@ -34,6 +34,23 @@
 								<div class="mb-3">
 									<label for="username" class="form-label font-weight-bold">Nombre de Usuario</label>
 									<input type="text" class="form-control" id="username" placeholder="Ingrese su nombre de usuario" required>
+								</div>
+
+								<div class="d-flex flex-column mb-3">
+									<label for="sucursal" class="form-label fw-bold">Sucursal</label>
+									<select class="selectpicker w-100" id="sucursal">
+										<option value="" selected disabled>Elige Sucursal</option>
+										<option value="MEX">Mexico</option>
+										<option value="MZO">Manzanillo</option>
+										<option value="MTY">Monterrey</option>
+										<option value="VER">Veracruz</option>
+										<option value="TOL">Toluca</option>
+										<option value="SLP">San Luis Potosi</option>
+										<option value="COA">Coatzacoalcos</option>
+										<option value="LTX">Nuevo laredo</option>
+										<option value="APO">Apodaca</option>
+										<option value="MAZ">Mazatlan</option>
+									</select>
 								</div>
 
 								<div class="mb-3">
@@ -62,6 +79,7 @@
 							<th width=auto style="text-align:left">Id</th>
 							<th width=auto style="text-align:left">Nombre Usuario</th>
 							<th width=auto style="text-align:left">Correo</th>
+							<th width=auto style="text-align:left">Sucursal</th>
 							<th width=auto style="text-align:left">Estado</th>
 							<th width=auto style="text-align:left">Permisos</th>
 						</tr>
@@ -77,6 +95,7 @@
 								<td><?php echo $row->UsuarioID; ?></td>
 								<td><?php echo $row->NombreUsuario; ?></td>
 								<td><?php echo $row->CorreoElectronico; ?></td>
+								<td><?php echo $row->Sucursal; ?></td>
 								<td><?php echo ($row->Activo == 1) ? 'Activo' : 'No activo'; ?></td>
 								<td>
 									<div class="btn-group">
@@ -93,6 +112,7 @@
 														<?php ($y->Modulo == 1) ? print_r('<li><a class="dropdown-item" href="#">Administracion</a></li>') : ''; ?></a></li>
 														<?php ($y->Modulo == 2) ? print_r('<li><a class="dropdown-item" href="#">Facturacion</a></li>') : ''; ?></a></li>
 														<?php ($y->Modulo == 3) ? print_r('<li><a class="dropdown-item" href="#">Operaciones</a></li>') : ''; ?></a></li>
+														<?php ($y->Modulo == 1002) ? print_r('<li><a class="dropdown-item" href="#">CapitalHumano</a></li>') : ''; ?></a></li>
 											<?php }
 												}
 											} //FIN DEL FOR
@@ -177,6 +197,22 @@
 										<input type="text" class="form-control" id="username<?php echo $y; ?>" placeholder="Ingrese su nombre de usuario"
 											value="<?php echo $row->NombreUsuario; ?>" required>
 									</div>
+									<div class="d-flex flex-column mb-3">
+										<label for="sucursal" class="form-label fw-bold">Sucursal</label>
+										<select class="selectpicker w-100" id="sucursal<?php echo $y; ?>">
+											<option value="<?php echo $row->Sucursal; ?>" selected disabled><?php echo $row->Sucursal; ?></option>
+											<option value="MEX">Mexico</option>
+											<option value="MZO">Manzanillo</option>
+											<option value="MTY">Monterrey</option>
+											<option value="VER">Veracruz</option>
+											<option value="TOL">Toluca</option>
+											<option value="SLP">San Luis Potosi</option>
+											<option value="COA">Coatzacoalcos</option>
+											<option value="LTX">Nuevo laredo</option>
+											<option value="APO">Apodaca</option>
+											<option value="MAZ">Mazatlan</option>
+										</select>
+									</div>
 									<div class="mb-3">
 										<label for="email" class="form-label font-weight-bold">Correo Electrónico</label>
 										<input type="email" class="form-control" id="email<?php echo $y; ?>" placeholder="Ingrese su correo electrónico"
@@ -203,6 +239,7 @@
 									onclick="enviaDatosActualizarUsuario(
             							'<?php echo $row->UsuarioID; ?>',
             							document.getElementById('username<?php echo $y; ?>').value,
+										document.getElementById('sucursal<?php echo $y; ?>').value,
             							document.getElementById('email<?php echo $y; ?>').value,
             							document.getElementById('password<?php echo $y; ?>').value,
             							document.getElementById('checkbox<?php echo $y; ?>').checked ? 1 : 0
@@ -234,6 +271,7 @@
 									<option value=1>Administracion</option>
 									<option value=2>Facturacion</option>
 									<option value=3>Operaciones</option>
+									<option value=1002>Capital Humano</option>
 								</select>
 								<select class="selectpicker" id="sub<?php echo $y; ?>" onchange=actualizarOpcion(<?php echo $y; ?>) disabled>
 									<option selected value=0>Open this select menu</option>
@@ -276,6 +314,7 @@
 									<option value=1>Administracion</option>
 									<option value=2>Facturacion</option>
 									<option value=3>Operaciones</option>
+									<option value=1002>Capital Humano</option>
 								</select>
 								<select class="selectpicker" id="sub<?php echo $y; ?>" onchange=actualizarOpcion(<?php echo $y; ?>) disabled>
 									<option selected value=0>Open this select menu</option>
@@ -348,7 +387,7 @@
 					idArea: 3
 				},
 				{
-					id: 5,
+					id: 1002,
 					name: "Carga Facturas",
 					idArea: 3
 				},
@@ -443,16 +482,16 @@
 			function enviaDatosAgregarPermisos(i, name, y) {
 				let id = i
 				let usuario = name
-				var selec1 = parseInt($('#select' + y).val(), 10);
-				var selec2 = parseInt($('#sub' + y).val(), 10);
-				var selec3 = ($('#opcion' + y).val() == null) ? selec3 = 0 : parseInt($('#opcion' + y).val(), 10);
+				var selec1 = parseInt($('#select' + y).val(), 10) ? parseInt($('#select' + y).val(), 10) : 0
+				var selec2 = $('#sub' + y).val() ? $('#sub' + y).val() : 0
+				var selec3 = ($('#opcion' + y).val() == null) ? selec3 = 0 : $('#opcion' + y).val();
 				let tipo = 3
 
 				var direccion = "http://172.20.20.56:8080/ravisa/onbase/administracionUser";
 				var url = direccion + "/" + $.trim(id) + "/" + $.trim(usuario) + "/" + $.trim(selec1) + "/" + $.trim(selec2) + "/" +
 					$.trim(selec3) + "/" + $.trim(tipo)
 
-
+				console.log(url)
 
 				$.ajax({
 					type: "POST",
@@ -491,12 +530,13 @@
 				let usuario = $("#username").val();
 				let correo = $("#email").val();
 				let contrasena = $("#password").val();
+				let sucursal = $("#sucursal").val()
 				let activo = 1
 				let tipo = 1
 
 				var direccion = "http://172.20.20.56:8080/ravisa/onbase/administracionUser";
 				var url = direccion + "/" + $.trim(id) + "/" + $.trim(usuario) + "/" + $.trim(correo) + "/" + $.trim(contrasena) + "/" +
-					$.trim(activo) + "/" + $.trim(tipo);
+					$.trim(activo) + "/" + $.trim(sucursal) + "/" + $.trim(tipo);
 
 				$.ajax({
 					type: "POST",
@@ -513,18 +553,21 @@
 			}
 
 
-			function enviaDatosActualizarUsuario(number, user, email, password, check) {
+			function enviaDatosActualizarUsuario(number, user, suc, email, password, check) {
 
 				let id = number
 				let usuario = user
+				let sucursal = suc
 				let correo = email
 				let contrasena = password
 				let activo = check
 				let tipo = 2
+				
+				
 
 				var direccion = "http://172.20.20.56:8080/ravisa/onbase/administracionUser";
 				var url = direccion + "/" + $.trim(id) + "/" + $.trim(usuario) + "/" + $.trim(correo) + "/" + $.trim(contrasena) + "/" +
-					$.trim(activo) + "/" + $.trim(tipo);
+					$.trim(activo) + "/" + $.trim(sucursal)+ "/" + $.trim(tipo);
 
 				$.ajax({
 					type: "POST",

@@ -19,10 +19,6 @@ class Login extends Controller {
         $contrasena = $_POST['contrasena'];
 
         
-       
-
-        
-
         // Usar la clase DatabaseOnBase para la conexión a la base de datos
         $db = new DatabaseOnBase();
         if (!$db->connect()) {
@@ -40,7 +36,7 @@ class Login extends Controller {
                 // var_dump($resultado);
                 // Verificar el resultado del procedimiento almacenado
                 session_start();
-                $_SESSION['usuario'] = strtoupper($usuario);
+                $_SESSION['usuario'] = $usuario;
             
 
                 if ($resultado && isset($resultado->VALIDACION)) {

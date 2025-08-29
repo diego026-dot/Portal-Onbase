@@ -1,5 +1,9 @@
 	<!-- js -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.7/pdfobject.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+	<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 	<script src="<?php echo constant('URL');?>public/vendors/scripts/core.js"></script>
 	<script src="<?php echo constant('URL');?>public/vendors/scripts/script.min.js"></script>
 	<script src="<?php echo constant('URL');?>public/vendors/scripts/process.js"></script>
@@ -27,7 +31,8 @@
 	<!-- bootstrap-touchspin js -->
 	<script src="<?php echo constant('URL');?>public/src/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
 	<script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
-	<script src= "https://cdn.jsdelivr.net/npm/chart.js" ></script>
+	<script src= "https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.min.js" ></script>
+
 </body>
 <script>
 	function bloqueoF5(){

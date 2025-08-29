@@ -88,6 +88,8 @@ include("public/inc/encabezado_login.php"); ?>
 
 	
 	function accesoReferencia() {
+		
+		
 		// Datos de usuario y contraseña automáticos
 		const usuario = "Global"; // Reemplaza con el usuario que deseas
 		const contrasena = "global123"; // Reemplaza con la contraseña que deseas

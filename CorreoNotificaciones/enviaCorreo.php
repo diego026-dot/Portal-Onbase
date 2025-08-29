@@ -136,8 +136,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $mail->IsSMTP();
         $mail->SMTPAuth = true;
         $mail->Host = "smtp.office365.com";
-        $mail->Username = "facturas.proveedores@ravisa.com";  // Cambia a tu correo de Outlook
-        $mail->Password = "FN4c2021$";  // Cambia a tu contraseña de Outlook
+        $mail->Username = "onbaseprocesos@ravisa.com";  // Cambia a tu correo de Outlook
+        $mail->Password = "JeL8451.f";  // Cambia a tu contraseña de Outlook
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;  // Puerto SMTP
 
@@ -301,12 +301,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             
         echo $body;
         
-        exit();
+        //exit();
        
         // Enviar correo usando PHPMailer
 
 
-        $mail->From = "facturas.proveedores@ravisa.com";  // Tu correo de Outlook
+        $mail->From = "onbaseprocesos@ravisa.com";  // Tu correo de Outlook
         $mail->FromName = "OnBase Procesos";
 
 

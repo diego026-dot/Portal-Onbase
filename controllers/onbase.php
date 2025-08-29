@@ -8,7 +8,10 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
+use function PHPSTORM_META\map;
 
 class Onbase extends Controller
 {
@@ -85,7 +88,7 @@ class Onbase extends Controller
     public function administracionUser($parametros = null)
     {
         if ($parametros == null) {
-            $parametros = '0/0/0/0/0/0';
+            $parametros = '0/0/0/0/0/0/0';
         }
 
         $id = $parametros[0];
@@ -93,15 +96,19 @@ class Onbase extends Controller
         $correo = $parametros[2];
         $contrasena = $parametros[3];
         $activo = $parametros[4];
-        $tipo = $parametros[5];
+        $sucursal = $parametros[5];
+        $tipo = $parametros[6];
 
         if ($tipo == 1) {
-            $this->model->agregarUsuarios($id, $usuario, $correo, $contrasena, $activo, $tipo);
+            $this->model->agregarUsuarios($id, $usuario, $correo, $contrasena, 1, $sucursal, $tipo);
         }
         if ($tipo == 2) {
-            $this->model->editarUsuarios($id, $usuario, $correo, $contrasena, $activo, $tipo);
+            $this->model->editarUsuarios($id, $usuario, $correo, $contrasena, $activo, $sucursal, $tipo);
         }
-        if ($tipo == 3) {
+        if ($sucursal == 3) {
+            $this->model->agregarPermisos($id, $usuario, $correo, $contrasena, $activo);
+        }
+        if ($id == 0) {
             $this->model->agregarPermisos($id, $usuario, $correo, $contrasena, $activo);
         }
 
@@ -122,12 +129,117 @@ class Onbase extends Controller
         $this->view->pagina = "onbase/menu_operaciones";
         $this->view->render('onbase/menu_operaciones');
     }
+
     public function inicioSinCredenciales()
     {
 
         $this->view->pagina = "login/inicioSinCredenciales";
         $this->view->render('login/inicioSinCredenciales');
     }
+
+    public function menuAdministracion()
+    {
+
+        $this->view->pagina = "onbase/menuAdministracion";
+        $this->view->render('onbase/menuAdministracion');
+    }
+
+    public function administracionCorreos()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            $datos = [
+                'id' => $_POST['id'] ?? null,
+                'codigo' => $_POST['codigosn'] ?? null,
+                'nombreSocio' => $_POST['nombresocionegocios'] ?? null,
+                'usuario' => $_POST['nombre'] ?? null,
+                'direccion' => $_POST['direccion'] ?? null,
+                'puesto' => $_POST['puesto'] ?? null,
+                'funcion' => $_POST['funcion'] ?? null,
+                'correo' => $_POST['correo'] ?? null,
+                'supervisor' => $_POST['supervisor'] ?? null,
+                'supervisorCorreo' => $_POST['supervisorcorreo'] ?? null,
+                'nl' => isset($_POST['nuevolaredo']) ? 1 : 0,
+                'maz' => isset($_POST['mazatlan']) ? 1 : 0,
+                'mx' => isset($_POST['mexico']) ? 1 : 0,
+                'mzo' => isset($_POST['manzanillo']) ? 1 : 0,
+                'mty' => isset($_POST['monterrey']) ? 1 : 0,
+                'vr' => isset($_POST['veracruz']) ? 1 : 0,
+                'tol' => isset($_POST['toluca']) ? 1 : 0,
+                'slp' => isset($_POST['sanluispotosi']) ? 1 : 0,
+                'coa' => isset($_POST['coatzacoalcos']) ? 1 : 0,
+                'tipo' => $_POST['tipo'] ?? null
+            ];
+
+            error_log(print_r($datos), true);
+
+            $this->model->agregarUsuarioDetalle($datos);
+        }
+
+        $consultaUsuarios = $this->model->selectUserAdminCorreo();
+
+        $this->view->consultaUsuarios = $consultaUsuarios;
+        $this->view->pagina = "onbase/administracionCorreos";
+        $this->view->render('onbase/administracionCorreos');
+    }
+
+    public function validarUsuarioDetalle($parametros = null)
+    {
+        if ($parametros == null) {
+            $parametros = '0/0/';
+        }
+
+        $id = $parametros[0];
+        $correo = $parametros[1];
+
+
+        $consultaUsuarios = $this->model->validarDatosUsuarioDetalle($id, $correo);
+
+        header('Content-Type: application/json');
+        echo json_encode($consultaUsuarios);
+        exit;
+    }
+
+    public function administracionGerentes()
+    {
+        $usuariosSucursal = [];
+        $resultados = [];
+        $sucursalUsuario = [];
+        $sucursales = [
+            "MEX" => "Mexico",
+            "LTX" => "NuevoLaredo",
+            "MZO" => "Manzanillo",
+            "TOL" => "Toluca",
+            "COA" => "Coatzacoalcos",
+            "MAZ" => "Mazatlan",
+            "MTY" => "Monterrey",
+            "SLP" => "San Luis Potosi",
+            "APO" => "Apodaca",
+            "VER" => "Veracruz"
+        ];
+        $consultaDatosUsuario = $this->model->validaSucursalGerente($_SESSION['usuario']);
+        foreach ($consultaDatosUsuario[0] as $key => $value) {
+            if ($value === "1" && $key != "Activo") {
+                $usuariosSucursal[] = $key;
+            }
+        }
+
+        // $sucursal = $consultaIndicadores[0]->Sucursal;
+        foreach ($usuariosSucursal as $sucursal) {
+            $sucursalUsuario[$sucursal] = $sucursales[$sucursal];
+            $resultado = $this->model->usuariosSucursal($sucursal);
+            if ($resultado) {
+                $resultados[] = $resultado;
+            }
+        }
+
+
+        $this->view->resultados = $resultados;
+        $this->view->sucursalUsuario = $sucursalUsuario;
+        $this->view->pagina = "onbase/administracionGerentes";
+        $this->view->render('onbase/administracionGerentes');
+    }
+
 
     public function cargaTabla_EstatusFactura($parametros = null)
     {
@@ -141,14 +253,14 @@ class Onbase extends Controller
         $aduana = $parametros[2];
         $opcion = $parametros[3];
 
-        
 
 
-        $consulta = $this->model->consultaEstatusFactura($pedimento,$patente,$aduana,$opcion);
-   
+
+        $consulta = $this->model->consultaEstatusFactura($pedimento, $patente, $aduana, $opcion);
+
 
         $data_found = !empty($consulta);
-    ?>
+?>
         <input type="hidden" id="data_found" value="<?php echo $data_found ? '1' : '0'; ?>">
         <input type="text" class="form-control pull-right" style="width:20%; margin-bottom: 0.6em;" id="searchRepPhi" name="searchRepPhi" placeholder="Buscador...">
 
@@ -156,9 +268,10 @@ class Onbase extends Controller
             <thead class="text-blue">
                 <tr>
                     <th width=20% style="text-align:center">UUID</th>
-                    <th width=10% style="text-align:center">Fecha Creacion</th>
-                    <th width=10% style="text-align:center">Referencia</th>
+                    <th width=5% style="text-align:center">Fecha Creacion</th>
+                    <th width=5% style="text-align:center">Referencia</th>
                     <th width=5% style="text-align:center">Estatus</th>
+                    <th width=20% style="text-align:center">Cliente</th>
                     <th width=5% style="text-align:center">Pedimento</th>
                     <th width=5% style="text-align:center">Patente</th>
                     <th width=5% style="text-align:center">Aduana</th>
@@ -174,29 +287,36 @@ class Onbase extends Controller
                             <td style="text-align:center"><?php echo $row->UUID; ?></td>
                             <td style="text-align:center"><?php echo $row->FechaCreacion; ?></td>
                             <td style="text-align:center"><?php echo $row->Referencia; ?></td>
-                            <td style="text-align:center;"><p style="background-color: #ff7113"><?php echo $row->Estatus; ?></p></td>
+                            <td style="text-align:center;">
+                                <p style="background-color: #ff7113"><?php echo $row->Estatus; ?></p>
+                            </td>
+                            <td style="text-align:center"><?php echo $row->ClienteOP; ?></td>
                             <td style="text-align:center"><?php echo $row->Pedimento; ?></td>
                             <td style="text-align:center"><?php echo $row->Patente; ?></td>
                             <td style="text-align:center"><?php echo $row->Aduana; ?></td>
-                            
+
                             <td style="text-align:center">
-                                <a href="<?php if ($row->DocumentoURL !== "NA") {echo $row->DocumentoURL; } ?>" target="_blank">
-                                <?php if ($row->DocumentoURL !== "NA") {echo "URL"; } ?></a>
+                                <a href="<?php if ($row->DocumentoURL !== "NA") {
+                                                echo $row->DocumentoURL;
+                                            } ?>" target="_blank">
+                                    <?php if ($row->DocumentoURL !== "NA") {
+                                        echo "URL";
+                                    } ?></a>
                             </td>
-                            
-                            <td style="text-align:center">    
+
+                            <!-- <td style="text-align:center">    
                                 <label class="btn-file-p "onclick="subirPdf('<?php echo $row->UUID; ?>')">
                                     <i class="fas fa-file-pdf"></i> PDF
                                     <input type="file" class="file-btn"  id=<?php echo $row->UUID; ?> accept=".pdf" >
                                 </label>
-                            </td>
-                 
+                            </td> -->
+
                         </tr>
                 <?php } //FIN DEL FOR
                 } ?>
             </tbody>
         </table>
-        <?php
+    <?php
 
     }
 
@@ -207,21 +327,21 @@ class Onbase extends Controller
             if (isset($_FILES['archivo']) && $_FILES['archivo']['error'] === UPLOAD_ERR_OK) {
                 // Obtén información del archivo
                 $archivoTemporal = $_FILES['archivo']['tmp_name'];
-                
-                $nombrePdf = trim($_POST['nombre']) .'.pdf';
+
+                $nombrePdf = trim($_POST['nombre']) . '.pdf';
                 $mail = new PHPMailer(true);
                 $mail->IsSMTP();
                 $mail->Host = "smtp.office365.com";
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->SMTPAuth = true;
-                
+
                 $mail->Username = "onbaseprocesos@ravisa.com";  // Cambia a tu correo de Outlook
                 $mail->Password = 'JeL8451.f';
-                
-                
+
+
                 // Cambia a tu contraseña de Outlook
-                
-                
+
+
                 $mail->Port = 587;  // Puerto SMTP
 
                 $mail->From = "onbaseprocesos@ravisa.com";  // Tu correo de Outlook
@@ -230,17 +350,15 @@ class Onbase extends Controller
                 $mail->Body = 'Hola, aqui tienes el archivo PDF adjunto';
                 $mail->AltBody = 'Hola, aqui tienes el archivo PDF adjunto';
 
-                
+
                 $mail->addAttachment($archivoTemporal, $nombrePdf);
                 $mail->SMTPDebug = 2;
                 $mail->Debugoutput = 'html';
-                
+
                 $mail->Send();
-        
-                
             }
+        }
     }
-}
 
     public function facturas_nacionales()
     {
@@ -291,7 +409,7 @@ class Onbase extends Controller
         $consultaIndicadores = $this->model->consultaCheklist($pedimento, $patente, $aduana);
 
         $data_found = !empty($consultaIndicadores);
-?>
+    ?>
         <input type="hidden" id="data_found" value="<?php echo $data_found ? '1' : '0'; ?>">
         <input type="text" class="form-control pull-right" style="width:20%; margin-bottom: 0.6em;" id="searchRepPhi" name="searchRepPhi" placeholder="Buscador...">
 
@@ -544,7 +662,7 @@ class Onbase extends Controller
                 } ?>
             </tbody>
         </table>
-        <?php
+    <?php
 
     }
 
@@ -621,69 +739,58 @@ class Onbase extends Controller
     }
 
 
-
+    //Las funciones tanto como de procesarArvhivos y mover vienen deL archivo libs/controller
     public function procesarArchivos()
     {
         if (isset($_FILES['pdf']) && isset($_FILES['xml'])) {
-            $this->processFiles($_FILES['pdf'], $_FILES['xml']); // Llama a la función que procesa los archivos
-            $consulta = $_SESSION['fileData'];
+            $consulta = $this->processFiles($_FILES['pdf'], $_FILES['xml']); // Llama a la función que procesa los archivos
+
             $dont_found = $_SESSION['noEncontrados'];
-
             $data_found = !empty($consulta);
-        ?>
-            <input type="hidden" id="data_found" value="<?php echo $data_found ? '1' : '0'; ?>">
-            <input type="hidden" id="dont_found" value="<?php echo ($dont_found > 0) ? '1' : '0'; ?>">
-            <div id="mainSelectSucursal">
-                <label for="selectSucursal">Sucursal:</label>
-                <select aria-label="Sucursal" style=" padding:0.2rem; font-weight:600 " id="selectSucursal" name="selectSucursal" required>
-                    <option value="" hidden>Selecciona una opción</option>
-                    <option value="MZO">MZO</option>
-                    <option value="LTX">LTX</option>
-                    <option value="MEX">MEX</option>
-                    <option value="TOL">TOL</option>
-                    <option value="APO">APO</option>
-                    <option value="VER">VER</option>
+            //arreglo para almacenar los modales
+            $modales = [];
+            //Arreglo para almacenar todos los uuids
+            $uuids = [];
+            //Arreglo para almacenar los uuid cancelados etc...
+            $uuidError = [];
+            $rfc=[];
+            //Recorrido para encontrar las facturas que no esten en el portal SAT
+            foreach ($consulta as $row) {
 
-                </select>
-                <input type="text" class="form-control pull-right" style="width:20%; margin-bottom: 0.6em;" id="searchRepPhi" name="searchRepPhi" placeholder="Buscador...">
-            </div>
+                $uuids[] = $row['uuid'];
+                
+                if (!$row['tiempoTimbrado'] && $row['validacionXML'] == 'No Encontrado') {
+                    $modales[] = $this->modal("La factura " . $row['original_pdf'] .
+                        " ya paso de 72h y no se encuentra en el portal SAT", $row['uuid'], "Factura no timbrada");
+                    $uuidError[] = $row['uuid'];
+                    unlink('./upload/' . $row['new_pdf']);
+                    unlink('./upload/' . $row['uuid'] . '.xml');
+                }
+            }
 
+            //Recorrido para encontrar las facturas canceladas
+            foreach ($consulta as $row) {
+                if ($row['validacionXML'] == 'Cancelado') {
+                    $modales[] = $this->modal("La factura " . $row['original_pdf'] . " esta cancelada", $row['uuid'], "Factura cancelada");
+                    $uuidError[] = $row['uuid'];
+                    unlink('./upload/' . $row['new_pdf']);
+                    unlink('./upload/' . $row['uuid'] . '.xml');
+                }
+            }
 
-            <table id="tablaRepPhi" name="tablaRepPhi" class="table table-responsive">
-                <thead class="text-blue">
-                    <tr>
-                        <th width=3% style="text-align:left">UUID</th>
-                        <th width=3% style="text-align:left">Nombre</th>
-                        <th width=5% style="text-align:left">Nuevo Nombre</th>
-                        <th width=3% style="text-align:left">Referencia</th>
-                        <th width=3% style="text-align:left">Guia House</th>
-                        <th width=3% style="text-align:left">Guia Master</th>
-                        <th width=3% style="text-align:left">Pedimento</th>
-                        <th width=3% style="text-align:left">Contenedor</th>
+            //funcion para generar la tabla de las facturas
+            $tablaHTML = $this->generarTabla($consulta, $data_found);
 
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if ($data_found) {
-                        foreach ($consulta as  $row) { //INICIO DEL FOR    
-                    ?>
-                            <tr>
-                                <td><?php echo $row['uuid']; ?></td>
-                                <td><?php echo $row['original_pdf']; ?></td>
-                                <td><?php echo $row['new_pdf']; ?></td>
-                                <td><input type="text" class="campo1" placeholder="Referencia" value=<?php echo $row['referencia'] ?>></td>
-                                <td><input type="text" class="campo2" placeholder="GuiaHouse"></td>
-                                <td><input type="text" class="campo3" placeholder="GuiaMaster" value=<?php echo $row['guiaM'] ?>></td>
-                                <td><input type="text" class="campo4" placeholder="Pedimento" value=<?php echo $row['pedimento'] ?>></td>
-                                <td><input type="text" class="campo5" placeholder="Contenedor"></td>
-
-                            </tr>
-                    <?php } //FIN DEL FOR
-                    } ?>
-                </tbody>
-            </table>
-        <?php
-
+            //Datos que retorna el controlador a la vista
+            echo json_encode([
+                'modal' => implode('', $modales),  // Combina todos los modales en un solo string
+                'tabla' => $tablaHTML,
+                'noEncontrados' => $dont_found,
+                'data' => $data_found,
+                'uuidError' => $uuidError,
+                'uuids' => $uuids,
+                'rfc' => $rfc
+            ]);
         } else {
             return "Error: No se recibieron los archivos PDF y XML."; // Maneja el caso en que los archivos no estén disponibles
         }
@@ -704,10 +811,26 @@ class Onbase extends Controller
         $guiaH = ($parametros[6] !== 'NULL') ? $parametros[6] : null;
         $guiaM = ($parametros[7] !== 'NULL') ? $parametros[7] : null;
         $contenedor = ($parametros[8] !== 'NULL') ? $parametros[8] : null;
+        $correo = "";
 
-        error_log("UUID: $uuid, Nombre: $nombre, NuevoNombre: $nuevoNombre, Referencia: $referencia, Pedimento: $pedimento, GuiaH: $guiaH, GuiaM: $guiaM, Contenedor: $contenedor, Select: $select");
 
-        $this->model->insertaFacturasPortal($uuid, $nombre, $nuevoNombre, $referencia, $pedimento, $guiaH, $guiaM, $contenedor, $select);
+        //Manda los datos hacia el modelo y retorna el mensaje del SP
+        $message = $this->model->insertaFacturasPortal($uuid, $nombre, $nuevoNombre, $referencia, $pedimento, $guiaH, $guiaM, $contenedor, $select, $correo);
+
+        //Retorna el mensaje hacia la vista
+        header('Content-Type: application/json');
+        echo json_encode([
+            'success' => true,
+            'message' => $message['Mensaje'],
+            'tipo' => $message['Tipo']
+        ]);
+
+        if ($message['Tipo'] == 2) {
+            unlink('./upload/' . $nuevoNombre);
+            unlink('./upload/' . $uuid . '.xml');
+            exit;
+        }
+
 
         //Nombre para el archivo XML
         $nuevoNombreXML = $uuid . '.xml';
@@ -738,6 +861,60 @@ class Onbase extends Controller
         unset($_SESSION['fileData']);
     }
 
+    public function validarReferencia($parametros = null)
+    {
+        if ($parametros == null) {
+            $parametros = '0/0/';
+        }
+
+        $referencia = $parametros[0];
+        $clave = $parametros[1];
+
+        $query = $this->model->validaReferenciaModel($referencia, $clave);
+
+        echo json_encode($query[0]);
+    }
+
+    public function buscarFacturaOnBase()
+    {
+        $uuid = $_POST['uuid'];
+        error_log($uuid);
+
+        $query = $this->model->buscarFacturaOB($uuid);
+
+        if (!is_array($query) || count($query) === 0) {
+            echo json_encode([
+                'error' => true,
+                'mensaje' => 'La Factura no se encuentra en OnBase'
+            ]);
+            return;
+        }
+
+        echo json_encode([
+            'error' => false,
+            'consulta' => $query[0]
+        ]);
+    }
+
+    public function borrarFacturas()
+    {
+
+        if (isset($_POST['uuid'])) {
+            foreach ($_POST['uuid'] as $uuid) {
+                $pdfPath = "./upload/$uuid.pdf";
+                $xmlPath = "./upload/$uuid.xml";
+
+                if (file_exists($pdfPath)) {
+                    unlink($pdfPath);
+                }
+
+                if (file_exists($xmlPath)) {
+                    unlink($xmlPath);
+                }
+            }
+        }
+    }
+
 
 
     public function cargaTabla_ReporteStatusFactura($parametros = null)
@@ -756,7 +933,7 @@ class Onbase extends Controller
         $_SESSION['consultaIndicadores'] = $consultaIndicadores;
 
         $data_found = !empty($consultaIndicadores);
-        ?>
+    ?>
 
 
         <!--  BUSCADOR POR JQUERY    -->
@@ -869,11 +1046,17 @@ class Onbase extends Controller
     public function cargaReporteExcel($parametros = null)
     {
 
-        $consultaIndicadores = $_SESSION['consultaIndicadores'] ?? [];
-        if (empty($consultaIndicadores)) {
-            // Manejar el caso en el que no hay datos en la sesión
-            exit('No hay datos disponibles para exportar.');
+        if ($parametros == null) {
+            $parametros = '0/0/0';
         }
+        $fechaInicio = $parametros[0];
+        $fechaFin = $parametros[1];
+        $clientes = !empty($parametros[2]) ? $parametros[2]  : '';
+
+
+        $consultaIndicadores = $this->model->consulta_Facturacion($fechaInicio, $fechaFin, $clientes);
+        
+        // echo json_encode($consultaIndicadores);
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
@@ -913,30 +1096,214 @@ class Onbase extends Controller
         $writer->save('php://output');
         exit;
     }
+
+    public function registrarCandidato()
+    {
+        $nombre = $_POST['nombre'];
+        $data = $_POST;
+
+        try {
+            $this->model->registrarCandidatoModel($data);
+            echo json_encode([
+                'nombre' => $nombre,
+            ]);
+        } catch (\Throwable $th) {
+            echo json_encode([
+                'nombre' => 'Error al registrar',
+
+            ]);
+        }
+    }
+
+    public function getCandidatos()
+    {
+
+        try {
+            $data = $this->model->getCandidatosModel();
+            echo json_encode($data);
+        } catch (\Throwable $th) {
+            return [];
+        }
+    }
+
+    public function actualizaCandidato()
+    {
+        $data = $_POST;
+        try {
+            $message = $this->model->actualizarCandidatoModel($data);
+            echo json_encode($message);
+        } catch (\Throwable $th) {
+            echo json_encode([
+                'error' => 'Error al actualizar',
+
+            ]);
+        }
+    }
+
+    public function actualizaEstatusCandidato()
+    {
+        $id = $_POST['id'];
+        $nombre = $_POST['nombre'];
+        $campo = $_POST['campo'];
+        $data = "";
+        if ($campo === "Estatus") {
+            $data = $_POST['estatus'];
+        } else {
+            $data =  $_POST['evaluacion'];
+        }
+
+        try {
+            $this->model->actualizaEstatusCandidatoModel($data, $id, $campo);
+            echo json_encode([
+                'success' => $nombre,
+            ]);
+        } catch (\Throwable $th) {
+            echo json_encode([
+                'error' => 'Error al registrar',
+
+            ]);
+        }
+    }
+
+    public function validaTelefonoCandidato($parametros = null)
+    {
+        if ($parametros == null) {
+            $parametros = '0/';
+        }
+        $telefono = $parametros[0];
+
+        try {
+            $data = $this->model->validaTelCandidatoModel($telefono);
+            echo json_encode($data);
+        } catch (\Throwable $th) {
+            return [];
+        }
+    }
+
+    public function filtrarCandidato()
+    {
+
+        if ($_SESSION['usuario'] === 'Monserrat' || $_SESSION['usuario'] === 'admin') {
+            $query = "SELECT * FROM [PORTALONBASE].[dbo].[OB_WEB_Candidatos] where 1=1";
+        } else {
+            $query = "SELECT * FROM [PORTALONBASE].[dbo].[OB_WEB_Candidatos] WHERE Reclutador = '" . $_SESSION['usuario'] . "'";
+        }
+
+        if (!empty($_POST['medioR'])) {
+            $query .= " AND MedioReclutamiento LIKE '%{$_POST['medioR']}%'";
+        }
+        if (!empty($_POST['reclutador'])) {
+            $query .= " AND Reclutador LIKE '%{$_POST['reclutador']}%'";
+        }
+        if (!empty($_POST['puesto'])) {
+            $query .= " AND Puesto LIKE '%{$_POST['puesto']}%'";
+        }
+        if (!empty($_POST['sucursal'])) {
+            $query .= " AND Sucursal LIKE '%{$_POST['sucursal']}%'";
+        }
+        if (!empty($_POST['fechaInicio']) && !empty($_POST['fechaFin'])) {
+            $query .= " AND Fecha BETWEEN '{$_POST['fechaInicio']}' AND '{$_POST['fechaFin']}'";
+        }
+        if (!empty($_POST['candidatoPotencial'])) {
+            $query .= " AND Estatus = '{$_POST['candidatoPotencial']}'";
+        }
+
+        $query .= "order by Fecha desc";
+        $data = $this->model->filtrarCandidatoModel($query);
+        echo json_encode($data);
+    }
+
+    public function deleteCandidato()
+    {
+        $data = $_POST['id'];
+        $nombre = $_POST['nombre'];
+        try {
+            $this->model->deleteCandidatoModel($data);
+            echo json_encode([
+                "success" => $nombre
+            ]);
+        } catch (\Throwable $th) {
+            echo json_encode([
+                'error' => 'Error al eliminar'
+            ]);
+        }
+    }
+
+    public function getChecklistPendientes()
+    {
+
+        try {
+            $data = $this->model->getChecklistPendientesModel();
+            echo json_encode($data);
+        } catch (\Throwable $th) {
+            return [];
+        }
+    }
+
+    public function getChecklistPendientesFecha()
+    {
+        $fechaI = $_POST['fechaInicio'];
+        $fechaF = $_POST['fechaFinal'];
+        try {
+            $data = $this->model->getChecklistPendientesFecha($fechaI, $fechaF);
+            echo json_encode($data);
+        } catch (\Throwable $th) {
+            return [];
+        }
+    }
+
+
+    public function getPuestoCandidatos(){
+        try {
+            $data = $this->model->getPuestosModel();
+            echo json_encode($data);
+        } catch (\Throwable $th) {
+            return [];
+        }
+    }
+
+    public function agregarPuesto(){
+        $puesto = $_POST['puesto'];
+        try {
+            $data = $this->model->agregarPuestoModel($puesto);
+            if($data){
+                echo json_encode([
+                    "success" => "Puesto agregado correctamente"
+                ]);
+            }
+            
+        } catch (\Throwable $th) {
+            echo json_encode([
+                'error' => 'Error al eliminar'
+            ])
+            ;
+        }
+    }
+
+    public function agregarComentarioFinal(){
+        
+        try {
+            $data = $this->model->agregarComentarioModel($_POST);
+            if($data){
+                echo json_encode([
+                    "success" => "Comentario agregado correctamente"
+                ]);
+            }else{
+                echo json_encode([
+                    "error" => "Comentario no agregado "
+                ]);
+            }
+
+            
+            
+        } catch (\Throwable $th) {
+            echo json_encode([
+                'error' => 'Error al eliminar'
+            ])
+            ;
+        }
+    }
 }
+
+
 ?>
-
-
-
-
-
-<script>
-    // BUSCADOR POR FILTRO TABLA DINAMICA 
-
-    // Write on keyup event of keyword input element
-    $(document).ready(function() {
-        $("#searchRepPhi").keyup(function() {
-            _this = this;
-            // Show only matching TR, hide rest of them
-            $.each($("#tablaRepPhi tbody tr"), function() {
-                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
-                    $(this).hide();
-                else
-                    $(this).show();
-            });
-        });
-
-
-
-    });
-</script>

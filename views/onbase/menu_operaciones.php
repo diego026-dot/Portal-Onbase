@@ -1,4 +1,15 @@
 <?php include("public/inc/encabezado_sinbusqueda.php"); ?>
+<style>
+    .clickable-card {
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.3s ease-in-out;
+    }
+
+    .clickable-card:hover {
+        background-color: #f0f0f0;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+</style>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -6,6 +17,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Operaciones</title>
+    <link rel="stylesheet" type="text/css" href="C:\xampp\htdocs\Ravisa\public\vendors\styles\style.css">
     <!-- Carga de jQuery desde una CDN confiable -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Carga de otras librerías después de jQuery -->
@@ -18,9 +30,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wysihtml5/0.3.0/wysihtml5.min.js"></script>
     <!-- Incluye tus CSS específicos aquí -->
+
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/wysihtml5/0.3.0/wysihtml5.min.css">
+
 </head>
 
 <body>
@@ -40,34 +54,31 @@
             </div>
         </div>
 
-        <div class="page-header mb-5">
-            <section class="content" style="padding-top: 5px; padding-bottom: 5px;">
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="card text-dark mb-3 shadow card-hover" style="max-width: 18rem; cursor:pointer;">
-                            <div class="card-body text-center p-5">
-                                <img class="borderedondo" src=<?php echo constant('URL') . 'public/img/menu_ccd/sol_nueva.png' ?> title="Solicitud Facturas Nacionales" width="140px" />
-                                <a href="javascript:void(0)" class="stretched-link" onClick="facturas_nac()"></a>
-                                <div style="color:#293080; font-weight:bold; font-size:18px; margin-top:10px;">SOLICITUD CARGA DE FACTURAS</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-3">
-                        <div class="card text-dark mb-3 shadow card-hover" style="max-width: 18rem; cursor:pointer;">
-                            <div class="card-body text-center p-5">
-                                <img class="borderedondo" src=<?php echo constant('URL') . 'public/img/menu_ccd/sol_fact.png' ?> title="Solicitud Facturas Nacionales" width="140px" />
-                                <a href="javascript:void(0)" class="stretched-link" onClick="op_buscar()"></a>
-                                <div style="color:#293080; font-weight:bold; font-size:18px; margin-top:10px;">BUSCAR FACTURA</div>
-                            </div>
-                        </div>
-                    </div>
 
 
+        <div class=" row d-flex justify-content-center gap-4 " style="margin-top: 100px;">
 
+
+            <div class="col-2 mb-3 shadow clickable-card "
+                onClick="facturas_nac()">
+                <div class=" text-center p-4">
+                    <i class="bi bi-file-bar-graph-fill fs-1"></i>
+                    <p style="color:#293080; font-weight:bold; font-size:16px; margin-top:30px;">
+                        Solicitud Carga Facturas
+                    </p>
                 </div>
+            </div>
 
-            </section>
+            <div class="col-2 mb-3 shadow clickable-card "
+                onclick="op_buscar()">
+                <div class=" text-center p-4">
+                    <i class="bi bi-search fs-1"></i>
+                    <p style="color:#293080; font-weight:bold; font-size:18px; margin-top:30px;">
+                        Buscar Factura
+                    </p>
+                </div>
+            </div>
+
         </div>
 
 

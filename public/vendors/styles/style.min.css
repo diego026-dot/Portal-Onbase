@@ -4910,4 +4910,8 @@ body.IE .register-page-wrap .container {
     .register-page-wrap .wizard-content .wizard .steps {
         display: none
     }
+    .custom-tooltip {
+    --bs-tooltip-bg: var(--bd-violet-bg);
+    --bs-tooltip-color: var(--bs-white);
+    }
 }

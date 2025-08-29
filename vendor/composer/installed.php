@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'reference' => 'd25237e632833b2d6706c35bd1fd3713d3db41d3',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,11 +11,38 @@
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => 'd25237e632833b2d6706c35bd1fd3713d3db41d3',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'guzzlehttp/guzzle' => array(
+            'pretty_version' => '7.9.3',
+            'version' => '7.9.3.0',
+            'reference' => '7b2f29fe81dc4da0ca0ea7d42107a0845946ea77',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../guzzlehttp/guzzle',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'guzzlehttp/promises' => array(
+            'pretty_version' => '2.2.0',
+            'version' => '2.2.0.0',
+            'reference' => '7c69f28996b0a6920945dd20b3857e499d9ca96c',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../guzzlehttp/promises',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'guzzlehttp/psr7' => array(
+            'pretty_version' => '2.7.1',
+            'version' => '2.7.1.0',
+            'reference' => 'c2270caaabe631b3b44c85f99e5a04bbb8060d16',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../guzzlehttp/psr7',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -46,6 +73,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'php-flasher/flasher' => array(
+            'pretty_version' => 'v2.1.6',
+            'version' => '2.1.6.0',
+            'reference' => '054a209515d2eb1bb72467023d8614a29b5d2e60',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-flasher/flasher',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'phpmailer/phpmailer' => array(
             'pretty_version' => 'v6.9.1',
             'version' => '6.9.1.0',
@@ -73,6 +109,12 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'psr/http-client-implementation' => array(
+            'dev_requirement' => false,
+            'provided' => array(
+                0 => '1.0',
+            ),
+        ),
         'psr/http-factory' => array(
             'pretty_version' => '1.1.0',
             'version' => '1.1.0.0',
@@ -81,6 +123,12 @@
             'install_path' => __DIR__ . '/../psr/http-factory',
             'aliases' => array(),
             'dev_requirement' => false,
+        ),
+        'psr/http-factory-implementation' => array(
+            'dev_requirement' => false,
+            'provided' => array(
+                0 => '1.0',
+            ),
         ),
         'psr/http-message' => array(
             'pretty_version' => '2.0',
@@ -91,6 +139,12 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'psr/http-message-implementation' => array(
+            'dev_requirement' => false,
+            'provided' => array(
+                0 => '1.0',
+            ),
+        ),
         'psr/simple-cache' => array(
             'pretty_version' => '3.0.0',
             'version' => '3.0.0.0',
@@ -100,12 +154,30 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'ralouphie/getallheaders' => array(
+            'pretty_version' => '3.0.3',
+            'version' => '3.0.3.0',
+            'reference' => '120b605dfeb996808c31b6477290a714d356e822',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../ralouphie/getallheaders',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'smalot/pdfparser' => array(
             'pretty_version' => 'v2.10.0',
             'version' => '2.10.0.0',
             'reference' => '14adf318f8620a6195c0b00d51c6a507837b9ff4',
             'type' => 'library',
             'install_path' => __DIR__ . '/../smalot/pdfparser',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'symfony/deprecation-contracts' => array(
+            'pretty_version' => 'v3.5.1',
+            'version' => '3.5.1.0',
+            'reference' => '74c71c939a79f7d5bf3c1ce9f5ea37ba0114c6f6',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/deprecation-contracts',
             'aliases' => array(),
             'dev_requirement' => false,
         ),

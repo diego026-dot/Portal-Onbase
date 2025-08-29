@@ -7,7 +7,12 @@ namespace Composer\Autoload;
 class ComposerStaticInitcbf6995b3c9a9f16b8745134cfbc2f79
 {
     public static $files = array (
+        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
+        '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
+        '1c9051359cc4715f5f9b335dba6482da' => __DIR__ . '/..' . '/php-flasher/flasher/functions.php',
+        'da91a01b5badbe5394c83814ef5982ea' => __DIR__ . '/..' . '/php-flasher/flasher/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -30,6 +35,16 @@ class ComposerStaticInitcbf6995b3c9a9f16b8745134cfbc2f79
         'M' => 
         array (
             'Matrix\\' => 7,
+        ),
+        'G' => 
+        array (
+            'GuzzleHttp\\Psr7\\' => 16,
+            'GuzzleHttp\\Promise\\' => 19,
+            'GuzzleHttp\\' => 11,
+        ),
+        'F' => 
+        array (
+            'Flasher\\Prime\\' => 14,
         ),
         'C' => 
         array (
@@ -70,6 +85,22 @@ class ComposerStaticInitcbf6995b3c9a9f16b8745134cfbc2f79
         'Matrix\\' => 
         array (
             0 => __DIR__ . '/..' . '/markbaker/matrix/classes/src',
+        ),
+        'GuzzleHttp\\Psr7\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
+        ),
+        'GuzzleHttp\\Promise\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
+        ),
+        'GuzzleHttp\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
+        ),
+        'Flasher\\Prime\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-flasher/flasher',
         ),
         'Complex\\' => 
         array (

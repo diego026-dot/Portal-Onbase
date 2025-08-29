@@ -1,6 +1,16 @@
 <?php include("public/inc/encabezado_sinbusqueda.php"); ?>
 
+<style>
+	.clickable-card {
+		cursor: pointer;
+		transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.3s ease-in-out;
+	}
 
+	.clickable-card:hover {
+		background-color: #f0f0f0;
+		box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+	}
+</style>
 
 <div class="container-fluid" style="margin-top: 0; padding-top: 0;">
 	<div class="row">
@@ -18,57 +28,68 @@
 		</div>
 	</div>
 
-	<div class="page-header mb-5">
-		<section class="content" style="padding-top: 5px; padding-bottom: 5px;">
-
-			<div class="row">
-
-				<?php foreach ($_SESSION["UsuarioOpciones"] as $mod) { //INICIO DEL FOR 
-				?>
-					<?php if ($mod == 1) { ?>
-						<div class="col-sm-3 ">
-							<div class="card text-dark  mb-3 shadow card-hover" style="max-width: 18rem; cursor:pointer;">
-								<div class="card-body text-center p-5">
-									<img class="borderedondo" style="font-size:90px; color:#08043b " src=<?php echo constant('URL') . 'public/img/menu_ccd/orange_document.png' ?>
-
-										<a href="javascript:void(0)" class="stretched-link" onClick="fact_phillips()"></a>
-
-									<div style="color:#293080; font-weight:bold; font-size:18px; margin-top:10px;">REPORTE CLIENTES</div>
-								</div>
-							</div>
-						</div>
-
-					<?php } ?>
-
-				<?php } //FIN DEL FOREACH
-				?>
-
-				<?php foreach ($_SESSION["UsuarioOpciones"] as $mod) { //INICIO DEL FOR 
-				?>
-					<?php if ($mod == 1002) { ?>
-						<div class="col-sm-3 ">
-							<div class="card text-dark  mb-3 shadow card-hover" style="max-width: 18rem; cursor:pointer;">
-								<div class="card-body text-center p-5">
-									<img class="borderedondo" style="font-size:90px; color:#08043b " src=<?php echo constant('URL') . 'public/img/menu_ccd/orange_document.png' ?>
-
-										<a href="javascript:void(0)" class="stretched-link" onClick="fact_onbase()"></a>
-
-									<div style="color:#293080; font-weight:bold; font-size:18px; margin-top:10px;">REPORTE ONBASE</div>
-								</div>
-							</div>
-						</div>
-
-					<?php } ?>
-
-				<?php } //FIN DEL FOREACH
-				?>
 
 
+	<div class=" row d-flex justify-content-center gap-4 " style="margin-top: 80px;">
 
-				
-				
+		<?php foreach ($_SESSION["UsuarioOpciones"] as $mod) { //INICIO DEL FOR 
+		?>
+			<?php if ($mod == 1) { ?>
+				<div class="col-2 mb-3 shadow clickable-card "
+					onClick="fact_phillips()">
+					<div class=" text-center p-4">
+						<i class="bi bi-file-earmark-person-fill fs-1"></i>
+						<p style="color:#293080; font-weight:bold; font-size:18px; margin-top:30px;">
+							Reporte Clientes
+						</p>
+					</div>
+				</div>
+			<?php } ?>
 
-			</div>
+		<?php } //FIN DEL FOREACH
+		?>
+
+		<?php foreach ($_SESSION["UsuarioOpciones"] as $mod) { //INICIO DEL FOR 
+		?>
+			<?php if ($mod == 1002) { ?>
+
+				<div class="col-2 mb-3 shadow clickable-card "
+					onClick="fact_onbase()">
+					<div class=" text-center p-4">
+						<i class="bi bi-globe fs-1"></i>
+						<p style="color:#293080; font-weight:bold; font-size:18px; margin-top:30px;">
+							Reporte OnBase
+						</p>
+					</div>
+				</div>
+
+			<?php } ?>
+
+		<?php } //FIN DEL FOREACH
+		?>
+
+		<?php foreach ($_SESSION["UsuarioOpciones"] as $mod) { //INICIO DEL FOR 
+		?>
+			<?php if ($mod == 1002) { ?>
+
+				<div class="col-2 mb-3 shadow clickable-card "
+					onClick="fact_cheklist()">
+					<div class=" text-center p-4">
+					<i class="bi bi-journal-check fs-1"></i>
+						<p style="color:#293080; font-weight:bold; font-size:18px; margin-top:30px;">
+							Reporte Checklist
+						</p>
+					</div>
+				</div>
+
+			<?php } ?>
+
+		<?php } //FIN DEL FOREACH
+		?>
+
+
+
+
 
 	</div>
 
@@ -85,6 +106,10 @@
 
 	function fact_onbase() {
 		window.location = '<?php echo constant('URL') ?>onbase/reporteOnbase/';
+	}
+
+	function fact_cheklist() {
+		window.location = '<?php echo constant('URL') ?>pages/reporteChecklistView/';
 	}
 
 
